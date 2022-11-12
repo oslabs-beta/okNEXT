@@ -5,24 +5,37 @@ import MonitorChart from '../../components/MonitorChart';
 import fetchdata from '../api/lighthouseData';
 
 export default function Monitor() {
-  // const [seo, setSeo] = useState();
-
-  //GET request
+  const [url, setUrl] = useState('');
+  const [data, setData] = useState({});
+  // if(req.method === 'POST') {
+  //   //Process a POST request
+  // } else {
+  //   //handle any other HTTP method
+  // }
+  //Post request: when we press get report
   const fetchVitals = async (e: any) => {
     e.preventDefault();
+
     console.log('hello from the frontend');
-    const response = await fetch('/api/lighthouseData');
+    const response = await fetch('/api/lighthouseData', {
+      method:'POST',
+      body: JSON.stringify({ url }),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
     console.log('after fetch request finishes');
-    const vitalData = await response.json()
+    const vitalData = await response.json();
+    setData(vitalData);
     console.log('response jsonified', vitalData);
     // setSeo(vitalData.seo)
+    //reset input box to empty
+    setUrl('');
+    //add error handling
   }
-  // fetch('http://localhost:3000/api/lighthouseData')
-  //   .then((response) => response.json())
-  //   .then((data) =>{
-  //     console.log('data here!', data)
-  //   });
-  
+
+
   return (
     <>
       <Head>
@@ -34,18 +47,18 @@ export default function Monitor() {
           <label>
             Enter an endpoint:
             <input 
+              value={url}
               type= 'text'
               placeholder='/'
               //maybe url?
-              //value={endpoint}
-              //onChange={}
+              onChange={(e) => setUrl(e.target.value)}
             />
           </label>
           <button onClick={fetchVitals}>Get Report</button>
         </form>
       </div>
       <div>
-        <MonitorChart/>
+        <MonitorChart data={data} />
       </div>
       <Link href="/">← Back to home</Link>
     </>

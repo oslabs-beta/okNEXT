@@ -10,7 +10,8 @@ const data = [
   { name: '2022', Lara: 95, Hua: 44, Phoebe: 49, Vivian: 31}
 ];
 
-export default function MonitorChart() {
+export default function MonitorChart(props: any) {
+  console.log('from monitor char component', props.data);
   return (
     <div className={styles.monitorContainer}>
       <h2>Hi I am chart</h2>
