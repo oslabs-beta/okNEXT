@@ -1,16 +1,25 @@
-import { Line, LineChart } from 'recharts';
+import { Label, Line, LineChart } from 'recharts';
 import styles from '../styles/MonitorChart.module.scss';
 
-const data = [
-  { name: '2017', Lara: 32, Hua: 37, Phoebe: 60, Vivian: 32},
-  { name: '2018', Lara: 42, Hua: 42, Phoebe: 53, Vivian: 37},
-  { name: '2019', Lara: 51, Hua: 41, Phoebe: 54, Vivian: 42},
-  { name: '2020', Lara: 60, Hua: 37, Phoebe: 28, Vivian: 53},
-  { name: '2021', Lara: 51, Hua: 31, Phoebe: 27, Vivian: 37},
-  { name: '2022', Lara: 95, Hua: 44, Phoebe: 49, Vivian: 31}
-];
 
-export default function MonitorChart() {
+
+export default function MonitorChart(props: any) {
+  const {
+    performance,
+    accessibility, 
+    seo,
+    bestpractices
+  } = props.data;
+  const data = [
+    { name: '2017', Performance: `${performance}`, Accessibility: `${accessibility}`, SEO: `${seo}`, BestPractices: `${bestpractices}`},
+    // { name: '2018', Lara: 42, Hua: 42, Phoebe: 53, Vivian: 37},
+    // { name: '2019', Lara: 51, Hua: 41, Phoebe: 54, Vivian: 42},
+    // { name: '2020', Lara: 60, Hua: 37, Phoebe: 28, Vivian: 53},
+    // { name: '2021', Lara: 51, Hua: 31, Phoebe: 27, Vivian: 37},
+    // { name: '2022', Lara: 95, Hua: 44, Phoebe: 49, Vivian: 31}
+  ];
+
+  console.log('from monitor char component', props.data);
   return (
     <div className={styles.monitorContainer}>
       <h2>Hi I am chart</h2>
@@ -20,10 +29,14 @@ export default function MonitorChart() {
       </div>
       <div className={styles.chartContainer}>
         <div className={styles.webVitalBtns}>
-          <button className={styles.button}>Performance</button>
-          <button className={styles.button}>SEO</button>
-          <button className={styles.button}>Best Practices</button>
-          <button className={styles.button}>Accessibility</button>
+          <label>Performance</label>
+          <button className={styles.button}>{performance}</button>
+          <label>SEO</label>
+          <button className={styles.button}>{seo}</button>
+          <label>Best Practices</label>
+          <button className={styles.button}>{bestpractices}</button>
+          <label>Accessibility</label>
+          <button className={styles.button}>{accessibility}</button>
         </div>
         {/* Next.js vital measurements */}
         {/* maybe make a separate component? *stretch */}
@@ -34,10 +47,10 @@ export default function MonitorChart() {
         </div> */}
         <div className={styles.lineGraph}>
           <LineChart width={600} height={300} data={data}>
-            <Line type='monotone' dataKey='Lara' stroke='#2196F3' strokeWidth={3}/>
-            <Line type='monotone' dataKey='Hua' stroke='#F44236' strokeWidth={3}/>
-            <Line type='monotone' dataKey='Phoebe' stroke='#FFCA29' strokeWidth={3}/>
-            <Line type='monotone' dataKey='Vivian' stroke='#6d30bb' strokeWidth={3}/>
+            <Line type='monotone' dataKey='Performance' stroke='#2196F3' strokeWidth={3}/>
+            <Line type='monotone' dataKey='Accessibility' stroke='#F44236' strokeWidth={3}/>
+            <Line type='monotone' dataKey='SEO' stroke='#FFCA29' strokeWidth={3}/>
+            <Line type='monotone' dataKey='BestPractices' stroke='#6d30bb' strokeWidth={3}/>
           </LineChart>
         </div>
       </div>
