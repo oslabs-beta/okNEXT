@@ -9,6 +9,7 @@ export default function MonitorChart(props: any) {
   // const [ seo, setSeo ]= useState('-');
   // const [ bestpractices, setBestPractices ]= useState('-');
   
+  //move buttons to monitor.tsx
   const performance = props.data.performance ? props.data.performance : '-';
   const accessibility = props.data.accessibility ? props.data.accessibility : '-';
   const seo = props.data.seo ? props.data.seo : '-';
@@ -16,9 +17,11 @@ export default function MonitorChart(props: any) {
 
   console.log('i am performance', performance)
 
+  const date = props.date ? props.date : null;
+
   const data = [
     // { name: '2017', Performance: 0, Accessibility: 0, SEO: 0, BestPractices: 0},
-    { name: '2017', Performance: `${performance}`, Accessibility: `${accessibility}`, SEO: `${seo}`, BestPractices: `${bestpractices}`},
+    { name: date, Performance: `${performance}`, Accessibility: `${accessibility}`, SEO: `${seo}`, BestPractices: `${bestpractices}`},
     // { name: '2018', Lara: 42, Hua: 42, Phoebe: 53, Vivian: 37},
     // { name: '2019', Lara: 51, Hua: 41, Phoebe: 54, Vivian: 42},
     // { name: '2020', Lara: 60, Hua: 37, Phoebe: 28, Vivian: 53},

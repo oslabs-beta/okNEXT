@@ -6,13 +6,12 @@ import fetchdata from '../api/lighthouseData';
 
 export default function Monitor() {
   const [url, setUrl] = useState('');
-  const [data, setData] = useState({});
-  // if(req.method === 'POST') {
-  //   //Process a POST request
-  // } else {
-  //   //handle any other HTTP method
-  // }
-  //Post request: when we press get report
+  const [data, setData] = useState();
+  const [rendChart, setRendChart] = useState(false);
+  const [date, setDate] = useState('');
+
+  console.log('I am date', new Date().toString())
+ 
   const fetchVitals = async (e: any) => {
     e.preventDefault();
 
@@ -29,9 +28,12 @@ export default function Monitor() {
     const vitalData = await response.json();
     setData(vitalData);
     console.log('response jsonified', vitalData);
-    // setSeo(vitalData.seo)
+    const timestamp = Date.now()
+    const humanReadableDateTime = new Date(timestamp).toLocaleString()
+    setDate(humanReadableDateTime)
     //reset input box to empty
     setUrl('');
+    setRendChart(true);
     //add error handling
   }
 
@@ -58,7 +60,7 @@ export default function Monitor() {
         </form>
       </div>
       <div>
-        <MonitorChart data={data} />
+        {rendChart ? <MonitorChart data={data} date={date} /> : '' }
       </div>
       <Link href="/">← Back to home</Link>
     </>
