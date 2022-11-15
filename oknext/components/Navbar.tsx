@@ -12,9 +12,9 @@ export default function Navbar() {
       </Link>
 
       <div className={styles.rightNav}>
-        <Link href="/demo/demo" className={styles.algoliaButton}>
+        {/* <Link href="/demo/demo" className={styles.algoliaButton}>
           Demo
-        </Link>
+        </Link> */}
         <Link href="/monitoring/monitor" className={styles.algoliaButton}>
           Monitoring
         </Link>
