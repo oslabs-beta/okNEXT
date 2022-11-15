@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { useState } from 'react';
 import MonitorChart from '../../components/MonitorChart';
+import EmptyChart from '../../components/EmptyChart';
 import styles from '../../styles/Monitor.module.scss';
 import fetchdata from '../api/lighthouseData';
 
@@ -105,7 +106,7 @@ export default function Monitor() {
           </div> */}
           </div>
           <div className={styles.chart}>
-            {rendChart ? <MonitorChart data={data} date={date} /> : '' }
+            {rendChart ? <MonitorChart data={data} date={date} /> : <EmptyChart/> }
           </div>
         </div>
       </div>

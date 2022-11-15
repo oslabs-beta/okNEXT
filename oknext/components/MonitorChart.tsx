@@ -28,7 +28,7 @@ export default function MonitorChart(props: any) {
   console.log('from monitor char component', props.data);
   return (
     <div className={styles.monitorContainer}>
-      <h2>Hi I am chart</h2>
+      <h2>I am monitor chart</h2>
       <div className={styles.lineGraph}>
         <LineChart width={600} height={300} data={data}>
           <XAxis dataKey='name'/>
