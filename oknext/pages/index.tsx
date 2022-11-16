@@ -2,7 +2,7 @@ import Head from 'next/head';
 // import Layout from '../components/Layout';
 import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
-import MonitorChart from '../components/MonitorChart';
+import DemoChart from '../components/DemoChart';
 
 export default function Home() {
   return (
@@ -20,16 +20,16 @@ export default function Home() {
           <p>- Next.js-route-change-to-render</p>
           <p>- Next.js-render</p>
         </div>
-        <MonitorChart />
+        <DemoChart />
       </div>
 
       <div className={styles.body}>Sponsored by OSLabs Beta Tech Accelator</div>
       <div className={styles.body}>Meet the team!</div>
       <div className={styles.body}>
-        <div>hi</div>
-        <div>hi</div>
-        <div>hi</div>
-        <div>hi</div>
+        <div>Vivian</div>
+        <div>Hua</div>
+        <div>Phoebe</div>
+        <div>Lara</div>
       </div>
     </div>
   );
