@@ -9,8 +9,15 @@ async function fetchdata (req:any, res:any){
   console.log('this is request body', req.body);
   const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
   const options = {logLevel: 'info', output: 'html', onlyCategories: ['performance', 'accessibility', 'seo', 'best-practices'], port: chrome.port};
-  const runnerResult = await lighthouse(url, options);
-  // console.log(runnerResult.lhr);
+  const configObj = {
+    extends: 'lighthouse:default',
+    settings: {
+      screenEmulation: {mobile: false, disabled: false},
+      formFactor: 'desktop'
+    },
+  }
+  const runnerResult = await lighthouse(url, options, configObj);
+  console.log('lighthouse data over here', typeof(runnerResult.lhr));
 
   // `.report` is the HTML report as a string
   const reportHtml = runnerResult.report;
