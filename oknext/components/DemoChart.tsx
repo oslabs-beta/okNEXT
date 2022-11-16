@@ -13,41 +13,43 @@ export default function DemoChart() {
   ];
 
   return (
-    <div className={styles.monitorContainer}>
-      <h2>I am Demo</h2>
-      <div>
-        <button>Web Core Vitals</button>
-        {/* <button>Next.js Vitals</button> */}
-      </div>
-      <div className={styles.chartContainer}>
-        <div className={styles.webVitalBtns}>
-          <label>Performance</label>
-          <button className={styles.button}>74</button>
-          <label>SEO</label>
-          <button className={styles.button}>92</button>
-          <label>Best Practices</label>
-          <button className={styles.button}>75</button>
-          <label>Accessibility</label>
-          <button className={styles.button}>83</button>
+    <>
+      <div className={styles.monitorContainer}>
+        <h2>I am Demo</h2>
+        <div>
+          <button>Web Core Vitals</button>
+          {/* <button>Next.js Vitals</button> */}
         </div>
-        {/* Next.js vital measurements */}
-        {/* maybe make a separate component? *stretch */}
-        {/* <div>
-          <button>hydration</button>
-          <button>route-change-to-render</button>
-          <button>render</button>
-        </div> */}
-        <div className={styles.lineGraph}>
-          <LineChart width={600} height={300} data={data}>
-            {/* <XAxis dataKey='name'/> */}
-            <YAxis type='number' domain={[0, 100]}/>
-            <Line type='monotone' dataKey='Performance' stroke='#2196F3' strokeWidth={3}/>
-            <Line type='monotone' dataKey='SEO' stroke='#F44236' strokeWidth={3}/>
-            <Line type='monotone' dataKey='Accessibility' stroke='#FFCA29' strokeWidth={3}/>
-            <Line type='monotone' dataKey='BestPractices' stroke='#6d30bb' strokeWidth={3}/>
-          </LineChart>
+        <div className={styles.chartContainer}>
+          <div className={styles.webVitalBtns}>
+            <label>Performance</label>
+            <button className={styles.button}>74</button>
+            <label>SEO</label>
+            <button className={styles.button}>92</button>
+            <label>Best Practices</label>
+            <button className={styles.button}>75</button>
+            <label>Accessibility</label>
+            <button className={styles.button}>83</button>
+          </div>
+          {/* Next.js vital measurements */}
+          {/* maybe make a separate component? *stretch */}
+          {/* <div>
+            <button>hydration</button>
+            <button>route-change-to-render</button>
+            <button>render</button>
+          </div> */}
+          <div className={styles.lineGraph}>
+            <LineChart width={600} height={300} data={data}>
+              <XAxis/>
+              <YAxis type='number' domain={[0, 100]}/>
+              <Line type='monotone' dataKey='Performance' stroke='#2196F3' strokeWidth={3}/>
+              <Line type='monotone' dataKey='SEO' stroke='#F44236' strokeWidth={3}/>
+              <Line type='monotone' dataKey='Accessibility' stroke='#FFCA29' strokeWidth={3}/>
+              <Line type='monotone' dataKey='BestPractices' stroke='#6d30bb' strokeWidth={3}/>
+            </LineChart>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
