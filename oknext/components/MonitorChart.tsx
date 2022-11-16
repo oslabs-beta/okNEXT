@@ -4,12 +4,13 @@ import styles from '../styles/MonitorChart.module.scss';
 
 
 export default function MonitorChart(props: any) {
-  const {
-    performance,
-    accessibility, 
-    seo,
-    bestpractices
-  } = props.data;
+
+
+  const performance = props.data.performance ? props.data.performance : '-';
+  const accessibility = props.data.accessibility ? props.data.accessibility : '-';
+  const seo = props.data.seo ? props.data.seo : '-';
+  const bestpractices = props.data.bestpractices ? props.data.bestpractices : '-';
+
   const data = [
     { name: '2017', Performance: `${performance}`, Accessibility: `${accessibility}`, SEO: `${seo}`, BestPractices: `${bestpractices}`},
     // { name: '2018', Lara: 42, Hua: 42, Phoebe: 53, Vivian: 37},
@@ -32,11 +33,11 @@ export default function MonitorChart(props: any) {
           <label>Performance</label>
           <button className={styles.button}>{performance}</button>
           <label>SEO</label>
-          <button className={styles.button}>{seo}</button>
-          <label>Best Practices</label>
-          <button className={styles.button}>{bestpractices}</button>
-          <label>Accessibility</label>
           <button className={styles.button}>{accessibility}</button>
+          <label>Best Practices</label>
+          <button className={styles.button}>{seo}</button>
+          <label>Accessibility</label>
+          <button className={styles.button}>{bestpractices}</button>
         </div>
         {/* Next.js vital measurements */}
         {/* maybe make a separate component? *stretch */}
