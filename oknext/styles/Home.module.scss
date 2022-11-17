@@ -8,3 +8,44 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.meetTeam {
+  text-align: center;
+  font-size: 36px;
+  margin: 30px 0 30px 0;
+}
+
+.team {
+  display: flex;
+  justify-content: space-evenly;
+  
+  .teamNames {
+    overflow: hidden; 
+
+  }
+  .teamImages {
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid whitesmoke;
+  }
+
+  .memberName {
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .profile {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .github {
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid whitesmoke;
+  }
+
+  .linkedin {
+
+  }
+}

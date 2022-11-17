@@ -15,11 +15,14 @@
 
 //use grid to overlay spinner on top of graph
 .lineGraph {
+  display: grid;
+  grid-template-columns: 1fr;
   position: relative;
 }
 
 .spinner {
-  position: absolute;
-  top: 0;
-  left: 0;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  position: relative;
+  z-index: 2;
 }
