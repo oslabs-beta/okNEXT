@@ -13,5 +13,13 @@
   max-height: 25px;
 }
 
+//use grid to overlay spinner on top of graph
 .lineGraph {
+  position: relative;
+}
+
+.spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
