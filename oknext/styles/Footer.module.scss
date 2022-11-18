@@ -1,8 +1,10 @@
 .container {
-  // position: fixed;
+  position: relative;
+  margin-top: 50px;
   width: 100%;
   left: 0;
   bottom: 0;
+  right: 0;
   // background-color: blue;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

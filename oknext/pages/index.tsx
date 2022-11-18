@@ -3,6 +3,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
 import DemoChart from '../components/DemoChart';
+import Team from '../components/Team';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -24,13 +26,8 @@ export default function Home() {
       </div>
 
       <div className={styles.body}>Sponsored by OSLabs Beta Tech Accelator</div>
-      <div className={styles.body}>Meet the team!</div>
-      <div className={styles.body}>
-        <div>Vivian</div>
-        <div>Hua</div>
-        <div>Phoebe</div>
-        <div>Lara</div>
-      </div>
+      <div className={styles.meetTeam}>Meet the team!</div>
+      <Team />
     </div>
   );
 }

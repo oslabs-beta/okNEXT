@@ -1,4 +1,4 @@
-import { Label, Line, LineChart, XAxis, YAxis } from 'recharts';
+import { Label, Line, LineChart, XAxis, YAxis, Tooltip } from 'recharts';
 import styles from '../styles/MonitorChart.module.scss';
 
 
@@ -46,6 +46,7 @@ export default function DemoChart() {
               <Line type='monotone' dataKey='SEO' stroke='#F44236' strokeWidth={3}/>
               <Line type='monotone' dataKey='Accessibility' stroke='#FFCA29' strokeWidth={3}/>
               <Line type='monotone' dataKey='BestPractices' stroke='#6d30bb' strokeWidth={3}/>
+              <Tooltip/>
             </LineChart>
           </div>
         </div>
