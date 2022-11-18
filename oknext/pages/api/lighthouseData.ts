@@ -27,11 +27,12 @@ async function fetchdata (req:any, res:any){
   // console.log('Report is done for', runnerResult.lhr.finalDisplayedUrl);
   // console.log('Performance score was', runnerResult.lhr.categories.accessibility.score * 100);
   // res.status(200).json(`performance score ${runnerResult.lhr.categories.performance.score}`);
+  console.log('i am performance maybe', runnerResult.lhr.categories.performance)
   console.log("hello from hell");
   const vitalReport = {
     performance: runnerResult.lhr.categories.performance.score * 100,
     // performancescores: {
-    //   fcp:
+    //   fcp: runnerResult.lhr.categories.performance.fcp
     // },
     accessibility: runnerResult.lhr.categories.accessibility.score * 100,
     seo: runnerResult.lhr.categories.seo.score * 100,
