@@ -5,13 +5,13 @@ import LoadingSpinner from './LoadingSpinner';
 
 export default function MonitorChart(props: any) {
   //move buttons to monitor.tsx
-  const { performance, accessibility, seo, bestpractices } = props.data;
+  const { performance, accessibility, seo, bestpractices, performanceScores } = props.data;
   // const performance = props.data.performance ? props.data.performance : '-';
   // const accessibility = props.data.accessibility ? props.data.accessibility : '-';
   // const seo = props.data.seo ? props.data.seo : '-';
   // const bestpractices = props.data.bestpractices ? props.data.bestpractices : '-';
 
-  console.log('i am performance', performance);
+  console.log('i am performanceScores', performanceScores);
 
   const date = props.date ? props.date : null;
 
