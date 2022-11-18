@@ -1,7 +1,7 @@
 .mainContainer {
   display: grid;
-  grid-template-columns: 1fr 3fr;
   grid-template-rows: 1fr 3fr;
+  grid-template-columns: 1fr 3fr;
   grid-template-areas: 
     "header header"
     "formContainer chartContainer";
@@ -46,6 +46,8 @@
     "buttons chart";
   border: solid;
   text-align: center;
+  height: 370px;
+  width: 900px;
 }
 
 .buttonsContainer {
