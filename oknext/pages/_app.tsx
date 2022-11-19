@@ -1,7 +1,8 @@
 import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
-import { onCLS, onFID, onLCP } from 'web-vitals'; 
+import { onCLS, onFID, onLCP } from 'web-vitals';
+import { UserProvider } from '@auth0/nextjs-auth0';
 
 // export function reportWebVitals(metric: any) {
 //   if (metric.label === 'custom' || metric.label === 'web-vital') {
@@ -49,8 +50,10 @@ import { onCLS, onFID, onLCP } from 'web-vitals';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <UserProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </UserProvider>
   );
 }
