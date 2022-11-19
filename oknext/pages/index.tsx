@@ -21,6 +21,10 @@ export default function Home() {
           <p>- Next.js-hydration</p>
           <p>- Next.js-route-change-to-render</p>
           <p>- Next.js-render</p>
+          <div className={styles.getStartedBtn}><Link href="/monitoring/monitor" className={styles.button84}>
+            Get Started
+          </Link></div>
+          
         </div>
         <DemoChart />
       </div>
