@@ -2,8 +2,11 @@ import { useState, Suspense } from 'react';
 import { Label, Line, LineChart, XAxis, YAxis, Tooltip } from 'recharts';
 import styles from '../styles/MonitorChart.module.scss';
 import LoadingSpinner from './LoadingSpinner';
+import { UserContext, useUser } from '@auth0/nextjs-auth0';
 
 export default function MonitorChart(props: any) {
+  const { user, error, isLoading } = useUser(); //from auth0
+
   //move buttons to monitor.tsx
   const { performance, accessibility, seo, bestpractices } = props.data;
   // const performance = props.data.performance ? props.data.performance : '-';
