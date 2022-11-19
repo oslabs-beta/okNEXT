@@ -145,7 +145,7 @@ export default function Team() {
               height={42}
             />
           </Link>
-          <Link href="https://www.linkedin.com/in/hua-liu-123599117/">
+          <Link href="https://www.linkedin.com/in/huajliu17/">
             <Image
               className={styles.linkedin}
               src="/linkedin.png"
