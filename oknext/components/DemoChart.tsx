@@ -1,4 +1,4 @@
-import { Label, Line, LineChart, XAxis, YAxis, Tooltip } from 'recharts';
+import { Label, Line, LineChart, XAxis, YAxis, Tooltip, ScatterChart } from 'recharts';
 import styles from '../styles/MonitorChart.module.scss';
 
 

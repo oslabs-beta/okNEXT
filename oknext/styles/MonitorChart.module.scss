@@ -1,6 +1,5 @@
 .monitorContainer {
   display: grid;
-  // align-items: center;
   text-align: center;
 }
 
@@ -23,6 +22,7 @@
 .spinner {
   grid-row-start: 1;
   grid-column-start: 1;
+  align-items: center;
   position: relative;
   z-index: 2;
 }
