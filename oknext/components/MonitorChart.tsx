@@ -29,7 +29,6 @@ export default function MonitorChart(props: any) {
   return (
     <div className={styles.monitorContainer}>
       <h2>I am monitor chart</h2>
-      {/* <Suspense fallback={<LoadingSpinner />}> */}
       <div className={styles.lineGraph}>
         <LineChart width={600} height={300} data={data}>
           <CartesianGrid strokeDasharray={'3'} horizontal={true} vertical={false}/>
@@ -66,7 +65,6 @@ export default function MonitorChart(props: any) {
           <Tooltip />
         </LineChart>
       </div>
-      {/* </Suspense> */}
     </div>
   );
 }
