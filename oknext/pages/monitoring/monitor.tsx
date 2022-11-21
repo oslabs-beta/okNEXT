@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import { use, useState } from 'react';
-import MonitorChart from '../../components/MonitorChart';
+import MonitorChart from '../../components/monitor/MonitorChart';
 import EmptyChart from '../../components/monitor/charts/EmptyChart';
 import styles from '../../styles/Monitor.module.scss';
-import PerformanceChart from '../../components/PerformanceChart';
+import PerformanceChart from '../../components/monitor/charts/PerformanceChart';
 
 export default function Monitor() {
   const [url, setUrl] = useState('');

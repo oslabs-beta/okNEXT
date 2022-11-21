@@ -1,6 +1,6 @@
 import { Label, Line, LineChart, XAxis, YAxis } from "recharts";
 import styles from "../../../styles/MonitorChart.module.scss";
-import LoadingSpinner from "../../LoadingSpinner";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function EmptyChart(props: any) {
   const { isLoading } = props;

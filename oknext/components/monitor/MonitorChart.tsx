@@ -1,7 +1,6 @@
 import { useState, Suspense } from 'react';
 import { Label, Line, LineChart, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import styles from '../styles/MonitorChart.module.scss';
-import LoadingSpinner from './LoadingSpinner';
 import { UserContext, useUser } from '@auth0/nextjs-auth0';
 
 export default function MonitorChart(props: any) {
