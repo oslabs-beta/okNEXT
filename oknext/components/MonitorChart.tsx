@@ -3,6 +3,7 @@ import { Label, Line, LineChart, XAxis, YAxis, Tooltip } from 'recharts';
 import styles from '../styles/MonitorChart.module.scss';
 import LoadingSpinner from './LoadingSpinner';
 import { UserContext, useUser } from '@auth0/nextjs-auth0';
+import { Data } from '../types'
 
 export default function MonitorChart(props: any) {
   const { user, error, isLoading } = useUser(); //from auth0
@@ -18,7 +19,7 @@ export default function MonitorChart(props: any) {
 
   const date = props.date ? props.date : null;
 
-  const data = [
+  const data: Data = [
     // { name: '2017', Performance: 0, Accessibility: 0, SEO: 0, BestPractices: 0},
     {
       name: date,
