@@ -30,35 +30,35 @@ export default function DemoChart() {
       Performance: 74,
       SEO: 90,
       Accessibility: 83,
-      BestPractices: 67,
+      "Best Practices": 67,
     },
     {
       name: "11/15",
       Performance: 74,
       SEO: 92,
       Accessibility: 83,
-      BestPractices: 75,
+      "Best Practices": 75,
     },
     {
       name: "11/20",
       Performance: 85,
       SEO: 100,
       Accessibility: 90,
-      BestPractices: 100,
+      "Best Practices": 100,
     },
     {
       name: "11/21",
       Performance: 64,
       SEO: 92,
       Accessibility: 83,
-      BestPractices: 75,
+      "Best Practices": 75,
     },
     {
       name: "2022",
       Performance: 95,
       SEO: 44,
       Accessibility: 49,
-      BestPractices: 31,
+      "Best Practices": 31,
     },
   ];
 
@@ -77,7 +77,7 @@ export default function DemoChart() {
       id: 2
     },
     {
-      name: "BestPractices",
+      name: "Best Practices",
       color: purple,
       value: 75,
       id: 3

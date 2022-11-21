@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { use, useState } from 'react';
 import MonitorChart from '../../components/MonitorChart';
-import EmptyChart from '../../components/EmptyChart';
+import EmptyChart from '../../components/monitor/charts/EmptyChart';
 import styles from '../../styles/Monitor.module.scss';
 import PerformanceChart from '../../components/PerformanceChart';
 
