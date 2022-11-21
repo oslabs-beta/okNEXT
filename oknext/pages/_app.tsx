@@ -10,10 +10,10 @@ import { UserProvider } from '@auth0/nextjs-auth0';
 //   }
 // }
 
-//send metric data to database , save it
+// send metric data to database , save it
 // fetch get data from DB, display on client side
 
-//<--------------------------------------------------------------------->
+// <--------------------------------------------------------------------->
 
 // export function reportWebVitals(metric: any) {
 //   switch (metric.name) {
