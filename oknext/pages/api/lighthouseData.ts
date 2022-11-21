@@ -2,13 +2,22 @@ const fs = require('fs');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 
-// import lighthouse from 'next/lighthouse';
-// export default function handler(req, res) {
+//for ios users
 async function fetchdata (req:any, res:any){
   const { url } = req.body;
   console.log('this is request body', req.body);
+
+  //chromeLauncher: lh runs on chrome, need chromeLauncher to launch lh report
+  //more info: https://www.npmjs.com/package/chrome-launcher
+  //for ubuntu users:
+    // const chrome = await chromeLauncher.launch({
+    //   chromePath: process.env.CHROME_PATH,
+    //   chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu']
+    // });
   const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-  const options = {logLevel: 'info', output: 'html', onlyCategories: ['performance', 'accessibility', 'seo', 'best-practices'], port: chrome.port};
+  //options: choosing what categories needed for application
+  const options = {logLevel: 'info', output: 'json', onlyCategories: ['performance', 'accessibility', 'seo', 'best-practices'], port: chrome.port};
+  //only want desktop report
   const configObj = {
     extends: 'lighthouse:default',
     settings: {
@@ -16,23 +25,26 @@ async function fetchdata (req:any, res:any){
       formFactor: 'desktop'
     },
   }
-  const runnerResult = await lighthouse(url, options, configObj);
-  console.log('lighthouse data over here', typeof(runnerResult.lhr));
 
-  // `.report` is the HTML report as a string
-  const reportHtml = runnerResult.report;
-  fs.writeFileSync('lhreport.html', reportHtml);
+  //runs lighthouse report
+  const runnerResult = await lighthouse(url, options, configObj);
+
+  // `.report` is the HTML report as a json object
+  const reportJson = runnerResult.report;
+  fs.writeFileSync('lhreport.json', reportJson);
 
   // `.lhr` is the Lighthouse Result as a JS object
-  // console.log('Report is done for', runnerResult.lhr.finalDisplayedUrl);
-  // console.log('Performance score was', runnerResult.lhr.categories.accessibility.score * 100);
-  // res.status(200).json(`performance score ${runnerResult.lhr.categories.performance.score}`);
-  console.log("hello from hell");
+  console.log("hello from the void");
   const vitalReport = {
     performance: runnerResult.lhr.categories.performance.score * 100,
-    // performancescores: {
-    //   fcp:
-    // },
+    performanceScores: {
+      fcp: runnerResult.lhr.audits['first-contentful-paint'],
+      lcp: runnerResult.lhr.audits['largest-contentful-paint'],
+      speed: runnerResult.lhr.audits['speed-index'],
+      cls: runnerResult.lhr.audits['cumulative-layout-shift'],
+      tti: runnerResult.lhr.audits['interactive'],
+      tbt: runnerResult.lhr.audits['total-blocking-time']
+    },
     accessibility: runnerResult.lhr.categories.accessibility.score * 100,
     seo: runnerResult.lhr.categories.seo.score * 100,
     bestpractices: runnerResult.lhr.categories['best-practices'].score * 100
@@ -47,16 +59,9 @@ async function fetchdata (req:any, res:any){
 
   res.json(auditReport);
   res.json(vitalReport);
+
+  //closes chrome instance that was started by chromeLauncher
   await chrome.kill();
-  // return(res.body("I am data"))
 };
-// }
 
-/*
-  export default function handler(req, res) {
-
-  }
-*/
-// fetchdata();
 export default fetchdata;
-
