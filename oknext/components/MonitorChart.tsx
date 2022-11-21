@@ -1,5 +1,5 @@
 import { useState, Suspense } from 'react';
-import { Label, Line, LineChart, XAxis, YAxis, Tooltip } from 'recharts';
+import { Label, Line, LineChart, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import styles from '../styles/MonitorChart.module.scss';
 import LoadingSpinner from './LoadingSpinner';
 import { UserContext, useUser } from '@auth0/nextjs-auth0';
@@ -32,31 +32,36 @@ export default function MonitorChart(props: any) {
       {/* <Suspense fallback={<LoadingSpinner />}> */}
       <div className={styles.lineGraph}>
         <LineChart width={600} height={300} data={data}>
+          <CartesianGrid strokeDasharray={'3'} horizontal={true} vertical={false}/>
           <XAxis dataKey="name" />
           <YAxis type="number" domain={[0, 100]} />
           <Line
             type="monotone"
             dataKey="Performance"
             stroke="#2196F3"
-            strokeWidth={3}
+            strokeWidth={2}
+            activeDot={{r: 5}}
           />
           <Line
             type="monotone"
             dataKey="Accessibility"
             stroke="#F44236"
             strokeWidth={3}
+            activeDot={{r: 5}}
           />
           <Line
             type="monotone"
             dataKey="SEO"
             stroke="#FFCA29"
             strokeWidth={3}
+            activeDot={{r: 5}}
           />
           <Line
             type="monotone"
             dataKey="BestPractices"
             stroke="#6d30bb"
             strokeWidth={3}
+            activeDot={{r: 5}}
           />
           <Tooltip />
         </LineChart>

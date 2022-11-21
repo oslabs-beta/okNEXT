@@ -31,11 +31,11 @@ export default function Monitor() {
         'Content-Type': 'application/json',
       },
     });
-    console.log('after fetch request finishes');
+    // console.log('after fetch request finishes');
     const vitalData = await response.json();
     setData(vitalData);
 
-    console.log('response jsonified', vitalData);
+    // console.log('response jsonified', vitalData);
     const timestamp = Date.now();
     const humanReadableDateTime = new Date(timestamp).toLocaleString();
     setDate(humanReadableDateTime);
@@ -67,14 +67,14 @@ export default function Monitor() {
                   onChange={(e) => setUrl(e.target.value)}
                 />
               </label>
-              <button className={styles.algoliaButton} onClick={fetchVitals}>
+              <button className={styles.button84} onClick={fetchVitals}>
                 Get Report
               </button>
             </form>
           </div>
           <div className={styles.vitalsButtons}>
-            <button className={styles.algoliaButton}>Web Core Vitals</button>
-            {/* <button>Next.js Vitals</button> */}
+            <button className={styles.button84}>Web Core Vitals</button>
+            <button className={styles.button84}>Next.js Vitals</button>
           </div>
         </div>
         <div className={styles.chartContainer}>
