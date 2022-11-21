@@ -49,6 +49,15 @@ async function fetchdata (req:any, res:any){
     seo: runnerResult.lhr.categories.seo.score * 100,
     bestpractices: runnerResult.lhr.categories['best-practices'].score * 100
   }
+
+  const auditReport = {
+    performance: runnerResult.lhr.categories.performance.auditRefs,
+    accessibility: runnerResult.lhr.categories.accessibility.auditRefs,
+    seo: runnerResult.lhr.categories.seo.auditRefs,
+    bestpractices: runnerResult.lhr.categories['best-practices'].auditRefs
+  }
+
+  res.json(auditReport);
   res.json(vitalReport);
 
   //closes chrome instance that was started by chromeLauncher
