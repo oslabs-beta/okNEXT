@@ -8,6 +8,9 @@ import PerformanceChart from '../../components/monitor/charts/PerformanceChart';
 import NextJSVitals from '../../components/monitor/NextJSVitals';
 import MonitorButtons from '../../components/monitor/MonitorButtons';
 
+
+
+//NEED TO FIGURE OUT HOW TO ATTACH THE BUTTONS TO THE LINES
 export default function Monitor() {
   const [url, setUrl] = useState('');
   const [data, setData] = useState();
@@ -16,10 +19,7 @@ export default function Monitor() {
   const [date, setDate] = useState('');
   const [toggle, setToggle] = useState(false);
   const [vitals, setVitals] = useState(false);
-
-  const handleClick = (e) => {
-    setToggle(true);
-  }
+  const [chart, setChart] = useState(true);
 
   const fetchVitals = async (e: any) => {
     e.preventDefault();
@@ -59,31 +59,49 @@ export default function Monitor() {
            <h3>App Performance Monitoring</h3>
         </div>
         <div className={styles.buttonsContainer}>
+          {/* {BUTTONS.map((item, index) => 
+            <div className={styles.webVitalBtns} key={index} >
+              {data ? (
+                <>
+                <button className={styles.button} style={{ color: item.color === color ? color : "#000" }} onClick={() => {setType(item.name), setActive(index),
+                setColor(item.color), setChart(false)}}>
+                  {item.value}
+                </button>
+                <label>{item.name}</label>
+                </>
+              ) : (
+                <>
+                <button className={styles.button}>-</button>
+                <label>{item.name}</label>
+                </>
+              )}
+            </div>
+          )} */}
           <div className={styles.webVitalBtns}>
             <section className={styles.vitals}>
-                {data ? 
-              <button className={styles.button} onClick={handleClick}>{data.performance}</button>
+              {data ? 
+              <button className={styles.button} onClick={() => {setChart(false), !toggle}}>{data.performance}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Performance</label>
             </section>
             <section className={styles.vitals}>
             {data ? 
-              <button className={styles.button}>{data.seo}</button>
+              <button className={styles.button} onClick={setChart(false)}>{data.seo}</button>
               : <button className={styles.button}>-</button>
               }
               <label>SEO</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button}>{data.bestpractices}</button>
+              <button className={styles.button} onClick={setChart(false)}>{data.bestpractices}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Best Practices</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button}>{data.accessibility}</button>
+              <button className={styles.button} onClick={setChart(false)}>{data.accessibility}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Accessibility</label>
@@ -108,7 +126,7 @@ export default function Monitor() {
             </form>
           </div>
           <div className={styles.vitalsButtons}>
-            <button className={styles.button84} onClick={()=> setVitals(false)}>Web Core Vitals</button>
+            <button className={styles.button84} onClick={()=> {setVitals(false), setChart(true)}}>Web Core Vitals</button>
             <button className={styles.button84} onClick={()=> setVitals(true)}>Next.js Vitals</button>
           </div>
         </div>
@@ -119,6 +137,7 @@ export default function Monitor() {
               <MonitorChart
                 data={data}
                 date={date}
+                chart={chart}
               />
             ): (
               <EmptyChart isLoading={isLoading}/>
