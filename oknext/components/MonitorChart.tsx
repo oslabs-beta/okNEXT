@@ -2,20 +2,20 @@ import { useState, Suspense } from 'react';
 import { Label, Line, LineChart, XAxis, YAxis, Tooltip } from 'recharts';
 import styles from '../styles/MonitorChart.module.scss';
 import LoadingSpinner from './LoadingSpinner';
+import { UserContext, useUser } from '@auth0/nextjs-auth0';
+import { Data } from '../types'
 
 export default function MonitorChart(props: any) {
-  //move buttons to monitor.tsx
-  const { performance, accessibility, seo, bestpractices } = props.data;
-  // const performance = props.data.performance ? props.data.performance : '-';
-  // const accessibility = props.data.accessibility ? props.data.accessibility : '-';
-  // const seo = props.data.seo ? props.data.seo : '-';
-  // const bestpractices = props.data.bestpractices ? props.data.bestpractices : '-';
+  const { user, error, isLoading } = useUser(); //from auth0
 
-  console.log('i am performance', performance);
+  //move buttons to monitor.tsx
+  const { performance, accessibility, seo, bestpractices, performanceScores } = props.data;
+
+  console.log('i am performanceScores', performanceScores);
 
   const date = props.date ? props.date : null;
 
-  const data = [
+  const data: Data = [
     // { name: '2017', Performance: 0, Accessibility: 0, SEO: 0, BestPractices: 0},
     {
       name: date,

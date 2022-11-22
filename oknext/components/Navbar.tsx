@@ -1,8 +1,13 @@
 import Link from 'next/link';
 import styles from '../styles/Navbar.module.scss';
 import Image from 'next/image';
+import { UserContext, useUser } from '@auth0/nextjs-auth0';
 
 export default function Navbar() {
+  const { user, error, isLoading } = useUser(); //user is the logged in user
+  // console.log(user.picture);
+  console.log(user);
+
   return (
     <div className={styles.navFlex}>
       <Link href="/">
@@ -18,22 +23,27 @@ export default function Navbar() {
         <Link href="/monitoring/monitor" className={styles.algoliaButton}>
           Monitoring
         </Link>
-        <a href="/" className={styles.algoliaButton}>
-          Blog
-        </a>
         <Link href="/" className={styles.algoliaButton}>
           Docs
         </Link>
         <Link href="/" className={styles.algoliaButton}>
-          Login
+          Blog
         </Link>
-
         <Link
           href="https://github.com/oslabs-beta/okNEXT"
           className={styles.algoliaButton}
         >
           Github
         </Link>
+        {user ? (
+          <Link href="/api/auth/logout" className={styles.algoliaButton}>
+            Logout
+          </Link>
+        ) : (
+          <Link href="/api/auth/login" className={styles.algoliaButton}>
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );
