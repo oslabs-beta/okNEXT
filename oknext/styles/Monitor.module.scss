@@ -1,9 +1,10 @@
 .mainContainer {
   display: grid;
-  grid-template-rows: 1fr 3fr;
+  grid-template-rows: .5fr .5fr 3fr;
   grid-template-columns: 1fr 3fr;
   grid-template-areas: 
     "header header"
+    "formContainer buttons"
     "formContainer chartContainer";
   // grid-gap: 10px;
   // align-items: center;
@@ -39,11 +40,13 @@
 
 .chartContainer {
   grid-area: chartContainer;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-template-rows: auto;
-  grid-template-areas: 
-    "buttons chart";
+  // display: grid;
+  // grid-template-columns: 1fr 3fr;
+  // grid-template-rows: auto;
+  // grid-template-areas: 
+  //   "buttons chart";
+  display: flex;
+  justify-content: center;
   border: solid;
   text-align: center;
   height: 370px;
@@ -53,6 +56,7 @@
 .buttonsContainer {
   grid-area: buttons;
   margin: auto;
+  // display: flex;
   // border-right: solid;
 }
 
@@ -62,16 +66,17 @@
 }
 
 .webVitalBtns {
-
+  display: flex;
 }
 
 .vitals {
-  margin: 0 0 20% 0;
+  margin: 0px;
 }
 
 .button {
   border-radius: 50%;
   max-height: 25px;
+  margin: 10px;
 }
 
 .button84 {

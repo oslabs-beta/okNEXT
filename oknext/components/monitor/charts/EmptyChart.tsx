@@ -8,6 +8,7 @@ export default function EmptyChart(props: any) {
   // console.log("isLoading in EmptyChart", isLoading);
   
   return (
+    <>
     <div className={styles.monitorContainer}>
       <h2>I am empty chart</h2>
       <div className={styles.lineGraph}>
@@ -26,5 +27,28 @@ export default function EmptyChart(props: any) {
         </LineChart>
       </div>
     </div>
+    </>
   );
 }
+
+//buttons
+{/* <div className={styles.buttonsContainer}>
+  <div className={styles.webVitalBtns}>
+    <section className={styles.vitals}>
+      <button className={styles.button}>-</button>
+      <label>Performance</label>
+    </section>
+    <section className={styles.vitals}>
+    <button className={styles.button}>-</button>
+      <label>SEO</label>
+    </section>
+    <section className={styles.vitals}>
+      <button className={styles.button}>-</button>
+      <label>Best Practices</label>
+    </section>
+    <section className={styles.vitals}>
+      <button className={styles.button}>-</button>
+      <label>Accessibility</label>
+    </section>
+  </div>
+</div> */}
