@@ -21,6 +21,7 @@ export default function Monitor() {
   const [vitals, setVitals] = useState(false);
   const [chart, setChart] = useState(true);
 
+  //fetch data from Lighthouse
   const fetchVitals = async (e: any) => {
     e.preventDefault();
 
