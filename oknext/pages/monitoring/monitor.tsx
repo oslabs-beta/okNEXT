@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import { use, useState } from 'react';
+import { useState } from 'react';
 import MonitorChart from '../../components/MonitorChart';
 import EmptyChart from '../../components/EmptyChart';
 import styles from '../../styles/Monitor.module.scss';
@@ -16,7 +16,7 @@ export default function Monitor() {
 
   const handleClick = (e) => {
     setToggle(true);
-  }
+  };
 
   const fetchVitals = async (e: any) => {
     e.preventDefault();
@@ -81,31 +81,41 @@ export default function Monitor() {
           <div className={styles.buttonsContainer}>
             <div className={styles.webVitalBtns}>
               <section className={styles.vitals}>
-                {data ? 
-                <button className={styles.button} onClick={handleClick}>{data.performance}</button>
-                : <button className={styles.button}>-</button>
-                }
+                {data ? (
+                  <button className={styles.button} onClick={handleClick}>
+                    {data.performance}
+                  </button>
+                ) : (
+                  <button className={styles.button}>-</button>
+                )}
                 <label>Performance</label>
               </section>
               <section className={styles.vitals}>
-              {data ? 
-                <button className={styles.button}>{data.seo}</button>
-                : <button className={styles.button}>-</button>
-                }
+                {data ? (
+                  <button className={styles.button}>{data.seo}</button>
+                ) : (
+                  <button className={styles.button}>-</button>
+                )}
                 <label>SEO</label>
               </section>
               <section className={styles.vitals}>
-                {data ? 
-                <button className={styles.button}>{data.bestpractices}</button>
-                : <button className={styles.button}>-</button>
-                }
+                {data ? (
+                  <button className={styles.button}>
+                    {data.bestpractices}
+                  </button>
+                ) : (
+                  <button className={styles.button}>-</button>
+                )}
                 <label>Best Practices</label>
               </section>
               <section className={styles.vitals}>
-                {data ? 
-                <button className={styles.button}>{data.accessibility}</button>
-                : <button className={styles.button}>-</button>
-                }
+                {data ? (
+                  <button className={styles.button}>
+                    {data.accessibility}
+                  </button>
+                ) : (
+                  <button className={styles.button}>-</button>
+                )}
                 <label>Accessibility</label>
               </section>
             </div>
@@ -144,7 +154,9 @@ export default function Monitor() {
                 date={date}
                 setIsLoading={setIsLoading}
               />
-            ) : ''}
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>
