@@ -4,7 +4,7 @@ export default function MonitorButtons () {
   return (
     <>
       <h3>I am buttons</h3>
-      <div className={styles.buttonsContainer}>
+      {/* <div className={styles.buttonsContainer}>
         <div className={styles.webVitalBtns}>
         <section className={styles.vitals}>
           <button className={styles.button} onClick={handleClick}>
@@ -30,8 +30,8 @@ export default function MonitorButtons () {
           </button>
           <label>Accessibility</label>
         </section>
-      </div>
-      </div>
+        </div>
+      </div> */}
     </>
   )
 }

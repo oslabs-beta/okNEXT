@@ -43,8 +43,8 @@ export default function MonitorChart(props: any) {
           <XAxis dataKey={'name'}/>
           <YAxis type="number" domain={[0, 100]} />
           <Legend align='center' verticalAlign="bottom" height={30}/>
-          {chart ? (
-            <>
+          {/* {chart ? (
+            <> */}
               <Line
                 type="monotone"
                 dataKey="Performance"
@@ -73,7 +73,7 @@ export default function MonitorChart(props: any) {
                 strokeWidth={3}
                 activeDot={{ r: 5 }}
               />
-            </>
+            {/* </>
             ) : (
             <Line
               type="monotone"
@@ -82,7 +82,7 @@ export default function MonitorChart(props: any) {
               strokeWidth={3}
               activeDot={{ r: 5 }}
             />
-            )}
+            )} */}
           <Tooltip />
         </LineChart>
       </div>

@@ -81,28 +81,28 @@ export default function Monitor() {
           <div className={styles.webVitalBtns}>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} onClick={() => {setChart(false), !toggle}}>{data.performance}</button>
+              <button className={styles.button} onClick={() => {setChart(false)}}>{data.performance}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Performance</label>
             </section>
             <section className={styles.vitals}>
             {data ? 
-              <button className={styles.button} onClick={setChart(false)}>{data.seo}</button>
+              <button className={styles.button} onClick={() => {setChart(false)}}>{data.seo}</button>
               : <button className={styles.button}>-</button>
               }
               <label>SEO</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} onClick={setChart(false)}>{data.bestpractices}</button>
+              <button className={styles.button} onClick={() => {setChart(false)}}>{data.bestpractices}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Best Practices</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} onClick={setChart(false)}>{data.accessibility}</button>
+              <button className={styles.button} onClick={() => {setChart(false)}}>{data.accessibility}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Accessibility</label>
@@ -143,11 +143,32 @@ export default function Monitor() {
             ): (
               <EmptyChart isLoading={isLoading}/>
             )}
+            {/* {rendChart && toggle === false ? (
+              <MonitorChart
+                data={data}
+                date={date}
+                setIsLoading={setIsLoading}
+              />
+            ) : toggle === false ? (
+              <EmptyChart isLoading={isLoading} />
+            ) : (
+              ''
+            )}
+
+            {toggle ? (
+              <PerformanceChart
+                data={data}
+                date={date}
+                setIsLoading={setIsLoading}
+              />
+            ) : ''} */}
         </div>
       </div>
       <Link href="/">← Back to home</Link> 
     </>
   );
+
+
   // return (
   //   <>
   //     <Head>
@@ -184,7 +205,7 @@ export default function Monitor() {
   //           <div className={styles.webVitalBtns}>
   //             <section className={styles.vitals}>
   //               {data ? 
-  //               <button className={styles.button} onClick={handleClick}>{data.performance}</button>
+  //               <button className={styles.button} >{data.performance}</button>
   //               : <button className={styles.button}>-</button>
   //               }
   //               <label>Performance</label>
