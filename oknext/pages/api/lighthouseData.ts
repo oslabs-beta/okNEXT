@@ -6,15 +6,16 @@ const chromeLauncher = require('chrome-launcher');
 async function fetchdata (req:any, res:any){
   const { url } = req.body;
   console.log('this is request body', req.body);
+  // const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
 
   //chromeLauncher: lh runs on chrome, need chromeLauncher to launch lh report
   //more info: https://www.npmjs.com/package/chrome-launcher
   //for ubuntu users:
-    // const chrome = await chromeLauncher.launch({
-    //   chromePath: process.env.CHROME_PATH,
-    //   chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu']
-    // });
-  const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
+    const chrome = await chromeLauncher.launch({
+      chromePath: process.env.CHROME_PATH,
+      chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu']
+    });
+
   //options: choosing what categories needed for application
   const options = {logLevel: 'info', output: 'json', onlyCategories: ['performance', 'accessibility', 'seo', 'best-practices'], port: chrome.port};
   //only want desktop report
@@ -28,6 +29,7 @@ async function fetchdata (req:any, res:any){
 
   //runs lighthouse report
   const runnerResult = await lighthouse(url, options, configObj);
+  console.log('next.js metrics', runnerResult.lhr.audits['user-timings'].details.items)
 
   // `.report` is the HTML report as a json object
   const reportJson = runnerResult.report;
@@ -47,17 +49,23 @@ async function fetchdata (req:any, res:any){
     },
     accessibility: runnerResult.lhr.categories.accessibility.score * 100,
     seo: runnerResult.lhr.categories.seo.score * 100,
-    bestpractices: runnerResult.lhr.categories['best-practices'].score * 100
+    bestpractices: runnerResult.lhr.categories['best-practices'].score * 100,
+    nextJs: {
+      beforeHydrationDuration: runnerResult.lhr.audits['user-timings'].details.items[0]['duration'],
+      hydrationDuration: runnerResult.lhr.audits['user-timings'].details.items[1]['duration'],
+      beforeRenderStart: runnerResult.lhr.audits['user-timings'].details.items[2]['startTime']
+
+    }
   }
 
-  const auditReport = {
-    performance: runnerResult.lhr.categories.performance.auditRefs,
-    accessibility: runnerResult.lhr.categories.accessibility.auditRefs,
-    seo: runnerResult.lhr.categories.seo.auditRefs,
-    bestpractices: runnerResult.lhr.categories['best-practices'].auditRefs
-  }
+  // const auditReport = {
+  //   performance: runnerResult.lhr.categories.performance.auditRefs,
+  //   accessibility: runnerResult.lhr.categories.accessibility.auditRefs,
+  //   seo: runnerResult.lhr.categories.seo.auditRefs,
+  //   bestpractices: runnerResult.lhr.categories['best-practices'].auditRefs
+  // }
 
-  res.json(auditReport);
+  // res.json(auditReport);
   res.json(vitalReport);
 
   //closes chrome instance that was started by chromeLauncher
