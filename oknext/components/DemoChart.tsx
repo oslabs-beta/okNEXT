@@ -63,7 +63,7 @@ export default function DemoChart() {
   ];
 
 
-  const BUTTONS = [
+  const buttons = [
     {
       name: "Performance",
       color: blue,
@@ -99,10 +99,9 @@ export default function DemoChart() {
           <button>Next.js Vitals</button>
         </div>
         <div className={styles.chartContainer}>
-          {BUTTONS.map((item, index) => 
+          {buttons.map((item, index) => 
             <div className={styles.webVitalBtns} key={index} >
-             <button className={styles.button} style={{ color: item.color === color ? color : "#000" }} onClick={() => {setType(item.name), setActive(index),
-             setColor(item.color), setDemo(false)}}>
+              <button className={styles.button} style={{ color: item.color === color ? color : "#000" }} onClick={() => {setType(item.name), setActive(index), setColor(item.color), setDemo(false)}}>
               {item.value}
              </button>
              <label>{item.name}</label>
@@ -119,28 +118,28 @@ export default function DemoChart() {
               <Line
                 type="monotone"
                 dataKey="Performance"
-                stroke="#2196F3"
+                stroke={blue}
                 strokeWidth={3}
                 activeDot={{ r: 5 }}
               />
               <Line
                 type="monotone"
                 dataKey="SEO"
-                stroke="#F44236"
+                stroke={red}
                 strokeWidth={3}
                 activeDot={{ r: 5 }}
               />
               <Line
                 type="monotone"
                 dataKey="Accessibility"
-                stroke="#FFCA29"
+                stroke={yellow}
                 strokeWidth={3}
                 activeDot={{ r: 5 }}
               />
               <Line
                 type="monotone"
-                dataKey="BestPractices"
-                stroke="#6d30bb"
+                dataKey="Best Practices"
+                stroke={purple}
                 strokeWidth={3}
                 activeDot={{ r: 5 }}
               />

@@ -3,7 +3,7 @@ import { Label, Line, LineChart, XAxis, YAxis, Tooltip, CartesianGrid, Legend } 
 
 
 export default function NextJSVitals (props: any) {
-  console.log('I am beforeHydration', props.data.beforeHydrationDuration);
+  // console.log('I am beforeHydration', props.data.beforeHydrationDuration);
   
   return (
     <div>

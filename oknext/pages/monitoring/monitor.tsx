@@ -13,13 +13,12 @@ import MonitorButtons from '../../components/monitor/MonitorButtons';
 //NEED TO FIGURE OUT HOW TO ATTACH THE BUTTONS TO THE LINES
 export default function Monitor() {
   const [url, setUrl] = useState('');
-  const [data, setData] = useState();
+  const [data, setData] = useState(undefined);
   const [rendChart, setRendChart] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(undefined);
   const [toggle, setToggle] = useState(false);
   const [vitals, setVitals] = useState(false);
-  const [chart, setChart] = useState(true);
 
   //fetch data from Lighthouse
   const fetchVitals = async (e: any) => {
@@ -47,6 +46,7 @@ export default function Monitor() {
     setUrl('');
     setIsLoading(false);
     setRendChart(true);
+    setVitals(false);
     //add error handling
   };
 
@@ -81,28 +81,28 @@ export default function Monitor() {
           <div className={styles.webVitalBtns}>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} onClick={() => {setChart(false)}}>{data.performance}</button>
+              <button className={styles.button} onClick={() => {setToggle(!toggle), setRendChart(!rendChart)}}>{data.performance}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Performance</label>
             </section>
             <section className={styles.vitals}>
             {data ? 
-              <button className={styles.button} onClick={() => {setChart(false)}}>{data.seo}</button>
+              <button className={styles.button}>{data.seo}</button>
               : <button className={styles.button}>-</button>
               }
               <label>SEO</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} onClick={() => {setChart(false)}}>{data.bestpractices}</button>
+              <button className={styles.button}>{data.bestpractices}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Best Practices</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} onClick={() => {setChart(false)}}>{data.accessibility}</button>
+              <button className={styles.button}>{data.accessibility}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Accessibility</label>
@@ -127,31 +127,23 @@ export default function Monitor() {
             </form>
           </div>
           <div className={styles.vitalsButtons}>
-            <button className={styles.button84} onClick={()=> {setVitals(false), setChart(true)}}>Web Core Vitals</button>
+            <button className={styles.button84} onClick={()=> {setVitals(false)}}>Web Core Vitals</button>
             <button className={styles.button84} onClick={()=> setVitals(true)}>Next.js Vitals</button>
           </div>
         </div>
         <div className={styles.chartContainer}>
-            {vitals && data ? (
+            {vitals && rendChart ? (
               <NextJSVitals/>
             ): rendChart && vitals === false ? ( 
+              //need to probably propdrill rendChart to Monitor chart
+              //and the button state
               <MonitorChart
                 data={data}
                 date={date}
-                chart={chart}
               />
-            ): (
+            ): !data ? (
               <EmptyChart isLoading={isLoading}/>
-            )}
-            {/* {rendChart && toggle === false ? (
-              <MonitorChart
-                data={data}
-                date={date}
-                setIsLoading={setIsLoading}
-              />
-            ) : toggle === false ? (
-              <EmptyChart isLoading={isLoading} />
-            ) : (
+            ): (
               ''
             )}
 
@@ -161,14 +153,14 @@ export default function Monitor() {
                 date={date}
                 setIsLoading={setIsLoading}
               />
-            ) : ''} */}
+            ) : ''}
         </div>
       </div>
       <Link href="/">← Back to home</Link> 
     </>
   );
 
-
+//OLD monitor
   // return (
   //   <>
   //     <Head>
