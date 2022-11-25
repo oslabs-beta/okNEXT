@@ -38,7 +38,7 @@ async function fetchdata (req:any, res:any){
   // `.lhr` is the Lighthouse Result as a JS object
   console.log("hello from the void");
   const vitalReport = {
-    performance: runnerResult.lhr.categories.performance.score * 100,
+    performance: Math.floor(runnerResult.lhr.categories.performance.score * 100),
     performanceScores: {
       fcp: runnerResult.lhr.audits['first-contentful-paint'],
       lcp: runnerResult.lhr.audits['largest-contentful-paint'],
@@ -47,9 +47,9 @@ async function fetchdata (req:any, res:any){
       tti: runnerResult.lhr.audits['interactive'],
       tbt: runnerResult.lhr.audits['total-blocking-time']
     },
-    accessibility: runnerResult.lhr.categories.accessibility.score * 100,
-    seo: runnerResult.lhr.categories.seo.score * 100,
-    bestpractices: runnerResult.lhr.categories['best-practices'].score * 100,
+    accessibility: Math.floor(runnerResult.lhr.categories.accessibility.score * 100),
+    seo: Math.floor(runnerResult.lhr.categories.seo.score * 100),
+    bestpractices: Math.floor(runnerResult.lhr.categories['best-practices'].score * 100),
     nextJs: {
       beforeHydrationDuration: runnerResult.lhr.audits['user-timings'].details.items[0]['duration'],
       hydrationDuration: runnerResult.lhr.audits['user-timings'].details.items[1]['duration'],

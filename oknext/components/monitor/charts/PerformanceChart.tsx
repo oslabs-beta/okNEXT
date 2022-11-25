@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Label, Line, LineChart, XAxis, YAxis, Tooltip } from 'recharts';
-import styles from '../styles/MonitorChart.module.scss';
+import styles from '../../../styles/MonitorChart.module.scss';
 
 export default function PerformanceChart (props: any) {
   const { fcp, lcp, speed, cls, tti, tbt } = props.data.performanceScores;
