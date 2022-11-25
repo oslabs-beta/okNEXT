@@ -2,11 +2,19 @@ import styles from '../styles/Suggestions.module.scss';
 import React, { useState, useEffect } from 'react';
 import lhr from '../lhreport.json';
 
-export default async function Suggestions(props: any) {
+export default function Suggestions(props: any) {
+  // const fetchReport = async (e: any) => {
+  //   e.preventDefault();
   //   const response = await fetch('../lhreport.json');
   //   const lhr = await response.json();
   //   console.log(lhr);
-  const booty = JSON.stringify(lhr);
+  // };
+
+  const nonJSONReport = () => {
+    console.log(lhr);
+    
+  };
+
   /*
   Performance breakdown
       Audit	Weight
@@ -47,7 +55,7 @@ export default async function Suggestions(props: any) {
 
   return (
     <div>
-      {booty}
+      <button onClick={nonJSONReport}>Display Suggestions</button>
       {/* {diagnostics[props.currentMetric].map((data) => (
         <DiagnosticsItem data={data} key={data.id} />
       ))} */}
