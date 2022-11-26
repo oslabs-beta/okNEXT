@@ -56,14 +56,56 @@ async function fetchdata (req:any, res:any){
     }
   }
 
-  // const auditReport = {
-  //   performance: runnerResult.lhr.categories.performance.auditRefs,
-  //   accessibility: runnerResult.lhr.categories.accessibility.auditRefs,
-  //   seo: runnerResult.lhr.categories.seo.auditRefs,
-  //   bestpractices: runnerResult.lhr.categories['best-practices'].auditRefs
+  const auditReport = {
+    performance: runnerResult.lhr.categories.performance.auditRefs,
+    accessibility: runnerResult.lhr.categories.accessibility.auditRefs,
+    seo: runnerResult.lhr.categories.seo.auditRefs,
+    bestpractices: runnerResult.lhr.categories['best-practices'].auditRefs
+  }
+
+function getId (auditReport: any) {
+  let performanceMetrics = [];
+  let accessibilityMetrics = [];
+  let seoMetrics = [];
+  let bestpracticesMetrics = [];
+  for(let cat in auditReport) {
+    if(cat === "performance") {
+      auditReport["performance"].forEach(obj => {
+        performanceMetrics.push(obj["id"])
+      })
+    } else if (cat === "accessibility") {
+      auditReport["accessibility"].forEach(obj => {
+        accessibilityMetrics.push(obj["id"])
+      })
+    } else if (cat === "seo") {
+      auditReport["seo"].forEach(obj => {
+        seoMetrics.push(obj["id"])
+      })
+    } else if (cat === "bestpractices") {
+      auditReport["bestpractices"].forEach(obj => {
+        bestpracticesMetrics.push(obj["id"])
+      })
+    }
+    
+  }
+  return [performanceMetrics, accessibilityMetrics, seoMetrics, bestpracticesMetrics];
+}
+
+  // function getAuditReportId (auditReport: any) {
+  //   const newObj = [];
+  //   for(let category in auditReport) {
+  //     auditReport[category].forEach(obj => {
+  //       for(let metric in obj) {
+  //         if(metric === 'id') {
+  //           newObj.push(metric.id)
+  //         }
+  //       }
+  //     })
+  //   }
+  //   return newObj;
   // }
 
-  // res.json(auditReport);
+console.log(getId(auditReport))
   res.json(vitalReport);
 
   //closes chrome instance that was started by chromeLauncher
