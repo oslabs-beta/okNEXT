@@ -1,0 +1,12 @@
+.sidenav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 550px;
+    width: 220px; /* Set the width of the sidebar */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y: scroll;
+    margin: 20px 0;
+    
+  }
+  
