@@ -7,8 +7,7 @@ import styles from '../../styles/Monitor.module.scss';
 import PerformanceChart from '../../components/monitor/charts/PerformanceChart';
 import NextJSVitals from '../../components/monitor/NextJSVitals';
 import MonitorButtons from '../../components/monitor/MonitorButtons';
-
-
+import { arrayBuffer } from 'stream/consumers';
 
 //NEED TO FIGURE OUT HOW TO ATTACH THE BUTTONS TO THE LINES
 export default function Monitor() {
@@ -19,6 +18,176 @@ export default function Monitor() {
   const [date, setDate] = useState(undefined);
   const [toggle, setToggle] = useState(false);
   const [vitals, setVitals] = useState(false);
+  const [AuditReport, setAuditReport] = useState(undefined);
+  const [categorySuggestionsState, setCategorySuggestionsState] = useState('');
+  const [performanceSuggestionsState, setPerformanceSuggestionsState] =
+    useState<any[]>([]);
+  const [accessibilitySuggestionsState, setAccessibilitySuggestionsState] =
+    useState<any[]>([]);
+  const [seoSuggestionsState, setSeoSuggestionsState] = useState<any[]>([]);
+  const [bestpracticesSuggestionsState, setBestPracticesSuggestionsState] =
+    useState<any[]>([]);
+
+  let performanceSuggestions = [];
+  let seoSuggestions = [];
+  let accessibilitySuggestions = [];
+  let bestpracticesSuggestions = [];
+
+  const performanceMetrics = [
+    'first-contentful-paint',
+    'interactive',
+    'speed-index',
+    'total-blocking-time',
+    'largest-contentful-paint',
+    'cumulative-layout-shift',
+    'max-potential-fid',
+    'first-meaningful-paint',
+    'render-blocking-resources',
+    'uses-responsive-images',
+    'offscreen-images',
+    'unminified-css',
+    'unminified-javascript',
+    'unused-css-rules',
+    'unused-javascript',
+    'uses-optimized-images',
+    'modern-image-formats',
+    'uses-text-compression',
+    'uses-rel-preconnect',
+    'server-response-time',
+    'redirects',
+    'uses-rel-preload',
+    'uses-http2',
+    'efficient-animated-content',
+    'duplicated-javascript',
+    'legacy-javascript',
+    'preload-lcp-image',
+    'total-byte-weight',
+    'uses-long-cache-ttl',
+    'dom-size',
+    'critical-request-chains',
+    'user-timings',
+    'bootup-time',
+    'mainthread-work-breakdown',
+    'font-display',
+    'resource-summary',
+    'third-party-summary',
+    'third-party-facades',
+    'largest-contentful-paint-element',
+    'lcp-lazy-loaded',
+    'layout-shift-elements',
+    'uses-passive-event-listeners',
+    'no-document-write',
+    'long-tasks',
+    'non-composited-animations',
+    'unsized-images',
+    'viewport',
+    'no-unload-listeners',
+    'performance-budget',
+    'timing-budget',
+    'network-requests',
+    'network-rtt',
+    'network-server-latency',
+    'main-thread-tasks',
+    'diagnostics',
+    'metrics',
+    'screenshot-thumbnails',
+    'final-screenshot',
+    'script-treemap-data',
+  ];
+
+  const accessibilityMetrics = [
+    'accesskeys',
+    'aria-allowed-attr',
+    'aria-command-name',
+    'aria-hidden-body',
+    'aria-hidden-focus',
+    'aria-input-field-name',
+    'aria-meter-name',
+    'aria-progressbar-name',
+    'aria-required-attr',
+    'aria-required-children',
+    'aria-required-parent',
+    'aria-roles',
+    'aria-toggle-field-name',
+    'aria-tooltip-name',
+    'aria-treeitem-name',
+    'aria-valid-attr-value',
+    'aria-valid-attr',
+    'button-name',
+    'bypass',
+    'color-contrast',
+    'definition-list',
+    'dlitem',
+    'document-title',
+    'duplicate-id-active',
+    'duplicate-id-aria',
+    'form-field-multiple-labels',
+    'frame-title',
+    'heading-order',
+    'html-has-lang',
+    'html-lang-valid',
+    'image-alt',
+    'input-image-alt',
+    'label',
+    'link-name',
+    'list',
+    'listitem',
+    'meta-refresh',
+    'meta-viewport',
+    'object-alt',
+    'tabindex',
+    'td-headers-attr',
+    'th-has-data-cells',
+    'valid-lang',
+    'video-caption',
+    'logical-tab-order',
+    'focusable-controls',
+    'interactive-element-affordance',
+    'managed-focus',
+    'focus-traps',
+    'custom-controls-labels',
+    'custom-controls-roles',
+    'visual-order-follows-dom',
+    'offscreen-content-hidden',
+    'use-landmarks',
+  ];
+
+  const seoMetrics = [
+    'viewport',
+    'document-title',
+    'meta-description',
+    'http-status-code',
+    'link-text',
+    'crawlable-anchors',
+    'is-crawlable',
+    'robots-txt',
+    'image-alt',
+    'hreflang',
+    'canonical',
+    'font-size',
+    'plugins',
+    'tap-targets',
+    'structured-data',
+  ];
+
+  const bestpracticesMetrics = [
+    'is-on-https',
+    'geolocation-on-start',
+    'notification-on-start',
+    'no-vulnerable-libraries',
+    'csp-xss',
+    'password-inputs-can-be-pasted-into',
+    'image-aspect-ratio',
+    'image-size-responsive',
+    'preload-fonts',
+    'doctype',
+    'charset',
+    'js-libraries',
+    'deprecations',
+    'errors-in-console',
+    'valid-source-maps',
+    'inspector-issues',
+  ];
 
   //fetch data from Lighthouse
   const fetchVitals = async (e: any) => {
@@ -36,6 +205,7 @@ export default function Monitor() {
     });
     // console.log('after fetch request finishes');
     const vitalData = await response.json();
+    // console.log('this is vitalData', vitalData);
     setData(vitalData);
 
     // console.log('response jsonified', vitalData);
@@ -48,7 +218,72 @@ export default function Monitor() {
     setRendChart(true);
     setVitals(false);
     //add error handling
+
+    // <-------------------------------Suggestions Section-------------------------------->
+
+    let fullAuditReport = vitalData.fullAuditReport;
+    console.log('fullAuditReport:', fullAuditReport);
+
+    setAuditReport(fullAuditReport);
+
+    function getSuggestions(fullAuditReport, ...arrayOfCategories) {
+      for (let i = 0; i < arrayOfCategories.length; i++) {
+        for (let j = 0; j < arrayOfCategories[i].length; j++) {
+          if (
+            fullAuditReport[arrayOfCategories[i][j]] &&
+            arrayOfCategories[i] === performanceMetrics
+          ) {
+            performanceSuggestions.push(
+              fullAuditReport[arrayOfCategories[i][j]]
+            );
+            setPerformanceSuggestionsState(performanceSuggestions);
+          } else if (
+            fullAuditReport[arrayOfCategories[i][j]] &&
+            arrayOfCategories[i] === accessibilityMetrics
+          ) {
+            accessibilitySuggestions.push(
+              fullAuditReport[arrayOfCategories[i][j]]
+            );
+            setAccessibilitySuggestionsState(accessibilitySuggestions);
+          } else if (
+            fullAuditReport[arrayOfCategories[i][j]] &&
+            arrayOfCategories[i] === seoMetrics
+          ) {
+            seoSuggestions.push(fullAuditReport[arrayOfCategories[i][j]]);
+            setSeoSuggestionsState(seoSuggestions);
+          } else if (
+            fullAuditReport[arrayOfCategories[i][j]] &&
+            arrayOfCategories[i] === bestpracticesMetrics
+          ) {
+            bestpracticesSuggestions.push(
+              fullAuditReport[arrayOfCategories[i][j]]
+            );
+            setBestPracticesSuggestionsState(bestpracticesSuggestions);
+          }
+        }
+      }
+    }
+    getSuggestions(
+      fullAuditReport,
+      performanceMetrics,
+      accessibilityMetrics,
+      seoMetrics,
+      bestpracticesMetrics
+    );
   };
+  console.log('performance state', performanceSuggestionsState);
+  console.log('accessibility state', accessibilitySuggestionsState);
+  console.log('seo state', seoSuggestionsState);
+  console.log('bestpractices state', bestpracticesSuggestionsState);
+
+  // console.log('performance outside', performanceSuggestions[0].description);
+
+  // function returnSuggestions() {
+  // setCategorySuggestions('performanceSuggestions');
+  // performanceSuggestions.map((metric) => {
+  //   return <div key={metric.id}>{metric.description}</div>;
+  // });
+  // }
 
   return (
     <>
@@ -57,7 +292,7 @@ export default function Monitor() {
       </Head>
       <div className={styles.mainContainer}>
         <div className={styles.header}>
-           <h3>App Performance Monitoring</h3>
+          <h3>App Performance Monitoring</h3>
         </div>
         <div className={styles.buttonsContainer}>
           {/* {BUTTONS.map((item, index) => 
@@ -80,31 +315,42 @@ export default function Monitor() {
           )} */}
           <div className={styles.webVitalBtns}>
             <section className={styles.vitals}>
-              {data ? 
-              <button className={styles.button} onClick={() => {setToggle(!toggle), setRendChart(!rendChart)}}>{data.performance}</button>
-              : <button className={styles.button}>-</button>
-              }
+              {data ? (
+                <button
+                  className={styles.button}
+                  onClick={() => {
+                    setToggle(!toggle), setRendChart(!rendChart);
+                  }}
+                >
+                  {data.performance}
+                </button>
+              ) : (
+                <button className={styles.button}>-</button>
+              )}
               <label>Performance</label>
             </section>
             <section className={styles.vitals}>
-            {data ? 
-              <button className={styles.button}>{data.seo}</button>
-              : <button className={styles.button}>-</button>
-              }
+              {data ? (
+                <button className={styles.button}>{data.seo}</button>
+              ) : (
+                <button className={styles.button}>-</button>
+              )}
               <label>SEO</label>
             </section>
             <section className={styles.vitals}>
-              {data ? 
-              <button className={styles.button}>{data.bestpractices}</button>
-              : <button className={styles.button}>-</button>
-              }
+              {data ? (
+                <button className={styles.button}>{data.bestpractices}</button>
+              ) : (
+                <button className={styles.button}>-</button>
+              )}
               <label>Best Practices</label>
             </section>
             <section className={styles.vitals}>
-              {data ? 
-              <button className={styles.button}>{data.accessibility}</button>
-              : <button className={styles.button}>-</button>
-              }
+              {data ? (
+                <button className={styles.button}>{data.accessibility}</button>
+              ) : (
+                <button className={styles.button}>-</button>
+              )}
               <label>Accessibility</label>
             </section>
           </div>
@@ -127,40 +373,58 @@ export default function Monitor() {
             </form>
           </div>
           <div className={styles.vitalsButtons}>
-            <button className={styles.button84} onClick={()=> {setVitals(false)}}>Web Core Vitals</button>
-            <button className={styles.button84} onClick={()=> setVitals(true)}>Next.js Vitals</button>
+            <button
+              className={styles.button84}
+              onClick={() => {
+                setVitals(false);
+              }}
+            >
+              Web Core Vitals
+            </button>
+            <button className={styles.button84} onClick={() => setVitals(true)}>
+              Next.js Vitals
+            </button>
           </div>
         </div>
         <div className={styles.chartContainer}>
-            {vitals && rendChart ? (
-              <NextJSVitals/>
-            ): rendChart && vitals === false ? ( 
-              //need to probably propdrill rendChart to Monitor chart
-              //and the button state
-              <MonitorChart
-                data={data}
-                date={date}
-              />
-            ): !data ? (
-              <EmptyChart isLoading={isLoading}/>
-            ): (
-              ''
-            )}
+          {vitals && rendChart ? (
+            <NextJSVitals />
+          ) : rendChart && vitals === false ? (
+            //need to probably propdrill rendChart to Monitor chart
+            //and the button state
+            <MonitorChart data={data} date={date} />
+          ) : !data ? (
+            <EmptyChart isLoading={isLoading} />
+          ) : (
+            ''
+          )}
 
-            {toggle ? (
-              <PerformanceChart
-                data={data}
-                date={date}
-                setIsLoading={setIsLoading}
-              />
-            ) : ''}
+          {toggle ? (
+            <PerformanceChart
+              data={data}
+              date={date}
+              setIsLoading={setIsLoading}
+            />
+          ) : (
+            ''
+          )}
         </div>
       </div>
-      <Link href="/">← Back to home</Link> 
+      <Link href="/">← Back to home</Link>
+      <div>
+        {performanceSuggestionsState ? (
+          performanceSuggestionsState.map((metricObj, index) => (
+            <div key={index}>{metricObj.description}</div>
+          ))
+        ) : (
+          <div>None</div>
+        )}
+        {/* {performanceSuggestionsState ? <div>yay</div> : <div>nay</div>} */}
+      </div>
     </>
   );
 
-//OLD monitor
+  //OLD monitor
   // return (
   //   <>
   //     <Head>
@@ -196,28 +460,28 @@ export default function Monitor() {
   //         <div className={styles.buttonsContainer}>
   //           <div className={styles.webVitalBtns}>
   //             <section className={styles.vitals}>
-  //               {data ? 
+  //               {data ?
   //               <button className={styles.button} >{data.performance}</button>
   //               : <button className={styles.button}>-</button>
   //               }
   //               <label>Performance</label>
   //             </section>
   //             <section className={styles.vitals}>
-  //             {data ? 
+  //             {data ?
   //               <button className={styles.button}>{data.seo}</button>
   //               : <button className={styles.button}>-</button>
   //               }
   //               <label>SEO</label>
   //             </section>
   //             <section className={styles.vitals}>
-  //               {data ? 
+  //               {data ?
   //               <button className={styles.button}>{data.bestpractices}</button>
   //               : <button className={styles.button}>-</button>
   //               }
   //               <label>Best Practices</label>
   //             </section>
   //             <section className={styles.vitals}>
-  //               {data ? 
+  //               {data ?
   //               <button className={styles.button}>{data.accessibility}</button>
   //               : <button className={styles.button}>-</button>
   //               }
