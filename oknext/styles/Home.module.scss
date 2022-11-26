@@ -1,7 +1,14 @@
 
 
-.mission {
+.header {
   text-align: center;
+  font-size: 56px;
+  padding: 80px 80px 30px 80px;
+  margin-bottom: 0;
+}
+
+.companyName {
+  color: #48cae4;
 }
 
 .body {
@@ -26,7 +33,11 @@
   .teamImages {
     object-fit: cover;
     border-radius: 50%;
-    border: 1px solid whitesmoke;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  }
+
+  .teamImages:hover {
+    transform: scale(1.05);
   }
 
   .memberName {
@@ -45,8 +56,12 @@
     border: 1px solid whitesmoke;
   }
 
-  .linkedin {
+  .github:hover {
+    transform: scale(1.15);
+  }
 
+  .linkedin:hover {
+    transform: scale(1.15);
   }
 }
 
