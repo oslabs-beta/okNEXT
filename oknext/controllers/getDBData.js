@@ -3,23 +3,20 @@ const db = require('../db/okNextModel');
 
 const getDBData = (handler) => {
   return async (req, res, data) => {
-    
     //expect frontend to send date, url, and username when making a request
-    const { username, date, url } = req.body;
+    const { email, date, url } = req.body;
     const endpoint = url.replace('http://localhost:3000/', '');
 
+    console.log(email, date, endpoint, 'this is data', data);
+
     //**STORING INFO IN DATABASE**/
-    //check if this user already exists in the database 
-    try {
-      const query = `SELECT username FROM users WHERE username = ${username}`
-      const currUser = await db.query(query);
-    } catch {
-      console.log('User does not exist');
-    }
-    
-    //select their user_id from users table
-    console.log('Hello from the DBData function!', data);
-    //store all web_vitals, date and user id in web_vitals table 
+    //SELECT user_id from users table
+    const query = `SELECT _id FROM users WHERE email = '${email}'`
+    const idData = await db.query(query);
+    const id = idData.rows[0]['_id']
+    console.log(id);
+
+    //INSERT all web_vitals, date and user id in web_vitals table 
     
     // console.log('data from DBData', data);
     return handler(req, res, data);
