@@ -11,8 +11,8 @@ export default function Team() {
           className={styles.teamImages}
           src="/vivian.png"
           alt="vivian"
-          width={220}
-          height={220}
+          width={180}
+          height={180}
         />
         <div className={styles.profile}>
           <Link href="https://github.com/vodekhir">
@@ -20,8 +20,8 @@ export default function Team() {
               className={styles.github}
               src="/githublogo.png"
               alt="github link"
-              width={42}
-              height={42}
+              width={38}
+              height={38}
             />
           </Link>
           <Link href="https://www.linkedin.com/in/vivian-odekhiran/">
@@ -29,8 +29,8 @@ export default function Team() {
               className={styles.linkedin}
               src="/linkedin.png"
               alt="linkedin link"
-              width={42}
-              height={42}
+              width={38}
+              height={38}
             />
           </Link>
         </div>
@@ -41,8 +41,8 @@ export default function Team() {
           className={styles.teamImages}
           src="/hua.png"
           alt="hua"
-          width={220}
-          height={220}
+          width={180}
+          height={180}
         />
 
         <div className={styles.profile}>
@@ -51,8 +51,8 @@ export default function Team() {
               className={styles.github}
               src="/githublogo.png"
               alt="github link"
-              width={42}
-              height={42}
+              width={38}
+              height={38}
             />
           </Link>
           <Link href="https://www.linkedin.com/in/hua-liu-123599117/">
@@ -60,8 +60,8 @@ export default function Team() {
               className={styles.linkedin}
               src="/linkedin.png"
               alt="linkedin link"
-              width={42}
-              height={42}
+              width={38}
+              height={38}
             />
           </Link>
         </div>
@@ -72,8 +72,8 @@ export default function Team() {
           className={styles.teamImages}
           src="/phoebe.jpg"
           alt="phoebe"
-          width={220}
-          height={220}
+          width={180}
+          height={180}
         />
         <div className={styles.profile}>
           <Link href="https://github.com/ermertP">
@@ -81,8 +81,8 @@ export default function Team() {
               className={styles.github}
               src="/githublogo.png"
               alt="github link"
-              width={42}
-              height={42}
+              width={38}
+              height={38}
             />
           </Link>
           <Link href="https://www.linkedin.com/in/phoebe-ermert/">
@@ -90,8 +90,8 @@ export default function Team() {
               className={styles.linkedin}
               src="/linkedin.png"
               alt="linkedin link"
-              width={42}
-              height={42}
+              width={38}
+              height={38}
             />
           </Link>
         </div>
@@ -102,8 +102,8 @@ export default function Team() {
           className={styles.teamImages}
           src="/lario.png"
           alt="lara"
-          width={220}
-          height={220}
+          width={180}
+          height={180}
         />
         <div className={styles.profile}>
           <Link href="https://github.com/labeesley">
@@ -111,8 +111,8 @@ export default function Team() {
               className={styles.github}
               src="/githublogo.png"
               alt="github link"
-              width={42}
-              height={42}
+              width={38}
+              height={38}
             />
           </Link>
           <Link href="https://www.linkedin.com/in/beesleylara/">
@@ -120,38 +120,8 @@ export default function Team() {
               className={styles.linkedin}
               src="/linkedin.png"
               alt="linkedin link"
-              width={42}
-              height={42}
-            />
-          </Link>
-        </div>
-      </div>
-      <div className={styles.teamMember}>
-        <div className={styles.memberName}>Goose</div>
-        <Image
-          className={styles.teamImages}
-          src="/goose.jpeg"
-          alt="goose"
-          width={220}
-          height={220}
-        />
-        <div className={styles.profile}>
-          <Link href="https://github.com/HuaJLiu17">
-            <Image
-              className={styles.github}
-              src="/githublogo.png"
-              alt="github link"
-              width={42}
-              height={42}
-            />
-          </Link>
-          <Link href="https://www.linkedin.com/in/huajliu17/">
-            <Image
-              className={styles.linkedin}
-              src="/linkedin.png"
-              alt="linkedin link"
-              width={42}
-              height={42}
+              width={38}
+              height={38}
             />
           </Link>
         </div>

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import styles from '../styles/Navbar.module.scss';
 import Image from 'next/image';
 import { UserContext, useUser } from '@auth0/nextjs-auth0';
+import Suggestions from './Suggestions';
 
 export default function Navbar() {
   const { user, error, isLoading } = useUser(); //user is the logged in user
@@ -20,7 +21,7 @@ export default function Navbar() {
         <Link href="/monitoring/monitor" className={styles.algoliaButton}>
           Monitoring
         </Link>
-        <Link href="/" className={styles.algoliaButton}>
+        <Link href="/docs/gettingstarted" className={styles.algoliaButton}>
           Docs
         </Link>
         <Link href="/" className={styles.algoliaButton}>
