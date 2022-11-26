@@ -55,9 +55,9 @@ const getLHData = (handler) => {
         seo: Math.floor(runnerResult.lhr.categories.seo.score * 100),
         bestpractices: Math.floor(runnerResult.lhr.categories['best-practices'].score * 100),
         nextJs: {
-          beforeHydrationDuration: runnerResult.lhr.audits['user-timings'].details.items[0]['duration'],
-          hydrationDuration: runnerResult.lhr.audits['user-timings'].details.items[1]['duration'],
-          beforeRenderStart: runnerResult.lhr.audits['user-timings'].details.items[2]['startTime']
+          beforeHydrationDuration: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[0]['duration']),
+          hydrationDuration: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[1]['duration']),
+          beforeRenderStart: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[2]['startTime'])
     
         }
       }
@@ -67,7 +67,7 @@ const getLHData = (handler) => {
 
     //storing data in a variable to be passed to the next function
     const data = vitalReport;
-    console.log('hello from getLHData function!', data);
+    // console.log('hello from getLHData function!', data);
     return handler(req, res, data);
   }
 }
