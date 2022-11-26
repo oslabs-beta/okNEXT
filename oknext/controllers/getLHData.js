@@ -6,6 +6,8 @@ const chromeLauncher = require('chrome-launcher');
 //this function utilizes closure to give the inner function access to the req and res objects from the handler function
 const getLHData = (handler) => {
   return async (req, res) => {
+    // think about adding logic that only allows this to run if the username is defined, meaning the user is logged in
+
       const { url } = req.body;
       console.log('this is request body', req.body);
 
@@ -65,7 +67,7 @@ const getLHData = (handler) => {
 
     //storing data in a variable to be passed to the next function
     const data = vitalReport;
-    console.log('hello from getLHData function!');
+    console.log('hello from getLHData function!', data);
     return handler(req, res, data);
   }
 }

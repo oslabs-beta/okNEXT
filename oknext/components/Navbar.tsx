@@ -2,11 +2,33 @@ import Link from 'next/link';
 import styles from '../styles/Navbar.module.scss';
 import Image from 'next/image';
 import { UserContext, useUser } from '@auth0/nextjs-auth0';
+import {useState, useEffect} from 'react';
 
 export default function Navbar() {
   const { user, error, isLoading } = useUser(); //user is the logged in user
   // console.log(user.picture);
-  console.log(user);
+  console.log('this is user', user);
+
+function checkUser() {
+  if (user === undefined) {
+    console.log('Please login thank you');
+    return;
+  }
+    fetch('/api/createUser', {
+      method: 'POST',
+      body: JSON.stringify({ email: user.email }),
+      headers: {
+        'Content-Type': 'application/json',
+    }
+  })
+  .then((response) => response.json())
+  .then((data) =>{
+    console.log('data from database', data)
+  })
+  .catch((error) =>{
+    console.error('PostError', error)
+  })
+}
 
   return (
     <div className={styles.navFlex}>
@@ -17,7 +39,7 @@ export default function Navbar() {
       </Link>
 
       <div className={styles.rightNav}>
-        <Link href="/monitoring/monitor" className={styles.algoliaButton}>
+        <Link onClick={checkUser} href="/monitoring/monitor" className={styles.algoliaButton}>
           Monitoring
         </Link>
         <Link href="/" className={styles.algoliaButton}>
