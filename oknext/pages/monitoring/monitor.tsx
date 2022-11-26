@@ -19,6 +19,8 @@ export default function Monitor() {
   const [date, setDate] = useState(undefined);
   const [toggle, setToggle] = useState(false);
   const [vitals, setVitals] = useState(false);
+  //for nextjs comp
+  const [chart, setChart] = useState(false);
 
   //fetch data from Lighthouse
   const fetchVitals = async (e: any) => {
@@ -38,7 +40,7 @@ export default function Monitor() {
     const vitalData = await response.json();
     setData(vitalData);
 
-    // console.log('response jsonified', vitalData);
+    console.log('response jsonified', vitalData);
     const timestamp = Date.now();
     const humanReadableDateTime = new Date(timestamp).toLocaleString();
     setDate(humanReadableDateTime);
@@ -128,12 +130,12 @@ export default function Monitor() {
           </div>
           <div className={styles.vitalsButtons}>
             <button className={styles.button84} onClick={()=> {setVitals(false)}}>Web Core Vitals</button>
-            <button className={styles.button84} onClick={()=> setVitals(true)}>Next.js Vitals</button>
+            <button className={styles.button84} onClick={()=> {setVitals(true), setChart(true)}}>Next.js Vitals</button>
           </div>
         </div>
         <div className={styles.chartContainer}>
             {vitals && rendChart ? (
-              <NextJSVitals/>
+              <NextJSVitals data={data} chart={chart} setChart={setChart}/>
             ): rendChart && vitals === false ? ( 
               //need to probably propdrill rendChart to Monitor chart
               //and the button state
@@ -266,4 +268,4 @@ export default function Monitor() {
   //     <Link href="/">← Back to home</Link>
   //   </>
   // );
-}
+ }
