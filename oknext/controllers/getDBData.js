@@ -31,7 +31,7 @@ const getDBData = (handler) => {
     
 
     //SELECT for all vitals associated with the passed in user_id
-    query = `SELECT * FROM web_vitals WHERE user_id = ${id} ORDER BY _id DESC LIMIT 5`
+    query = `SELECT * FROM web_vitals WHERE user_id = ${id} ORDER BY _id DESC LIMIT 6`
     try {
       const userData = await db.query(query);
       console.log(userData.rows);
