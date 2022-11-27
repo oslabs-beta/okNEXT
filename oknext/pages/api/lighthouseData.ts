@@ -52,7 +52,6 @@ async function fetchdata (req:any, res:any){
       beforeHydrationDuration: runnerResult.lhr.audits['user-timings'].details.items[0]['duration'],
       hydrationDuration: runnerResult.lhr.audits['user-timings'].details.items[1]['duration'],
       beforeRenderStart: runnerResult.lhr.audits['user-timings'].details.items[2]['startTime']
-
     }
   }
 

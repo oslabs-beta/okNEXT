@@ -11,15 +11,14 @@ export default function PerformanceChart (props: any) {
   // const date = props.date ? props.date : null;
 
   const data = [
-    // { name: '2017', Performance: 0, Accessibility: 0, SEO: 0, BestPractices: 0},
     {
       name: date,
-      FCP: `${fcp.numericValue}`,
-      SI: `${speed.numericValue}`,
-      LCP: `${lcp.numericValue}`,
-      TTI: `${tti.numericValue}`,
-      TBT: `${tbt.numericValue}`,
-      CLS: `${cls.numericValue}`
+      FCP: `${fcp.numericValue}`, //ms change it to s
+      SI: `${speed.numericValue}`, //ms change it to s
+      LCP: `${lcp.numericValue}`, //ms change it to s
+      TTI: `${tti.numericValue}`, //ms (can change to s i think)
+      TBT: `${tbt.numericValue}`, //ms change it to s
+      CLS: `${cls.numericValue}` //no units
     },
   ];
 

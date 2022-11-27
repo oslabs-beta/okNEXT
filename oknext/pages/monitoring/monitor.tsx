@@ -19,9 +19,23 @@ export default function Monitor() {
   const [date, setDate] = useState(undefined);
   const [toggle, setToggle] = useState(false);
   const [vitals, setVitals] = useState(false);
+  const [performance, setPerformance] = useState(false);
   //for nextjs comp
   const [chart, setChart] = useState(false);
+  //for monitor chart comp
+  const [webChart, setWebChart] = useState(false);
 
+  const blue = '#2196F3';
+  const red = '#F44236';
+  const yellow = '#FFCA29';
+  const purple = '#6d30bb';
+
+  //individual lines to populate the graph
+  const [color, setColor] = useState(blue);
+  // const [activeIndex, setActive] = useState(0);
+  const [type, setType] = useState('Performance');
+
+  
   //fetch data from Lighthouse
   const fetchVitals = async (e: any) => {
     e.preventDefault();
@@ -48,6 +62,7 @@ export default function Monitor() {
     setUrl('');
     setIsLoading(false);
     setRendChart(true);
+    setWebChart(true);
     setVitals(false);
     //add error handling
   };
@@ -62,7 +77,7 @@ export default function Monitor() {
            <h3>App Performance Monitoring</h3>
         </div>
         <div className={styles.buttonsContainer}>
-          {/* {BUTTONS.map((item, index) => 
+          {/* {buttons.map((item, index) => 
             <div className={styles.webVitalBtns} key={index} >
               {data ? (
                 <>
@@ -83,28 +98,28 @@ export default function Monitor() {
           <div className={styles.webVitalBtns}>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} onClick={() => {setToggle(!toggle), setRendChart(!rendChart)}}>{data.performance}</button>
+              <button className={styles.button} style={{ color: blue === color ? color : "#000" }} onClick={() => {setType('Performance'), setColor(blue), setWebChart(false), setPerformance(true), setVitals(false)}}>{data.performance}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Performance</label>
             </section>
             <section className={styles.vitals}>
             {data ? 
-              <button className={styles.button}>{data.seo}</button>
+              <button className={styles.button} style={{ color: red === color ? color : "#000" }} onClick={() => {setType('SEO'), setColor(red), setWebChart(false), setVitals(false)}}>{data.seo}</button>
               : <button className={styles.button}>-</button>
               }
               <label>SEO</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button}>{data.bestpractices}</button>
+              <button className={styles.button} style={{ color: purple === color ? color : "#000" }} onClick={() => {setType('BestPractices'), setColor(purple), setWebChart(false), setVitals(false)}}>{data.bestpractices}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Best Practices</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button}>{data.accessibility}</button>
+              <button className={styles.button} style={{ color: yellow === color ? color : "#000" }} onClick={() => {setType('Accessibility'), setColor(yellow), setWebChart(false), setVitals(false)}}>{data.accessibility}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Accessibility</label>
@@ -129,7 +144,7 @@ export default function Monitor() {
             </form>
           </div>
           <div className={styles.vitalsButtons}>
-            <button className={styles.button84} onClick={()=> {setVitals(false)}}>Web Core Vitals</button>
+            <button className={styles.button84} onClick={()=> {setVitals(false), setWebChart(true)}}>Web Core Vitals</button>
             <button className={styles.button84} onClick={()=> {setVitals(true), setChart(true)}}>Next.js Vitals</button>
           </div>
         </div>
@@ -142,6 +157,10 @@ export default function Monitor() {
               <MonitorChart
                 data={data}
                 date={date}
+                webChart={webChart}
+                setWebChart={setWebChart}
+                type={type}
+                color={color}
               />
             ): !data ? (
               <EmptyChart isLoading={isLoading}/>
@@ -149,123 +168,18 @@ export default function Monitor() {
               ''
             )}
 
-            {toggle ? (
-              <PerformanceChart
-                data={data}
-                date={date}
-                setIsLoading={setIsLoading}
-              />
-            ) : ''}
+            {/* {type === 'Performance' ? (
+              <button>Click ME</button>
+            ) : 
+            <PerformanceChart
+            data={data}
+            date={date}
+            setIsLoading={setIsLoading}
+            />
+            } */}
         </div>
       </div>
       <Link href="/">← Back to home</Link> 
     </>
   );
-
-//OLD monitor
-  // return (
-  //   <>
-  //     <Head>
-  //       <title>Performance Monitoring</title>
-  //     </Head>
-  //     <div className={styles.mainContainer}>
-  //       <div className={styles.header}>
-  //         <h3>App Performance Monitoring</h3>
-  //       </div>
-  //       <div className={styles.formContainer}>
-  //         <div className={styles.form}>
-  //           <form>
-  //             <label>
-  //               Enter an endpoint:
-  //               <input
-  //                 value={url}
-  //                 type="url"
-  //                 placeholder="/"
-  //                 onChange={(e) => setUrl(e.target.value)}
-  //               />
-  //             </label>
-  //             <button className={styles.button84} onClick={fetchVitals}>
-  //               Get Report
-  //             </button>
-  //           </form>
-  //         </div>
-  //         <div className={styles.vitalsButtons}>
-  //           <button className={styles.button84} onClick={()=> setVitals(false)}>Web Core Vitals</button>
-  //           <button className={styles.button84} onClick={()=> setVitals(true)}>Next.js Vitals</button>
-  //         </div>
-  //       </div>
-  //       <div className={styles.chartContainer}>
-  //         <div className={styles.buttonsContainer}>
-  //           <div className={styles.webVitalBtns}>
-  //             <section className={styles.vitals}>
-  //               {data ? 
-  //               <button className={styles.button} >{data.performance}</button>
-  //               : <button className={styles.button}>-</button>
-  //               }
-  //               <label>Performance</label>
-  //             </section>
-  //             <section className={styles.vitals}>
-  //             {data ? 
-  //               <button className={styles.button}>{data.seo}</button>
-  //               : <button className={styles.button}>-</button>
-  //               }
-  //               <label>SEO</label>
-  //             </section>
-  //             <section className={styles.vitals}>
-  //               {data ? 
-  //               <button className={styles.button}>{data.bestpractices}</button>
-  //               : <button className={styles.button}>-</button>
-  //               }
-  //               <label>Best Practices</label>
-  //             </section>
-  //             <section className={styles.vitals}>
-  //               {data ? 
-  //               <button className={styles.button}>{data.accessibility}</button>
-  //               : <button className={styles.button}>-</button>
-  //               }
-  //               <label>Accessibility</label>
-  //             </section>
-  //           </div>
-  //           {/* Next.js vital measurements */}
-  //           {/* maybe make a separate component? *stretch */}
-  //           {/* <div>
-  //           <button>hydration</button>
-  //           <button>route-change-to-render</button>
-  //           <button>render</button>
-  //         </div> */}
-  //         </div>
-  //         <div className={styles.chart}>
-  //           {/* {!rendChart && isLoading ? (
-  //             <LoadingSpinner />
-  //           ) : // <EmptyChart />
-  //           !isLoading && rendChart ? (
-  //             <MonitorChart data={data} date={date} />
-  //           ) : (
-  //             <EmptyChart />
-  //           )} */}
-  //           {rendChart && toggle === false ? (
-  //             <MonitorChart
-  //               data={data}
-  //               date={date}
-  //               setIsLoading={setIsLoading}
-  //             />
-  //           ) : toggle === false ? (
-  //             <EmptyChart isLoading={isLoading} />
-  //           ) : (
-  //             ''
-  //           )}
-
-  //           {toggle ? (
-  //             <PerformanceChart
-  //               data={data}
-  //               date={date}
-  //               setIsLoading={setIsLoading}
-  //             />
-  //           ) : ''}
-  //         </div>
-  //       </div>
-  //     </div>
-  //     <Link href="/">← Back to home</Link>
-  //   </>
-  // );
  }
