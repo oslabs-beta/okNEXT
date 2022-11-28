@@ -12,13 +12,13 @@ const getLHData = (handler) => {
       console.log('this is request body', req.body);
 
       // **UNCOMMENT FOR IOS**
-      // const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
+      const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
     
       // **UNCOMMENT FOR UBUNTU/WSL**
-        const chrome = await chromeLauncher.launch({
-          chromePath: process.env.CHROME_PATH,
-          chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu']
-        });
+        // const chrome = await chromeLauncher.launch({
+        //   chromePath: process.env.CHROME_PATH,
+        //   chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu']
+        // });
     
       //options: choosing what categories needed for application
       const options = {logLevel: 'info', output: 'json', onlyCategories: ['performance', 'accessibility', 'seo', 'best-practices'], port: chrome.port};
