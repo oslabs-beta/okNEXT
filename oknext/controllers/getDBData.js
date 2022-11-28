@@ -6,6 +6,7 @@ const getDBData = (handler) => {
     //expect frontend to send date, url, and username when making a request
     const { email, date, url } = req.body;
     const endpoint = url.replace('http://localhost:3000/', '');
+    let finalData;
 
 
     //**STORING INFO IN DATABASE**/
@@ -30,18 +31,19 @@ const getDBData = (handler) => {
     //INSERT ALL next_js vitals and date into table 
     
 
-    //SELECT for all vitals associated with the passed in user_id
+    //SELECT for all web vitals associated with the passed in user_id
     query = `SELECT * FROM web_vitals WHERE user_id = ${id} ORDER BY _id DESC LIMIT 6`
     try {
       const userData = await db.query(query);
       console.log(userData.rows);
-      data = userData.rows;
+      finalData = [userData.rows, data.fullAuditReport];
     } catch(error) {
       console.log('Error here:', error);
     }
-      // console.log('user data here!', userData);
-      
-    return handler(req, res, data);
+
+    //SELECT for all next.js vitals associated with the passed in user_id
+
+    return handler(req, res, finalData);
   }
 }
 

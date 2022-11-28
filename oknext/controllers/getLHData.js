@@ -54,12 +54,12 @@ const getLHData = (handler) => {
         accessibility: Math.floor(runnerResult.lhr.categories.accessibility.score * 100),
         seo: Math.floor(runnerResult.lhr.categories.seo.score * 100),
         bestpractices: Math.floor(runnerResult.lhr.categories['best-practices'].score * 100),
+        fullAuditReport: runnerResult.lhr.audits,
         nextJs: {
           beforeHydrationDuration: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[0]['duration']),
           hydrationDuration: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[1]['duration']),
           beforeRenderStart: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[2]['startTime'])
-    
-        }
+        },
       }
         
       //closes chrome instance that was started by chromeLauncher
@@ -67,6 +67,7 @@ const getLHData = (handler) => {
 
     //storing data in a variable to be passed to the next function
     const data = vitalReport;
+    console.log('hua\'s stuff', runnerResult.lhr.audits);
     // console.log('hello from getLHData function!', data);
     return handler(req, res, data);
   }

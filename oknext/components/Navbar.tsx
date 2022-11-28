@@ -11,7 +11,7 @@ export default function Navbar() {
 
 function checkUser() {
   if (user === undefined) {
-    console.log('Please login thank you');
+    console.log('User is not signed in! Please sign in!')
     return;
   }
     fetch('/api/createUser', {
