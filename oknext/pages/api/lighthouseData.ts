@@ -4,36 +4,53 @@ const chromeLauncher = require('chrome-launcher');
 
 //for ios users
 async function fetchdata (req:any, res:any){
-  const { url } = req.body;
-  console.log('this is request body', req.body);
-  // const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
+  console.log(req.body);
+  return res.json('hello! it\'s just me fetchdata');
+  
+  // const { url } = req.body;
+  // console.log('this is request body', req.body);
+  // // const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
 
-  //chromeLauncher: lh runs on chrome, need chromeLauncher to launch lh report
-  //more info: https://www.npmjs.com/package/chrome-launcher
-  //for ubuntu users:
-    const chrome = await chromeLauncher.launch({
-      chromePath: process.env.CHROME_PATH,
-      chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu']
-    });
+  // //chromeLauncher: lh runs on chrome, need chromeLauncher to launch lh report
+  // //more info: https://www.npmjs.com/package/chrome-launcher
+  // //for ubuntu users:
+  //   const chrome = await chromeLauncher.launch({
+  //     chromePath: process.env.CHROME_PATH,
+  //     chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu']
+  //   });
 
-  //options: choosing what categories needed for application
-  const options = {logLevel: 'info', output: 'json', onlyCategories: ['performance', 'accessibility', 'seo', 'best-practices'], port: chrome.port};
-  //only want desktop report
-  const configObj = {
-    extends: 'lighthouse:default',
-    settings: {
-      screenEmulation: {mobile: false, disabled: false},
-      formFactor: 'desktop'
+  // //options: choosing what categories needed for application
+  // const options = {logLevel: 'info', output: 'json', onlyCategories: ['performance', 'accessibility', 'seo', 'best-practices'], port: chrome.port};
+  // //only want desktop report
+  // const configObj = {
+  //   extends: 'lighthouse:default',
+  //   settings: {
+  //     screenEmulation: {mobile: false, disabled: false},
+  //     formFactor: 'desktop'
+  //   },
+  // }
+
+  // //runs lighthouse report
+  // const runnerResult = await lighthouse(url, options, configObj);
+  // console.log('next.js metrics', runnerResult.lhr.audits['user-timings'].details.items)
+
+  // // `.report` is the HTML report as a json object
+  // const reportJson = runnerResult.report;
+  // fs.writeFileSync('lhreport.json', reportJson);
+
     },
+    fullAuditReport: runnerResult.lhr.audits
   }
 
-  //runs lighthouse report
-  const runnerResult = await lighthouse(url, options, configObj);
-  console.log('next.js metrics', runnerResult.lhr.audits['user-timings'].details.items)
+  // ----------------------------------------------------------------------------
+// Below, auditReport and getId is used to find the names of all the metrics for performance, seo, accessibility, and bestpractices categories. 
 
-  // `.report` is the HTML report as a json object
-  const reportJson = runnerResult.report;
-  fs.writeFileSync('lhreport.json', reportJson);
+//   const auditReport = {
+//     performance: runnerResult.lhr.categories.performance.auditRefs,
+//     accessibility: runnerResult.lhr.categories.accessibility.auditRefs,
+//     seo: runnerResult.lhr.categories.seo.auditRefs,
+//     bestpractices: runnerResult.lhr.categories['best-practices'].auditRefs
+//   }
 
   // `.lhr` is the Lighthouse Result as a JS object
   console.log("hello from the void");
