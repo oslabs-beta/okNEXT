@@ -38,32 +38,54 @@ async function fetchdata (req:any, res:any){
   // const reportJson = runnerResult.report;
   // fs.writeFileSync('lhreport.json', reportJson);
 
-  // // `.lhr` is the Lighthouse Result as a JS object
-  // console.log("hello from the void");
-  // const vitalReport = {
-  //   performance: Math.floor(runnerResult.lhr.categories.performance.score * 100),
-  //   performanceScores: {
-  //     fcp: runnerResult.lhr.audits['first-contentful-paint'],
-  //     lcp: runnerResult.lhr.audits['largest-contentful-paint'],
-  //     speed: runnerResult.lhr.audits['speed-index'],
-  //     cls: runnerResult.lhr.audits['cumulative-layout-shift'],
-  //     tti: runnerResult.lhr.audits['interactive'],
-  //     tbt: runnerResult.lhr.audits['total-blocking-time']
-  //   },
-  //   accessibility: Math.floor(runnerResult.lhr.categories.accessibility.score * 100),
-  //   seo: Math.floor(runnerResult.lhr.categories.seo.score * 100),
-  //   bestpractices: Math.floor(runnerResult.lhr.categories['best-practices'].score * 100),
-  //   nextJs: {
-  //     beforeHydrationDuration: runnerResult.lhr.audits['user-timings'].details.items[0]['duration'],
-  //     hydrationDuration: runnerResult.lhr.audits['user-timings'].details.items[1]['duration'],
-  //     beforeRenderStart: runnerResult.lhr.audits['user-timings'].details.items[2]['startTime']
+    },
+    fullAuditReport: runnerResult.lhr.audits
+  }
 
-  //   }
-  // }
-  // res.json(vitalReport);
+  // ----------------------------------------------------------------------------
+// Below, auditReport and getId is used to find the names of all the metrics for performance, seo, accessibility, and bestpractices categories. 
 
-  // //closes chrome instance that was started by chromeLauncher
-  // await chrome.kill();
+//   const auditReport = {
+//     performance: runnerResult.lhr.categories.performance.auditRefs,
+//     accessibility: runnerResult.lhr.categories.accessibility.auditRefs,
+//     seo: runnerResult.lhr.categories.seo.auditRefs,
+//     bestpractices: runnerResult.lhr.categories['best-practices'].auditRefs
+//   }
+
+// function getId (auditReport: any) {
+//   let performanceMetrics = [];
+//   let accessibilityMetrics = [];
+//   let seoMetrics = [];
+//   let bestpracticesMetrics = [];
+//   for(let cat in auditReport) {
+//     if(cat === "performance") {
+//       auditReport["performance"].forEach(obj => {
+//         performanceMetrics.push(obj["id"])
+//       })
+//     } else if (cat === "accessibility") {
+//       auditReport["accessibility"].forEach(obj => {
+//         accessibilityMetrics.push(obj["id"])
+//       })
+//     } else if (cat === "seo") {
+//       auditReport["seo"].forEach(obj => {
+//         seoMetrics.push(obj["id"])
+//       })
+//     } else if (cat === "bestpractices") {
+//       auditReport["bestpractices"].forEach(obj => {
+//         bestpracticesMetrics.push(obj["id"])
+//       })
+//     }
+    
+//   }
+//   return [performanceMetrics, accessibilityMetrics, seoMetrics, bestpracticesMetrics];
+// }
+
+// console.log(getId(auditReport))
+
+  res.json(vitalReport);
+
+  //closes chrome instance that was started by chromeLauncher
+  await chrome.kill();
 };
 
 export default fetchdata;
