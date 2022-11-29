@@ -1,6 +1,6 @@
 import styles from '../styles/Suggestions.module.scss';
 import React, { useState, useEffect } from 'react';
-import lhr from '../lhreport.json';
+
 
 export default function Suggestions(props: any) {
   // const fetchReport = async (e: any) => {

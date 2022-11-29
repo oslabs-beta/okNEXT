@@ -307,119 +307,14 @@ export default function Monitor() {
       <Head>
         <title>Performance Monitoring</title>
       </Head>
-      <div className={styles.mainContainer}>
-        <div className={styles.header}>
-          <h3>App Performance Monitoring</h3>
-        </div>
-        <div className={styles.buttonsContainer}>
-          {/* {buttons.map((item, index) => 
-            <div className={styles.webVitalBtns} key={index} >
-              {data ? (
-                <>
-                <button className={styles.button} style={{ color: item.color === color ? color : "#000" }} onClick={() => {setType(item.name), setActive(index),
-                setColor(item.color), setChart(false)}}>
-                  {item.value}
-                </button>
-                <label>{item.name}</label>
-                </>
-              ) : (
-                <>
-                <button className={styles.button}>-</button>
-                <label>{item.name}</label>
-                </>
-              )}
-            </div>
-          )} */}
-          <div className={styles.webVitalBtns}>
-            <section className={styles.vitals}>
-              {data ? (
-                <>
-                  <button
-                    className={styles.buttonPerformance}
-                    onClick={() => {
-                      setType('Performance'),
-                        setColor(blue),
-                        setWebChart(false),
-                        setPerformance(true),
-                        setVitals(false);
-                    }}
-                  >
-                    {data.performance}
-                  </button>
-                  <label>Performance</label>
-                </>
-              ) : (
-                <button className={styles.buttonPerformance}>-</button>
-              )}
-            </section>
-            <section className={styles.vitals}>
-              {data ? (
-                <>
-                  <button
-                    className={styles.buttonSEO}
-                    onClick={() => {
-                      setType('SEO'),
-                        setColor(red),
-                        setWebChart(false),
-                        setVitals(false);
-                    }}
-                  >
-                    {data.seo}
-                  </button>
-                  <label>SEO</label>
-                </>
-              ) : (
-                <button className={styles.buttonSEO}>-</button>
-              )}
-            </section>
-            <section className={styles.vitals}>
-              {data ? (
-                <>
-                  <button
-                    className={styles.buttonBestPractices}
-                    onClick={() => {
-                      setType('BestPractices'),
-                        setColor(purple),
-                        setWebChart(false),
-                        setVitals(false);
-                    }}
-                  >
-                    {data.bestpractices}
-                  </button>
-                  <label>Best Practices</label>
-                </>
-              ) : (
-                <button className={styles.buttonBestPractices}>-</button>
-              )}
-            </section>
-            <section className={styles.vitals}>
-              {data ? (
-                <>
-                  <button
-                    className={styles.buttonAccessibility}
-                    onClick={() => {
-                      setType('Accessibility'),
-                        setColor(yellow),
-                        setWebChart(false),
-                        setVitals(false);
-                    }}
-                  >
-                    {data.accessibility}
-                  </button>
-                  <label>Accessibility</label>
-                </>
-              ) : (
-                <button className={styles.buttonAccessibility}>-</button>
-              )}
-            </section>
-          </div>
-        </div>
+      <div className={styles.sidebar}>
         <div className={styles.formContainer}>
           <div className={styles.form}>
             <form>
               <label>
                 Enter an endpoint:
                 <input
+                  className={styles.urlInputBox}
                   value={url}
                   type="url"
                   placeholder="/"
@@ -431,6 +326,7 @@ export default function Monitor() {
               </button>
             </form>
           </div>
+
           <div className={styles.vitalsButtons}>
             <button
               className={styles.button84}
@@ -449,28 +345,145 @@ export default function Monitor() {
               Next.js Vitals
             </button>
           </div>
+          <div className={styles.form}>Endpoints:</div>
+          <div className={styles.endpoints}>
+            <div>localhost:3000/</div>
+            <div>localhost:3000/monitoring/monitor</div>
+            <div>localhost:3000/docs/gettingstarted</div>
+            <div>https://oknext-one.vercel.app/</div>
+            <div>https://oknext-oslabs.vercel.app/</div>
+          </div>
         </div>
-        <div className={styles.chartContainer}>
-          {vitals && rendChart ? (
-            <NextJSVitals data={data} chart={chart} setChart={setChart} />
-          ) : rendChart && vitals === false ? (
-            //need to probably propdrill rendChart to Monitor chart
-            //and the button state
-            <MonitorChart
-              data={data}
-              date={date}
-              webChart={webChart}
-              setWebChart={setWebChart}
-              type={type}
-              color={color}
-            />
-          ) : !data ? (
-            <EmptyChart isLoading={isLoading} />
-          ) : (
-            ''
-          )}
 
-          {/* {type === 'Performance' ? (
+        <div className={styles.mainContainer}>
+          <div className={styles.header}>
+            <h3>App Performance Monitoring</h3>
+          </div>
+          <div className={styles.buttonsContainer}>
+            {/* {buttons.map((item, index) => 
+            <div className={styles.webVitalBtns} key={index} >
+              {data ? (
+                <>
+                <button className={styles.button} style={{ color: item.color === color ? color : "#000" }} onClick={() => {setType(item.name), setActive(index),
+                setColor(item.color), setChart(false)}}>
+                  {item.value}
+                </button>
+                <label>{item.name}</label>
+                </>
+              ) : (
+                <>
+                <button className={styles.button}>-</button>
+                <label>{item.name}</label>
+                </>
+              )}
+            </div>
+          )} */}
+            <div className={styles.webVitalBtns}>
+              <section className={styles.vitals}>
+                {data ? (
+                  <>
+                    <button
+                      className={styles.buttonPerformance}
+                      onClick={() => {
+                        setType('Performance'),
+                          setColor(blue),
+                          setWebChart(false),
+                          setPerformance(true),
+                          setVitals(false);
+                      }}
+                    >
+                      {data.performance}
+                    </button>
+                    <label>Performance</label>
+                  </>
+                ) : (
+                  <button className={styles.buttonPerformance}>-</button>
+                )}
+              </section>
+              <section className={styles.vitals}>
+                {data ? (
+                  <>
+                    <button
+                      className={styles.buttonSEO}
+                      onClick={() => {
+                        setType('SEO'),
+                          setColor(red),
+                          setWebChart(false),
+                          setVitals(false);
+                      }}
+                    >
+                      {data.seo}
+                    </button>
+                    <label>SEO</label>
+                  </>
+                ) : (
+                  <button className={styles.buttonSEO}>-</button>
+                )}
+              </section>
+              <section className={styles.vitals}>
+                {data ? (
+                  <>
+                    <button
+                      className={styles.buttonBestPractices}
+                      onClick={() => {
+                        setType('BestPractices'),
+                          setColor(purple),
+                          setWebChart(false),
+                          setVitals(false);
+                      }}
+                    >
+                      {data.bestpractices}
+                    </button>
+                    <label>Best Practices</label>
+                  </>
+                ) : (
+                  <button className={styles.buttonBestPractices}>-</button>
+                )}
+              </section>
+              <section className={styles.vitals}>
+                {data ? (
+                  <>
+                    <button
+                      className={styles.buttonAccessibility}
+                      onClick={() => {
+                        setType('Accessibility'),
+                          setColor(yellow),
+                          setWebChart(false),
+                          setVitals(false);
+                      }}
+                    >
+                      {data.accessibility}
+                    </button>
+                    <label>Accessibility</label>
+                  </>
+                ) : (
+                  <button className={styles.buttonAccessibility}>-</button>
+                )}
+              </section>
+            </div>
+          </div>
+
+          <div className={styles.chartContainer}>
+            {vitals && rendChart ? (
+              <NextJSVitals data={data} chart={chart} setChart={setChart} />
+            ) : rendChart && vitals === false ? (
+              //need to probably propdrill rendChart to Monitor chart
+              //and the button state
+              <MonitorChart
+                data={data}
+                date={date}
+                webChart={webChart}
+                setWebChart={setWebChart}
+                type={type}
+                color={color}
+              />
+            ) : !data ? (
+              <EmptyChart isLoading={isLoading} />
+            ) : (
+              ''
+            )}
+
+            {/* {type === 'Performance' ? (
               <button>Click ME</button>
             ) : 
             <PerformanceChart
@@ -479,19 +492,19 @@ export default function Monitor() {
             setIsLoading={setIsLoading}
             />
             } */}
+          </div>
+          <div className={suggestionStyles.container}>
+            {performanceSuggestionsState ? (
+              performanceSuggestionsState.map((metricObj, index) => (
+                <div className={suggestionStyles.description} key={index}>
+                  {metricObj.description}
+                </div>
+              ))
+            ) : (
+              <div>None</div>
+            )}
+          </div>
         </div>
-      </div>
-      <Link href="/">← Back to home</Link>
-      <div className={suggestionStyles.container}>
-        {performanceSuggestionsState ? (
-          performanceSuggestionsState.map((metricObj, index) => (
-            <div className={suggestionStyles.description} key={index}>
-              {metricObj.description}
-            </div>
-          ))
-        ) : (
-          <div className={suggestionStyles.container}>None</div>
-        )}
       </div>
     </>
   );

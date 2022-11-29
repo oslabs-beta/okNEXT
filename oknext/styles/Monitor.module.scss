@@ -1,41 +1,62 @@
+.sidebar {
+  display: flex;
+  gap: 100px;
+  
+}
+
 .mainContainer {
-  display: grid;
-  grid-template-rows: .5fr .5fr 3fr;
-  grid-template-columns: 1fr 3fr;
-  grid-template-areas: 
-    "header header"
-    "formContainer buttons"
-    "formContainer chartContainer";
-  // grid-gap: 10px;
-  // align-items: center;
-  // text-align: center;
+  // display: grid;
+  // grid-template-rows: .5fr .5fr 3fr;
+  // grid-template-columns: 1fr 3fr;
+  // grid-template-areas: 
+  //   "header header"
+  //   "formContainer buttons"
+  //   "formContainer chartContainer";
+  // // grid-gap: 10px;
+  // // align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
   grid-area: header;
 }
 
-.formContainer {
-  grid-area: formContainer;
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: 1fr 2fr 1fr;
-  grid-template-areas: 
-    "form"
-    "vitalsButtons";
-  // align-items: center;
-  text-align: center;
-  // border-right: solid;
+.form {
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.form {
-  grid-area: form;
-  margin: auto;
+.urlInputBox {
+  padding: 10px 30px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(99, 99, 99, 0.2) 2px 0px 0px 0px;
+  width: 230px;
+  padding: 30px 30px 0 0;
+  margin: 0;
+  gap: 20px;
+  overflow: hidden;
 }
 
 .vitalsButtons {
-  grid-area: vitalsButtons;
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.endpoints {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #2096F3;
 }
 
 .chartContainer {
@@ -85,7 +106,8 @@
   border-radius: 50%;
   border: transparent;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  padding: 30px;
+  height: 80px;
+  width: 80px;
   margin: 10px;
   font-size: 18px;
 
@@ -101,7 +123,8 @@
   border-radius: 50%;
   border: transparent;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  padding: 30px;
+  height: 80px;
+  width: 80px;
   margin: 10px;
   font-size: 18px;
 
@@ -117,7 +140,8 @@
   border-radius: 50%;
   border: transparent;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  padding: 30px;
+  height: 80px;
+  width: 80px;
   margin: 10px;
   font-size: 18px;
 
@@ -133,7 +157,8 @@
   border-radius: 50%;
   border: transparent;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  padding: 30px;
+  height: 80px;
+  width: 80px;
   margin: 10px;
   font-size: 18px;
 
@@ -156,8 +181,9 @@
   display: inline-flex;
   flex-direction: column;
   font-family: expo-brand-demi,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-  font-size: 12px;
-  height: 30px;
+  font-size: 15px;
+  height: 35px;
+  width: 165px;
   justify-content: center;
   line-height: 1;
   margin: 0;
