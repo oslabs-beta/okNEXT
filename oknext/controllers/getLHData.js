@@ -55,11 +55,19 @@ const getLHData = (handler) => {
         seo: Math.floor(runnerResult.lhr.categories.seo.score * 100),
         bestpractices: Math.floor(runnerResult.lhr.categories['best-practices'].score * 100),
         fullAuditReport: runnerResult.lhr.audits,
-        nextJs: {
-          beforeHydrationDuration: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[0]['duration']),
-          hydrationDuration: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[1]['duration']),
-          beforeRenderStart: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[2]['startTime'])
-        },
+        // nextJs: {
+        //   beforeHydrationDuration: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[0]['duration']),
+        //   hydrationDuration: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[1]['duration']),
+        //   beforeRenderStart: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[2]['startTime'])
+        // },
+      }
+
+      if (runnerResult.lhr.audits['user-timings'].details.items[0]['duration']) {
+        vitalReport['nextJs'] =  {
+            beforeHydrationDuration: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[0]['duration']),
+            hydrationDuration: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[1]['duration']),
+            beforeRenderStart: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[2]['startTime'])
+          }
       }
         
       //closes chrome instance that was started by chromeLauncher

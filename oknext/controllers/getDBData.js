@@ -8,6 +8,7 @@ const getDBData = (handler) => {
     const endpoint = url.replace('http://localhost:3000/', '');
     let finalData;
 
+    console.log('data from the LH report!', data);
 
     //**STORING INFO IN DATABASE**/
     //SELECT user_id from users table
@@ -32,7 +33,7 @@ const getDBData = (handler) => {
     
 
     //SELECT for all web vitals associated with the passed in user_id
-    query = `SELECT * FROM web_vitals WHERE user_id = ${id} ORDER BY _id DESC LIMIT 6`
+    query = `SELECT * FROM web_vitals WHERE user_id = ${id} AND endpoint = '${endpoint}' ORDER BY _id DESC LIMIT 6`
     try {
       const userData = await db.query(query);
       console.log(userData.rows);
