@@ -47,7 +47,7 @@
   //   "buttons chart";
   display: flex;
   justify-content: center;
-  border: solid;
+  
   text-align: center;
   height: 370px;
   width: 900px;
@@ -57,7 +57,7 @@
   grid-area: buttons;
   margin: auto;
   // display: flex;
-  // border-right: solid;
+  // border: solid;
 }
 
 .chart {
@@ -67,16 +67,80 @@
 
 .webVitalBtns {
   display: flex;
+  gap: 25px;
 }
 
 .vitals {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.button {
+.buttonPerformance {
+  background-color: #2096F3;
+  color: white;
   border-radius: 50%;
-  max-height: 25px;
+  border: transparent;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  padding: 30px;
   margin: 10px;
+  font-size: 18px;
+
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+}
+
+.buttonSEO {
+  background-color: #F44236;
+  color: white;
+  border-radius: 50%;
+  border: transparent;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  padding: 30px;
+  margin: 10px;
+  font-size: 18px;
+
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+}
+
+.buttonBestPractices {
+  background-color: #6C2FBB;
+  color: white;
+  border-radius: 50%;
+  border: transparent;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  padding: 30px;
+  margin: 10px;
+  font-size: 18px;
+
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+}
+
+.buttonAccessibility {
+  background-color: #FFCA29;
+  color: white;
+  border-radius: 50%;
+  border: transparent;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  padding: 30px;
+  margin: 10px;
+  font-size: 18px;
+
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
 }
 
 .button84 {
