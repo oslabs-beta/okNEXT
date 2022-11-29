@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import { use, useState } from 'react';
+import { UserContext, useUser } from '@auth0/nextjs-auth0';
 import MonitorChart from '../../components/monitor/MonitorChart';
 import EmptyChart from '../../components/monitor/charts/EmptyChart';
 import styles from '../../styles/Monitor.module.scss';
@@ -32,11 +33,14 @@ export default function Monitor() {
   const [seoSuggestionsState, setSeoSuggestionsState] = useState<any[]>([]);
   const [bestpracticesSuggestionsState, setBestPracticesSuggestionsState] =
     useState<any[]>([]);
+  const [loginFirst, setLoginFirst] = useState('');
 
   let performanceSuggestions = [];
   let seoSuggestions = [];
   let accessibilitySuggestions = [];
   let bestpracticesSuggestions = [];
+
+  const { user } = useUser();
 
   const performanceMetrics = [
     'first-contentful-paint',
@@ -204,16 +208,35 @@ export default function Monitor() {
   // const [activeIndex, setActive] = useState(0);
   const [type, setType] = useState('Performance');
 
-  
+  console.log(user);
   //fetch data from Lighthouse
   const fetchVitals = async (e: any) => {
-    e.preventDefault();
+    //checking if user is signed in before fetching vitals
+    if (user === undefined) {
+      // setLoginFirst('Please login before making a report!')
+      alert('Please login before making a report!')
+      e.preventDefault();
+      return;
+    }
 
+    if (url.length === 0) {
+      alert('Please type in a valid URL');
+      e.preventDefault();
+      return;
+    }
+
+    e.preventDefault();
+    const timestamp = Date.now();
+    const humanReadableDateTime = new Date(timestamp).toLocaleString();
     setIsLoading(true);
     console.log('hello from the frontend');
-    const response = await fetch('/api/lighthouseData', {
+    const response = await fetch('/api/fetchData', {
       method: 'POST',
-      body: JSON.stringify({ url }),
+      body: JSON.stringify({ 
+        email: user.email,
+        date: humanReadableDateTime,
+        url 
+      }),
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -221,12 +244,10 @@ export default function Monitor() {
     });
     // console.log('after fetch request finishes');
     const vitalData = await response.json();
+    console.log('Response from fetch request', vitalData)
     // console.log('this is vitalData', vitalData);
     setData(vitalData);
-
     console.log('response jsonified', vitalData);
-    const timestamp = Date.now();
-    const humanReadableDateTime = new Date(timestamp).toLocaleString();
     setDate(humanReadableDateTime);
     //reset input box to empty
     setUrl('');
@@ -238,7 +259,7 @@ export default function Monitor() {
 
     // <-------------------------------Suggestions Section-------------------------------->
 
-    let fullAuditReport = vitalData.fullAuditReport;
+    let fullAuditReport = vitalData[1];
     console.log('fullAuditReport:', fullAuditReport);
 
     setAuditReport(fullAuditReport);
@@ -288,6 +309,7 @@ export default function Monitor() {
       bestpracticesMetrics
     );
   };
+
   console.log('performance state', performanceSuggestionsState);
   console.log('accessibility state', accessibilitySuggestionsState);
   console.log('seo state', seoSuggestionsState);
@@ -333,28 +355,28 @@ export default function Monitor() {
           <div className={styles.webVitalBtns}>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} style={{ color: blue === color ? color : "#000" }} onClick={() => {setType('Performance'), setColor(blue), setWebChart(false), setPerformance(true), setVitals(false)}}>{data.performance}</button>
+              <button className={styles.button} style={{ color: blue === color ? color : "#000" }} onClick={() => {setType('Performance'), setColor(blue), setWebChart(false), setPerformance(true), setVitals(false)}}>{data[0][0].performance}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Performance</label>
             </section>
             <section className={styles.vitals}>
             {data ? 
-              <button className={styles.button} style={{ color: red === color ? color : "#000" }} onClick={() => {setType('SEO'), setColor(red), setWebChart(false), setVitals(false)}}>{data.seo}</button>
+              <button className={styles.button} style={{ color: red === color ? color : "#000" }} onClick={() => {setType('SEO'), setColor(red), setWebChart(false), setVitals(false)}}>{data[0][0].SEO}</button>
               : <button className={styles.button}>-</button>
               }
               <label>SEO</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} style={{ color: purple === color ? color : "#000" }} onClick={() => {setType('BestPractices'), setColor(purple), setWebChart(false), setVitals(false)}}>{data.bestpractices}</button>
+              <button className={styles.button} style={{ color: purple === color ? color : "#000" }} onClick={() => {setType('BestPractices'), setColor(purple), setWebChart(false), setVitals(false)}}>{data[0][0]['best_practices']}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Best Practices</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} style={{ color: yellow === color ? color : "#000" }} onClick={() => {setType('Accessibility'), setColor(yellow), setWebChart(false), setVitals(false)}}>{data.accessibility}</button>
+              <button className={styles.button} style={{ color: yellow === color ? color : "#000" }} onClick={() => {setType('Accessibility'), setColor(yellow), setWebChart(false), setVitals(false)}}>{data[0][0].accessibility}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Accessibility</label>
@@ -376,6 +398,7 @@ export default function Monitor() {
               <button className={styles.button84} onClick={fetchVitals}>
                 Get Report
               </button>
+              <p>{loginFirst}</p>
             </form>
           </div>
           <div className={styles.vitalsButtons}>

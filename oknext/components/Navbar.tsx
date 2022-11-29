@@ -7,7 +7,27 @@ import Suggestions from './Suggestions';
 export default function Navbar() {
   const { user, error, isLoading } = useUser(); //user is the logged in user
   // console.log(user.picture);
-  console.log(user);
+
+function checkUser() {
+  if (user === undefined) {
+    console.log('User is not signed in! Please sign in!')
+    return;
+  }
+    fetch('/api/createUser', {
+      method: 'POST',
+      body: JSON.stringify({ email: user.email }),
+      headers: {
+        'Content-Type': 'application/json',
+    }
+  })
+  .then((response) => response.json())
+  .then((data) =>{
+    console.log('data from database', data)
+  })
+  .catch((error) =>{
+    console.error('PostError', error)
+  })
+}
 
   return (
     <div className={styles.navFlex}>
@@ -18,7 +38,7 @@ export default function Navbar() {
       </Link>
 
       <div className={styles.rightNav}>
-        <Link href="/monitoring/monitor" className={styles.algoliaButton}>
+        <Link onClick={checkUser} href="/monitoring/monitor" className={styles.algoliaButton}>
           Monitoring
         </Link>
         <Link href="/docs/gettingstarted" className={styles.algoliaButton}>
