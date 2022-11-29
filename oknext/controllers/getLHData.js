@@ -67,7 +67,6 @@ const getLHData = (handler) => {
 
     //storing data in a variable to be passed to the next function
     const data = vitalReport;
-    console.log('hua\'s stuff', runnerResult.lhr.audits);
     // console.log('hello from getLHData function!', data);
     return handler(req, res, data);
   }

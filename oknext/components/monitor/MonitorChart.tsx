@@ -9,18 +9,32 @@ export default function MonitorChart(props: any) {
   const { webChart, setWebChart, color, type } = props;
 
   const date = props.date ? props.date : null;
+  console.log('From MonitorChart!', props.data[0])
 
+  // const data = props.data[0];
   const data = [
-    {
-      name: date,
-      Performance: `${performance}`,
-      Accessibility: `${accessibility}`,
-      SEO: `${seo}`,
-      BestPractices: `${bestpractices}`,
-    },
+    // {
+    //   name: date,
+    //   Performance: `${performance}`,
+    //   Accessibility: `${accessibility}`,
+    //   SEO: `${seo}`,
+    //   BestPractices: `${bestpractices}`,
+    // },
   ];
+  for (let i = 0; i < props.data[0].length; i++) {
+    data.push({
+      name : props.data[0][i]['date'],
+      Performance : props.data[0][i]['performance'],
+      Accessibility : props.data[0][i]['accessibility'],
+      SEO : props.data[0][i]['SEO'],
+      BestPractices : props.data[0][i]['best_practices'],
+    })
+  }
+  
+  data.reverse();
 
-  // console.log('from monitor char component', props.data);
+  console.log(data);
+
   return (
     <div className={styles.monitorContainer}>
       <h2>I am monitor chart</h2>

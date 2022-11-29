@@ -355,28 +355,28 @@ export default function Monitor() {
           <div className={styles.webVitalBtns}>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} style={{ color: blue === color ? color : "#000" }} onClick={() => {setType('Performance'), setColor(blue), setWebChart(false), setPerformance(true), setVitals(false)}}>{data.performance}</button>
+              <button className={styles.button} style={{ color: blue === color ? color : "#000" }} onClick={() => {setType('Performance'), setColor(blue), setWebChart(false), setPerformance(true), setVitals(false)}}>{data[0][0].performance}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Performance</label>
             </section>
             <section className={styles.vitals}>
             {data ? 
-              <button className={styles.button} style={{ color: red === color ? color : "#000" }} onClick={() => {setType('SEO'), setColor(red), setWebChart(false), setVitals(false)}}>{data.seo}</button>
+              <button className={styles.button} style={{ color: red === color ? color : "#000" }} onClick={() => {setType('SEO'), setColor(red), setWebChart(false), setVitals(false)}}>{data[0][0].SEO}</button>
               : <button className={styles.button}>-</button>
               }
               <label>SEO</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} style={{ color: purple === color ? color : "#000" }} onClick={() => {setType('BestPractices'), setColor(purple), setWebChart(false), setVitals(false)}}>{data.bestpractices}</button>
+              <button className={styles.button} style={{ color: purple === color ? color : "#000" }} onClick={() => {setType('BestPractices'), setColor(purple), setWebChart(false), setVitals(false)}}>{data[0][0]['best_practices']}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Best Practices</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} style={{ color: yellow === color ? color : "#000" }} onClick={() => {setType('Accessibility'), setColor(yellow), setWebChart(false), setVitals(false)}}>{data.accessibility}</button>
+              <button className={styles.button} style={{ color: yellow === color ? color : "#000" }} onClick={() => {setType('Accessibility'), setColor(yellow), setWebChart(false), setVitals(false)}}>{data[0][0].accessibility}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Accessibility</label>

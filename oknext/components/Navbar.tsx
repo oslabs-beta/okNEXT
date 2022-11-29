@@ -7,7 +7,6 @@ import Suggestions from './Suggestions';
 export default function Navbar() {
   const { user, error, isLoading } = useUser(); //user is the logged in user
   // console.log(user.picture);
-  console.log('this is user', user);
 
 function checkUser() {
   if (user === undefined) {
