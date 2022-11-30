@@ -105,12 +105,12 @@ export default function DemoChart() {
               <div className={styles.webVitalBtns} key={index}>
                 <button
                   className={styles.button}
-                  style={{ color: item.color === color ? color : '#000' }}
+                  style={{ color: item.color === color ? '#FFFFFF' : '#000' }}
                   onClick={() => {
                     setType(item.name),
-                      setActive(index),
-                      setColor(item.color),
-                      setDemo(false);
+                    setActive(index),
+                    setColor(item.color),
+                    setDemo(false);
                   }}
                 >
                   {item.value}

@@ -12,15 +12,8 @@ export default function MonitorChart(props: any) {
   console.log('From MonitorChart!', props.data[0])
 
   // const data = props.data[0];
-  const data = [
-    // {
-    //   name: date,
-    //   Performance: `${performance}`,
-    //   Accessibility: `${accessibility}`,
-    //   SEO: `${seo}`,
-    //   BestPractices: `${bestpractices}`,
-    // },
-  ];
+  const data = [];
+
   for (let i = 0; i < props.data[0].length; i++) {
     data.push({
       name : props.data[0][i]['date'],

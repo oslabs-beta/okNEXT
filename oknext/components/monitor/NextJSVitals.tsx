@@ -9,59 +9,50 @@ export default function NextJSVitals (props:any) {
   const blue = '#2196F3';
   const red = '#F44236';
   const yellow = '#FFCA29';
-  const purple = '#6d30bb';
-
   //individual lines to populate the graph
   const [color, setColor] = useState(blue);
   const [activeIndex, setActive] = useState(0);
   const [type, setType] = useState('Hydration');
   // const [chart, setChart] = useState(false);
+  console.log('data in next.js vitals chart', props.data[2])
+  const data = [];
 
-  const data = [
-    // {
-    //   name: date,
-    //   Hydration: `${beforeHydrationDuration}`,
-    //   "Route-Change-to-Render": `${hydrationDuration}`,
-    //   Render: `${beforeRenderStart}`
-    // }
-  ];
-
-/*
   for (let i = 0; i < props.data[2].length; i++) {
+    // console.log('data here', props.data[2][i]['nextjs_beforehydrationduration'])
     data.push({
       name : props.data[2][i]['date'],
-      beforeHydration :  props.data[2][i]['nextjs_beforehydrationduration'],
-      hydrationDuration : props.data[2][i]['nextjs_hydrationduration'],
-      beforeRenderStart : props.data[2][i]['nextjs_beforerenderstart'],
+      "Before Hydration Duration" :  props.data[2][i]['nextjs_beforehydrationduration'],
+      "Hydration Duration" : props.data[2][i]['nextjs_hydrationduration'],
+      "Before Render Start" : props.data[2][i]['nextjs_beforerenderstart'],
     })
   };
-
-  */
+  data.reverse();
 
   const buttons = [
-    // {
-    //   name: "Before-Hydration",
-    //   color: blue,
-    //   value: `${beforeHydrationDuration}`,
-    //   id: 1
-    // },
-    // {
-    //   name: "Hydration-Duration",
-    //   color: red,
-    //   value: `${hydrationDuration}`,
-    //   id: 2
-    // },
-    // {
-    //   name: "Before-Render-Start",
-    //   color: purple,
-    //   value: `${beforeRenderStart}`,
-    //   id: 3
-    // }
+    {
+      name: "Before Hydration Duration",
+      color: blue,
+      value: `${props.data[2][0]['nextjs_beforehydrationduration']}`,
+      id: 1
+    },
+    {
+      name: "Hydration Duration",
+      color: yellow,
+      value: `${props.data[2][0]['nextjs_hydrationduration']}`,
+      id: 2
+    },
+    {
+      name: "Before Render Start",
+      color: red,
+      value: `${props.data[2][0]['nextjs_beforerenderstart']}`,
+      id: 3
+    }
   ];
 
   return (
     <div className={styles.nextContainer}>
-      <h3 className={styles.header}>I am Next.js</h3>
+    
+      {/* <h3 className={styles.header}>I am Next.js</h3> */}
       <div className={styles.buttonContainer}>
           {buttons.map((item, index) => 
             <div className={styles.buttons} key={index} >
@@ -77,29 +68,29 @@ export default function NextJSVitals (props:any) {
         <LineChart width={600} height={300} data={data} margin={{ top: 25, right: 35, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray={'3'} horizontal={true} vertical={false}/>
           <XAxis dataKey={'name'}/>
-          <YAxis type="number" domain={[0, 100]} />
+          <YAxis type="number" domain={[0, 150]} />
           <Legend align='center' verticalAlign="bottom" height={30}/>
           {chart ? (
             <>
           <Line
             type="monotone"
-            dataKey="Hydration"
+            dataKey="Before Hydration Duration"
             stroke={blue}
+            strokeWidth={4}
+            activeDot={{ r: 5 }}
+          />
+          <Line
+            type="monotone"
+            dataKey="Hydration Duration"
+            stroke={yellow}
             strokeWidth={3}
             activeDot={{ r: 5 }}
           />
           <Line
             type="monotone"
-            dataKey="Route-Change-to-Render"
+            dataKey="Before Render Start"
             stroke={red}
-            strokeWidth={3}
-            activeDot={{ r: 5 }}
-          />
-          <Line
-            type="monotone"
-            dataKey="Render"
-            stroke={purple}
-            strokeWidth={3}
+            strokeWidth={2}
             activeDot={{ r: 5 }}
           />
           </>
