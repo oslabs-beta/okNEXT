@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import { use, useState } from 'react';
+import { useState } from 'react';
 import { UserContext, useUser } from '@auth0/nextjs-auth0';
 import MonitorChart from '../../components/monitor/MonitorChart';
 import EmptyChart from '../../components/monitor/charts/EmptyChart';
 import styles from '../../styles/Monitor.module.scss';
+import suggestionStyles from '../../styles/Suggestions.module.scss';
 import PerformanceChart from '../../components/monitor/charts/PerformanceChart';
 import NextJSVitals from '../../components/monitor/NextJSVitals';
 import MonitorButtons from '../../components/monitor/MonitorButtons';
@@ -217,7 +218,7 @@ export default function Monitor() {
     //checking if user is signed in before fetching vitals
     if (user === undefined) {
       // setLoginFirst('Please login before making a report!')
-      alert('Please login before making a report!')
+      alert('Please login before making a report!');
       e.preventDefault();
       return;
     }
@@ -235,10 +236,10 @@ export default function Monitor() {
     console.log('hello from the frontend');
     const response = await fetch('/api/fetchData', {
       method: 'POST',
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         email: user.email,
         date: humanReadableDateTime,
-        url 
+        url,
       }),
       headers: {
         Accept: 'application/json',
@@ -247,7 +248,7 @@ export default function Monitor() {
     });
     // console.log('after fetch request finishes');
     const vitalData = await response.json();
-    console.log('Response from fetch request', vitalData)
+    console.log('Response from fetch request', vitalData);
     // console.log('this is vitalData', vitalData);
     setData(vitalData);
     console.log('response jsonified', vitalData);
@@ -263,6 +264,7 @@ export default function Monitor() {
     // <-------------------------------Suggestions Section-------------------------------->
 
     let fullAuditReport = vitalData[1];
+    console.log('this is vitalData', vitalData);
     console.log('fullAuditReport:', fullAuditReport);
 
     setAuditReport(fullAuditReport);
@@ -326,19 +328,74 @@ export default function Monitor() {
   //   return <div key={metric.id}>{metric.description}</div>;
   // });
   // }
-  console.log('I am performance state', performance)
+  console.log('I am performance state', performance);
 
   return (
     <>
       <Head>
         <title>Performance Monitoring</title>
       </Head>
-      <div className={styles.mainContainer}>
-        <div className={styles.header}>
-          <h3>App Performance Monitoring</h3>
+      <div className={styles.sidebar}>
+        <div className={styles.formContainer}>
+          <div className={styles.form}>
+            <form>
+              <label>
+                Enter an endpoint:
+                <input
+                  className={styles.urlInputBox}
+                  value={url}
+                  type="url"
+                  placeholder="/"
+                  onChange={(e) => setUrl(e.target.value)}
+                />
+              </label>
+              <button className={styles.button84} onClick={fetchVitals}>
+                Get Report
+              </button>
+              <p>{loginFirst}</p>
+            </form>
+          </div>
+
+          <div className={styles.vitalsButtons}>
+            <button
+              className={styles.button84}
+              onClick={() => {
+                setVitals(false),
+                  setWebChart(true),
+                  setPerformance(false),
+                  setPChart(false);
+              }}
+            >
+              Web Core Vitals
+            </button>
+            <button
+              className={styles.button84}
+              onClick={() => {
+                setVitals(true),
+                  setChart(true),
+                  setPerformance(false),
+                  setPChart(false);
+              }}
+            >
+              Next.js Vitals
+            </button>
+          </div>
+          <div className={styles.form}>Endpoints:</div>
+          <div className={styles.endpoints}>
+            <div>localhost:3000/</div>
+            <div>localhost:3000/monitoring/monitor</div>
+            <div>localhost:3000/docs/gettingstarted</div>
+            <div>https://oknext-one.vercel.app/</div>
+            <div>https://oknext-oslabs.vercel.app/</div>
+          </div>
         </div>
-        <div className={styles.buttonsContainer}>
-          {/* {buttons.map((item, index) => 
+
+        <div className={styles.mainContainer}>
+          <div className={styles.header}>
+            <h3>App Performance Monitoring</h3>
+          </div>
+          <div className={styles.buttonsContainer}>
+            {/* {buttons.map((item, index) => 
             <div className={styles.webVitalBtns} key={index} >
               {data ? (
                 <>
@@ -356,93 +413,129 @@ export default function Monitor() {
               )}
             </div>
           )} */}
-          <div className={styles.webVitalBtns}>
-            <section className={styles.vitals}>
-              {data ? 
-              <button className={styles.button} style={{ color: blue === color ? color : "#000" }} onClick={() => {setType('Performance'), setColor(blue), setWebChart(false), setPerformance(true) , setVitals(false), setPChart(false)}}>{data[0][0].performance}</button>
-              : <button className={styles.button}>-</button>
-              }
-              <label>Performance</label>
-            </section>
-            <section className={styles.vitals}>
-            {data ? 
-              <button className={styles.button} style={{ color: red === color ? color : "#000" }} onClick={() => {setType('SEO'), setColor(red), setWebChart(false), setVitals(false), setPerformance(false), setPChart(false)}}>{data[0][0].SEO}</button>
-              : <button className={styles.button}>-</button>
-              }
-              <label>SEO</label>
-            </section>
-            <section className={styles.vitals}>
-              {data ? 
-              <button className={styles.button} style={{ color: purple === color ? color : "#000" }} onClick={() => {setType('BestPractices'), setColor(purple), setWebChart(false), setVitals(false), setPerformance(false), setPChart(false)}}>{data[0][0]['best_practices']}</button>
-              : <button className={styles.button}>-</button>
-              }
-              <label>Best Practices</label>
-            </section>
-            <section className={styles.vitals}>
-              {data ? 
-              <button className={styles.button} style={{ color: yellow === color ? color : "#000" }} onClick={() => {setType('Accessibility'), setColor(yellow), setWebChart(false), setVitals(false), setPerformance(false), setPChart(false)}}>{data[0][0].accessibility}</button>
-              : <button className={styles.button}>-</button>
-              }
-              <label>Accessibility</label>
-            </section>
+            <div className={styles.webVitalBtns}>
+              <section className={styles.vitals}>
+                {data ? (
+                  <>
+                    <button
+                      className={styles.buttonPerformance}
+                      onClick={() => {
+                        setType('Performance'),
+                          setColor(blue),
+                          setWebChart(false),
+                          setPerformance(true),
+                          setVitals(false);
+                      }}
+                    >
+                      {data.performance}
+                    </button>
+                    <label>Performance</label>
+                  </>
+                ) : (
+                  <button className={styles.buttonPerformance}>-</button>
+                )}
+              </section>
+              <section className={styles.vitals}>
+                {data ? (
+                  <>
+                    <button
+                      className={styles.buttonSEO}
+                      onClick={() => {
+                        setType('SEO'),
+                          setColor(red),
+                          setWebChart(false),
+                          setVitals(false);
+                      }}
+                    >
+                      {data.seo}
+                    </button>
+                    <label>SEO</label>
+                  </>
+                ) : (
+                  <button className={styles.buttonSEO}>-</button>
+                )}
+              </section>
+              <section className={styles.vitals}>
+                {data ? (
+                  <>
+                    <button
+                      className={styles.buttonBestPractices}
+                      onClick={() => {
+                        setType('BestPractices'),
+                          setColor(purple),
+                          setWebChart(false),
+                          setVitals(false);
+                      }}
+                    >
+                      {data.bestpractices}
+                    </button>
+                    <label>Best Practices</label>
+                  </>
+                ) : (
+                  <button className={styles.buttonBestPractices}>-</button>
+                )}
+              </section>
+              <section className={styles.vitals}>
+                {data ? (
+                  <>
+                    <button
+                      className={styles.buttonAccessibility}
+                      onClick={() => {
+                        setType('Accessibility'),
+                          setColor(yellow),
+                          setWebChart(false),
+                          setVitals(false);
+                      }}
+                    >
+                      {data.accessibility}
+                    </button>
+                    <label>Accessibility</label>
+                  </>
+                ) : (
+                  <button className={styles.buttonAccessibility}>-</button>
+                )}
+              </section>
+            </div>
           </div>
-        </div>
-        <div className={styles.formContainer}>
-          <div className={styles.form}>
-            <form>
-              <label>
-                Enter an endpoint:
-                <input
-                  value={url}
-                  type="url"
-                  placeholder="/"
-                  onChange={(e) => setUrl(e.target.value)}
-                />
-              </label>
-              <button className={styles.button84} onClick={fetchVitals}>
-                Get Report
-              </button>
-              <p>{loginFirst}</p>
-            </form>
-          </div>
-          <div className={styles.vitalsButtons}>
-            <button className={styles.button84} onClick={()=> {setVitals(false), setWebChart(true), setPerformance(false), setPChart(false)}}>Web Core Vitals</button>
-            <button className={styles.button84} onClick={()=> {setVitals(true), setChart(true), setPerformance(false), setPChart(false)}}>Next.js Vitals</button>
-          </div>
-        </div>
-        <div className={styles.chartContainer}>
-        { performance ? (
+          <div className={styles.chartContainer}>
+            {performance ? (
+              <div>
+                <button onClick={() => setPChart(true)}>
+                  Performance Metrics
+                </button>
+              </div>
+            ) : (
+              ''
+            )}
             <div>
-              <button onClick={()=> setPChart(true) }>Performance Metrics</button>
-            </div>  
-          ):('')}
-          <div>
-            {vitals && rendChart ? (
-              <NextJSVitals data={data} chart={chart} setChart={setChart}/>
-            ): rendChart && vitals === false && pChart === false ? ( 
-              //need to probably propdrill rendChart to Monitor chart
-              //and the button state
-              <MonitorChart
-                data={data}
-                date={date}
-                webChart={webChart}
-                setWebChart={setWebChart}
-                type={type}
-                color={color}
-              />
-            ): !data ? (
-              <EmptyChart isLoading={isLoading}/>
-            ): rendChart && pChart ? (
-              <PerformanceChart
-                data={data}
-                date={date}
-                setIsLoading={setIsLoading}
-                pChart={pChart}
-                setPChart={setPChart}
-              />
-            ): ('')}
-          </div>
-          
+              {vitals && rendChart ? (
+                <NextJSVitals data={data} chart={chart} setChart={setChart} />
+              ) : rendChart && vitals === false ? (
+                //need to probably propdrill rendChart to Monitor chart
+                //and the button state
+                <MonitorChart
+                  data={data}
+                  date={date}
+                  webChart={webChart}
+                  setWebChart={setWebChart}
+                  type={type}
+                  color={color}
+                />
+              ) : !data ? (
+                <EmptyChart isLoading={isLoading} />
+              ) : rendChart && pChart ? (
+                <PerformanceChart
+                  data={data}
+                  date={date}
+                  setIsLoading={setIsLoading}
+                  pChart={pChart}
+                  setPChart={setPChart}
+                />
+              ) : (
+                ''
+              )}
+            </div>
+
             {/* {type === 'Performance' ? (
               <button>Click ME</button>
             ) : 
@@ -452,19 +545,20 @@ export default function Monitor() {
             setIsLoading={setIsLoading}
             />
             } */}
+          </div>
+          <div className={suggestionStyles.container}>
+            {performanceSuggestionsState ? (
+              performanceSuggestionsState.map((metricObj, index) => (
+                <div className={suggestionStyles.description} key={index}>
+                  {metricObj.description}
+                </div>
+              ))
+            ) : (
+              <div>None</div>
+            )}
+          </div>
         </div>
-      </div>
-      <Link href="/">← Back to home</Link>
-      <div>
-        {performanceSuggestionsState ? (
-          performanceSuggestionsState.map((metricObj, index) => (
-            <div key={index}>{metricObj.description}</div>
-          ))
-        ) : (
-          <div>None</div>
-        )}
-        {/* {performanceSuggestionsState ? <div>yay</div> : <div>nay</div>} */}
       </div>
     </>
   );
- }
+}

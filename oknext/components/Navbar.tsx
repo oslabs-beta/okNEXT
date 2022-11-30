@@ -2,32 +2,31 @@ import Link from 'next/link';
 import styles from '../styles/Navbar.module.scss';
 import Image from 'next/image';
 import { UserContext, useUser } from '@auth0/nextjs-auth0';
-import Suggestions from './Suggestions';
 
 export default function Navbar() {
   const { user, error, isLoading } = useUser(); //user is the logged in user
   // console.log(user.picture);
 
-function checkUser() {
-  if (user === undefined) {
-    console.log('User is not signed in! Please sign in!')
-    return;
-  }
+  function checkUser() {
+    if (user === undefined) {
+      console.log('User is not signed in! Please sign in!');
+      return;
+    }
     fetch('/api/createUser', {
       method: 'POST',
       body: JSON.stringify({ email: user.email }),
       headers: {
         'Content-Type': 'application/json',
-    }
-  })
-  .then((response) => response.json())
-  .then((data) =>{
-    console.log('data from database', data)
-  })
-  .catch((error) =>{
-    console.error('PostError', error)
-  })
-}
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('data from database', data);
+      })
+      .catch((error) => {
+        console.error('PostError', error);
+      });
+  }
 
   return (
     <div className={styles.navFlex}>
@@ -38,7 +37,11 @@ function checkUser() {
       </Link>
 
       <div className={styles.rightNav}>
-        <Link onClick={checkUser} href="/monitoring/monitor" className={styles.algoliaButton}>
+        <Link
+          onClick={checkUser}
+          href="/monitoring/monitor"
+          className={styles.algoliaButton}
+        >
           Monitoring
         </Link>
         <Link href="/docs/gettingstarted" className={styles.algoliaButton}>

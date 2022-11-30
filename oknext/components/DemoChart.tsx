@@ -7,9 +7,9 @@ import {
   Tooltip,
   CartesianGrid,
   Legend,
-} from "recharts";
-import { useState } from "react";
-import styles from "../styles/DemoChart.module.scss";
+} from 'recharts';
+import { useState } from 'react';
+import styles from '../styles/DemoChart.module.scss';
 
 export default function DemoChart() {
   const blue = '#2196F3';
@@ -26,132 +26,153 @@ export default function DemoChart() {
 
   const data = [
     {
-      name: "11/14",
+      name: '11/14',
       Performance: 74,
       SEO: 90,
       Accessibility: 83,
-      "Best Practices": 67,
+      'Best Practices': 67,
     },
     {
-      name: "11/15",
+      name: '11/15',
       Performance: 74,
       SEO: 92,
       Accessibility: 83,
-      "Best Practices": 75,
+      'Best Practices': 75,
     },
     {
-      name: "11/20",
+      name: '11/20',
       Performance: 85,
       SEO: 100,
       Accessibility: 90,
-      "Best Practices": 100,
+      'Best Practices': 100,
     },
     {
-      name: "11/21",
+      name: '11/21',
       Performance: 64,
       SEO: 92,
       Accessibility: 83,
-      "Best Practices": 75,
+      'Best Practices': 75,
     },
     {
-      name: "2022",
+      name: '2022',
       Performance: 95,
       SEO: 44,
       Accessibility: 49,
-      "Best Practices": 31,
+      'Best Practices': 31,
     },
   ];
-
 
   const buttons = [
     {
-      name: "Performance",
+      name: 'Performance',
       color: blue,
       value: 74,
-      id: 1
+      id: 1,
     },
     {
-      name: "SEO",
+      name: 'SEO',
       color: red,
       value: 92,
-      id: 2
+      id: 2,
     },
     {
-      name: "Best Practices",
+      name: 'Best Practices',
       color: purple,
       value: 75,
-      id: 3
+      id: 3,
     },
     {
-      name: "Accessibility",
+      name: 'Accessibility',
       color: yellow,
       value: 83,
-      id: 4
-    }
+      id: 4,
+    },
   ];
-  
+
   return (
     <>
       <div className={styles.monitorContainer}>
-        <h2>I am Demo</h2>
+        <h2></h2>
         <div>
-          <button onClick={() => setDemo(true)}>Web Core Vitals</button>
-          <button>Next.js Vitals</button>
+          <button className={styles.button4} onClick={() => setDemo(true)}>
+            Web Core Vitals
+          </button>
+          <button className={styles.button4}>Next.js Vitals</button>
         </div>
         <div className={styles.chartContainer}>
-          {buttons.map((item, index) => 
-            <div className={styles.webVitalBtns} key={index} >
-              <button className={styles.button} style={{ color: item.color === color ? color : "#000" }} onClick={() => {setType(item.name), setActive(index), setColor(item.color), setDemo(false)}}>
-              {item.value}
-             </button>
-             <label>{item.name}</label>
-            </div>
-          )}
+          <div className={styles.webVitalFlex}>
+            {buttons.map((item, index) => (
+              <div className={styles.webVitalBtns} key={index}>
+                <button
+                  className={styles.button}
+                  style={{ color: item.color === color ? color : '#000' }}
+                  onClick={() => {
+                    setType(item.name),
+                      setActive(index),
+                      setColor(item.color),
+                      setDemo(false);
+                  }}
+                >
+                  {item.value}
+                </button>
+                <label>{item.name}</label>
+              </div>
+            ))}
+          </div>
           <div className={styles.lineGraph}>
-            <LineChart width={600} height={300} data={data} margin={{ top: 25, right: 35, left: 20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray={'3'} horizontal={true} vertical={false}/>
-              <XAxis dataKey={'name'}/>
+            <LineChart
+              width={600}
+              height={300}
+              data={data}
+              margin={{ top: 25, right: 35, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid
+                strokeDasharray={'3'}
+                horizontal={true}
+                vertical={false}
+              />
+              <XAxis dataKey={'name'} />
               <YAxis type="number" domain={[0, 100]} />
-              <Legend align='center' verticalAlign="bottom" height={30}/>
+              <Legend align="center" verticalAlign="bottom" height={30} />
               {demo ? (
                 <>
-              <Line
-                type="monotone"
-                dataKey="Performance"
-                stroke={blue}
-                strokeWidth={3}
-                activeDot={{ r: 5 }}
-              />
-              <Line
-                type="monotone"
-                dataKey="SEO"
-                stroke={red}
-                strokeWidth={3}
-                activeDot={{ r: 5 }}
-              />
-              <Line
-                type="monotone"
-                dataKey="Accessibility"
-                stroke={yellow}
-                strokeWidth={3}
-                activeDot={{ r: 5 }}
-              />
-              <Line
-                type="monotone"
-                dataKey="Best Practices"
-                stroke={purple}
-                strokeWidth={3}
-                activeDot={{ r: 5 }}
-              />
-              </>
+                  <Line
+                    type="monotone"
+                    dataKey="Performance"
+                    stroke={blue}
+                    strokeWidth={3}
+                    activeDot={{ r: 5 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="SEO"
+                    stroke={red}
+                    strokeWidth={3}
+                    activeDot={{ r: 5 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="Accessibility"
+                    stroke={yellow}
+                    strokeWidth={3}
+                    activeDot={{ r: 5 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="Best Practices"
+                    stroke={purple}
+                    strokeWidth={3}
+                    activeDot={{ r: 5 }}
+                  />
+                </>
               ) : (
-              <Line
-                type="monotone"
-                dataKey={type}
-                stroke={color}
-                strokeWidth={3}
-                activeDot={{ r: 5 }}
-              />
+                <Line
+                  type="monotone"
+                  dataKey={type}
+                  stroke={color}
+                  strokeWidth={3}
+                  activeDot={{ r: 5 }}
+                />
               )}
               <Tooltip />
             </LineChart>
@@ -162,7 +183,8 @@ export default function DemoChart() {
   );
 }
 
-  {/* <div className={styles.webVitalBtns}>
+{
+  /* <div className={styles.webVitalBtns}>
     <label>Performance</label>
     <button className={styles.button}>74</button>
     <label>SEO</label>
@@ -171,11 +193,18 @@ export default function DemoChart() {
     <button className={styles.button}>75</button>
     <label>Accessibility</label>
     <button className={styles.button}>83</button>
-  </div> */}
-  {/* Next.js vital measurements */}
-  {/* maybe make a separate component? *stretch */}
-  {/* <div>
+  </div> */
+}
+{
+  /* Next.js vital measurements */
+}
+{
+  /* maybe make a separate component? *stretch */
+}
+{
+  /* <div>
     <button>hydration</button>
     <button>route-change-to-render</button>
     <button>render</button>
-  </div> */}
+  </div> */
+}

@@ -37,7 +37,6 @@ export default function MonitorChart(props: any) {
 
   return (
     <div className={styles.monitorContainer}>
-      <h2>I am monitor chart</h2>
       <div className={styles.lineGraph}>
       <LineChart width={600} height={300} data={data} margin={{ top: 25, right: 35, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray={'3'} horizontal={true} vertical={false}/>

@@ -23,11 +23,25 @@
         text-align: center;
         border-radius: 15px;
         box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
-        padding: 80px 110px;
+        padding: 30px;
+        height: 300px;
+        width: 350px;
         gap: 10px;
+
+        .featureTitle {
+            font-weight: bold;
+            font-size: 20px;
+            margin: 15px 0px;
+        }
+
+        .featureDescription {
+            font-size: 18px;
+        }
+
+        &:hover {
+            transform: scale(1.1);
+        }
     }
 
-    .feature:hover {
-        transform: scale(1.1);
-    }
+    
 }
