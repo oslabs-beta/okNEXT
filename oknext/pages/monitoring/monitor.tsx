@@ -209,7 +209,6 @@ export default function Monitor() {
 
   //individual lines to populate the graph
   const [color, setColor] = useState(blue);
-  // const [activeIndex, setActive] = useState(0);
   const [type, setType] = useState('Performance');
 
   console.log(user);
@@ -315,10 +314,12 @@ export default function Monitor() {
     );
   };
 
-  console.log('performance state', performanceSuggestionsState);
-  console.log('accessibility state', accessibilitySuggestionsState);
-  console.log('seo state', seoSuggestionsState);
-  console.log('bestpractices state', bestpracticesSuggestionsState);
+  // console.log('from monitoring component', data);
+
+  // console.log('performance state', performanceSuggestionsState);
+  // console.log('accessibility state', accessibilitySuggestionsState);
+  // console.log('seo state', seoSuggestionsState);
+  // console.log('bestpractices state', bestpracticesSuggestionsState);
 
   // console.log('performance outside', performanceSuggestions[0].description);
 
@@ -328,7 +329,7 @@ export default function Monitor() {
   //   return <div key={metric.id}>{metric.description}</div>;
   // });
   // }
-  console.log('I am performance state', performance);
+  // console.log('I am performance state', performance);
 
   return (
     <>
@@ -361,9 +362,9 @@ export default function Monitor() {
               className={styles.button84}
               onClick={() => {
                 setVitals(false),
-                  setWebChart(true),
-                  setPerformance(false),
-                  setPChart(false);
+                setWebChart(true),
+                setPerformance(false),
+                setPChart(false);
               }}
             >
               Web Core Vitals
@@ -372,9 +373,9 @@ export default function Monitor() {
               className={styles.button84}
               onClick={() => {
                 setVitals(true),
-                  setChart(true),
-                  setPerformance(false),
-                  setPChart(false);
+                setChart(true),
+                setPerformance(false),
+                setPChart(false);
               }}
             >
               Next.js Vitals
@@ -395,39 +396,22 @@ export default function Monitor() {
             <h3>App Performance Monitoring</h3>
           </div>
           <div className={styles.buttonsContainer}>
-            {/* {buttons.map((item, index) => 
-            <div className={styles.webVitalBtns} key={index} >
-              {data ? (
-                <>
-                <button className={styles.button} style={{ color: item.color === color ? color : "#000" }} onClick={() => {setType(item.name), setActive(index),
-                setColor(item.color), setChart(false)}}>
-                  {item.value}
-                </button>
-                <label>{item.name}</label>
-                </>
-              ) : (
-                <>
-                <button className={styles.button}>-</button>
-                <label>{item.name}</label>
-                </>
-              )}
-            </div>
-          )} */}
             <div className={styles.webVitalBtns}>
               <section className={styles.vitals}>
                 {data ? (
                   <>
                     <button
                       className={styles.buttonPerformance}
+                      style={{ color: color === blue ? '#FFFFFF' : '#000' }}
                       onClick={() => {
                         setType('Performance'),
-                          setColor(blue),
-                          setWebChart(false),
-                          setPerformance(true),
-                          setVitals(false);
+                        setColor(blue),
+                        setWebChart(false),
+                        setPerformance(true),
+                        setVitals(false);
                       }}
                     >
-                      {data.performance}
+                      {data[0][5]['performance']}
                     </button>
                     <label>Performance</label>
                   </>
@@ -440,14 +424,15 @@ export default function Monitor() {
                   <>
                     <button
                       className={styles.buttonSEO}
+                      style={{ color: color === red ? '#FFFFFF' : '#000' }}
                       onClick={() => {
                         setType('SEO'),
-                          setColor(red),
-                          setWebChart(false),
-                          setVitals(false);
+                        setColor(red),
+                        setWebChart(false),
+                        setVitals(false);
                       }}
                     >
-                      {data.seo}
+                      {data[0][5]['SEO']}
                     </button>
                     <label>SEO</label>
                   </>
@@ -460,14 +445,15 @@ export default function Monitor() {
                   <>
                     <button
                       className={styles.buttonBestPractices}
+                      style={{ color: color === purple ? '#FFFFFF' : '#000' }}
                       onClick={() => {
                         setType('BestPractices'),
-                          setColor(purple),
-                          setWebChart(false),
-                          setVitals(false);
+                        setColor(purple),
+                        setWebChart(false),
+                        setVitals(false);
                       }}
                     >
-                      {data.bestpractices}
+                      {data[0][5]['best_practices']}
                     </button>
                     <label>Best Practices</label>
                   </>
@@ -480,14 +466,15 @@ export default function Monitor() {
                   <>
                     <button
                       className={styles.buttonAccessibility}
+                      style={{ color: color === yellow ? '#FFFFFF' : '#000' }}
                       onClick={() => {
                         setType('Accessibility'),
-                          setColor(yellow),
-                          setWebChart(false),
-                          setVitals(false);
+                        setColor(yellow),
+                        setWebChart(false),
+                        setVitals(false);
                       }}
                     >
-                      {data.accessibility}
+                      {data[0][5]['accessibility']}
                     </button>
                     <label>Accessibility</label>
                   </>

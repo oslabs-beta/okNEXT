@@ -1,26 +1,21 @@
 .nextContainer {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-template-rows: 1fr 3fr;
-  grid-template-areas: 
-    'header header'
-    'buttons chart';
+  display: flex;
   text-align: center;
   align-items: center;
 }
 
-.header {
-  grid-area: header;
-}
+// .header {
+//   grid-area: header;
+// }
 
 .chartContainer {
   margin : 0 auto;
-  grid-area: chart;
+
 }
 
-.buttonContainer {
-  grid-area: buttons;
-}
+// .buttonContainer {
+//   grid-area: buttons;
+// }
 
 .buttons {
   padding: 1vh;
