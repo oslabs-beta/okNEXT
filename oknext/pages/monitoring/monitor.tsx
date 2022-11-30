@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import { use, useState } from 'react';
+import { useState } from 'react';
 import { UserContext, useUser } from '@auth0/nextjs-auth0';
 import MonitorChart from '../../components/monitor/MonitorChart';
 import EmptyChart from '../../components/monitor/charts/EmptyChart';
