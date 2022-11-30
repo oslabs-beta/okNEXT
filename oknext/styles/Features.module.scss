@@ -1,0 +1,47 @@
+.title {
+    text-align: center;
+    margin: 40px 0 20px 0;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.featuresFlex {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 0 50px 0;
+
+
+.none {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .feature {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+        padding: 30px;
+        height: 300px;
+        width: 350px;
+        gap: 10px;
+
+        .featureTitle {
+            font-weight: bold;
+            font-size: 20px;
+            margin: 15px 0px;
+        }
+
+        .featureDescription {
+            font-size: 18px;
+        }
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    
+}

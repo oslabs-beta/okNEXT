@@ -1,3 +1,10 @@
+
+# okNEXT
+our Readme
+
+Resources for Open Source Contributors: 
+1. Auth0: https://www.npmjs.com/package/@auth0/nextjs-auth0#basic-setup 
+
 # okNEXT Documentation
 
 ### Website/Dev-tool: [https://oknext-oslabs.vercel.app/](https://oknext-oslabs.vercel.app/)
@@ -79,3 +86,4 @@ https://oknext-oslabs.vercel.app/
 5. Run unit & integration tests and make sure all tests pass: npm test.
 6. Open a Pull Request with a comprehensive description of changes to the dev branch.
 7. Open a Pull Request to the docs and Contributors if necessary.
+

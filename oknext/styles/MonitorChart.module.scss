@@ -1,0 +1,29 @@
+.monitorContainer {
+  // display: grid;
+  text-align: center;
+}
+
+.chartContainer {
+  margin : 0 auto;
+}
+
+.button {
+  border-radius: 50%;
+  max-height: 25px;
+}
+
+
+//use grid to overlay spinner on top of graph figured out with foreign object
+.lineGraph {
+  // display: grid;
+  // grid-template-columns: 1fr;
+  // position: relative;
+}
+
+// .spinner {
+//   grid-row-start: 1;
+//   grid-column-start: 1;
+//   align-items: center;
+//   position: relative;
+//   z-index: 2;
+// }
