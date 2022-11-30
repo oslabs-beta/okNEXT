@@ -264,6 +264,7 @@ export default function Monitor() {
     // <-------------------------------Suggestions Section-------------------------------->
 
     let fullAuditReport = vitalData[1];
+    console.log('this is vitalData', vitalData);
     console.log('fullAuditReport:', fullAuditReport);
 
     setAuditReport(fullAuditReport);
@@ -359,7 +360,10 @@ export default function Monitor() {
             <button
               className={styles.button84}
               onClick={() => {
-                setVitals(false), setWebChart(true);
+                setVitals(false),
+                  setWebChart(true),
+                  setPerformance(false),
+                  setPChart(false);
               }}
             >
               Web Core Vitals
@@ -367,7 +371,10 @@ export default function Monitor() {
             <button
               className={styles.button84}
               onClick={() => {
-                setVitals(true), setChart(true);
+                setVitals(true),
+                  setChart(true),
+                  setPerformance(false),
+                  setPChart(false);
               }}
             >
               Next.js Vitals
@@ -490,71 +497,46 @@ export default function Monitor() {
               </section>
             </div>
           </div>
-          <div className={styles.vitalsButtons}>
-            <button
-              className={styles.button84}
-              onClick={() => {
-                setVitals(false),
-                  setWebChart(true),
-                  setPerformance(false),
-                  setPChart(false);
-              }}
-            >
-              Web Core Vitals
-            </button>
-            <button
-              className={styles.button84}
-              onClick={() => {
-                setVitals(true),
-                  setChart(true),
-                  setPerformance(false),
-                  setPChart(false);
-              }}
-            >
-              Next.js Vitals
-            </button>
-          </div>
-        </div>
-        <div className={styles.chartContainer}>
-          {performance ? (
-            <div>
-              <button onClick={() => setPChart(true)}>
-                Performance Metrics
-              </button>
-            </div>
-          ) : (
-            ''
-          )}
-          <div>
-            {vitals && rendChart ? (
-              <NextJSVitals data={data} chart={chart} setChart={setChart} />
-            ) : rendChart && vitals === false ? (
-              //need to probably propdrill rendChart to Monitor chart
-              //and the button state
-              <MonitorChart
-                data={data}
-                date={date}
-                webChart={webChart}
-                setWebChart={setWebChart}
-                type={type}
-                color={color}
-              />
-            ) : !data ? (
-              <EmptyChart isLoading={isLoading} />
-            ) : rendChart && pChart ? (
-              <PerformanceChart
-                data={data}
-                date={date}
-                setIsLoading={setIsLoading}
-                pChart={pChart}
-                setPChart={setPChart}
-              />
+          <div className={styles.chartContainer}>
+            {performance ? (
+              <div>
+                <button onClick={() => setPChart(true)}>
+                  Performance Metrics
+                </button>
+              </div>
             ) : (
               ''
             )}
-          </div>
+            <div>
+              {vitals && rendChart ? (
+                <NextJSVitals data={data} chart={chart} setChart={setChart} />
+              ) : rendChart && vitals === false ? (
+                //need to probably propdrill rendChart to Monitor chart
+                //and the button state
+                <MonitorChart
+                  data={data}
+                  date={date}
+                  webChart={webChart}
+                  setWebChart={setWebChart}
+                  type={type}
+                  color={color}
+                />
+              ) : !data ? (
+                <EmptyChart isLoading={isLoading} />
+              ) : rendChart && pChart ? (
+                <PerformanceChart
+                  data={data}
+                  date={date}
+                  setIsLoading={setIsLoading}
+                  pChart={pChart}
+                  setPChart={setPChart}
+                />
+              ) : (
+                ''
+              )}
+            </div>
 
-          {/* {type === 'Performance' ? (
+            {/* {type === 'Performance' ? (
               <button>Click ME</button>
             ) : 
             <PerformanceChart
@@ -563,17 +545,18 @@ export default function Monitor() {
             setIsLoading={setIsLoading}
             />
             } */}
-        </div>
-        <div className={suggestionStyles.container}>
-          {performanceSuggestionsState ? (
-            performanceSuggestionsState.map((metricObj, index) => (
-              <div className={suggestionStyles.description} key={index}>
-                {metricObj.description}
-              </div>
-            ))
-          ) : (
-            <div>None</div>
-          )}
+          </div>
+          <div className={suggestionStyles.container}>
+            {performanceSuggestionsState ? (
+              performanceSuggestionsState.map((metricObj, index) => (
+                <div className={suggestionStyles.description} key={index}>
+                  {metricObj.description}
+                </div>
+              ))
+            ) : (
+              <div>None</div>
+            )}
+          </div>
         </div>
       </div>
     </>
