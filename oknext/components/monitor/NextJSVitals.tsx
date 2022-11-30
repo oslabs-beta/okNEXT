@@ -4,7 +4,6 @@ import styles from '../../styles/NextJSVitals.module.scss';
 
 
 export default function NextJSVitals (props:any) {
-  const { beforeHydrationDuration, hydrationDuration, beforeRenderStart } = props.data.nextJs;
   const { chart, setChart } = props;
 
   const blue = '#2196F3';
@@ -18,36 +17,46 @@ export default function NextJSVitals (props:any) {
   const [type, setType] = useState('Hydration');
   // const [chart, setChart] = useState(false);
 
-  const date = props.date ? props.date : null;
-
   const data = [
-    {
-      name: date,
-      Hydration: `${beforeHydrationDuration}`,
-      "Route-Change-to-Render": `${hydrationDuration}`,
-      Render: `${beforeRenderStart}`
-    }
+    // {
+    //   name: date,
+    //   Hydration: `${beforeHydrationDuration}`,
+    //   "Route-Change-to-Render": `${hydrationDuration}`,
+    //   Render: `${beforeRenderStart}`
+    // }
   ];
 
+/*
+  for (let i = 0; i < props.data[2].length; i++) {
+    data.push({
+      name : props.data[2][i]['date'],
+      beforeHydration :  props.data[2][i]['nextjs_beforehydrationduration'],
+      hydrationDuration : props.data[2][i]['nextjs_hydrationduration'],
+      beforeRenderStart : props.data[2][i]['nextjs_beforerenderstart'],
+    })
+  };
+
+  */
+
   const buttons = [
-    {
-      name: "Hydration",
-      color: blue,
-      value: `${beforeHydrationDuration}`,
-      id: 1
-    },
-    {
-      name: "Route-Change-to-Render",
-      color: red,
-      value: `${hydrationDuration}`,
-      id: 2
-    },
-    {
-      name: "Render",
-      color: purple,
-      value: `${beforeRenderStart}`,
-      id: 3
-    }
+    // {
+    //   name: "Before-Hydration",
+    //   color: blue,
+    //   value: `${beforeHydrationDuration}`,
+    //   id: 1
+    // },
+    // {
+    //   name: "Hydration-Duration",
+    //   color: red,
+    //   value: `${hydrationDuration}`,
+    //   id: 2
+    // },
+    // {
+    //   name: "Before-Render-Start",
+    //   color: purple,
+    //   value: `${beforeRenderStart}`,
+    //   id: 3
+    // }
   ];
 
   return (

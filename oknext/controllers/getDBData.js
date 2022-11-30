@@ -8,8 +8,6 @@ const getDBData = (handler) => {
     const endpoint = url.replace('http://localhost:3000/', '');
     let finalData;
 
-    console.log('data from the LH report!', data);
-
     //**STORING INFO IN DATABASE**/
     //SELECT user_id from users table
     let query = `SELECT _id FROM users WHERE email = '${email}'`
@@ -30,23 +28,41 @@ const getDBData = (handler) => {
       }
 
     //INSERT ALL next_js vitals and date into table 
-    
+    if (data.nextJs) {
+      query = `INSERT INTO nextjs_vitals (date, nextjs_beforehydrationduration, nextjs_hydrationduration, nextjs_beforerenderstart, user_id, endpoint) VALUES ('${date}', ${data.nextJs.beforeHydrationDuration}, ${data.nextJs.hydrationDuration}, ${data.nextJs.beforeRenderStart}, ${id}, '${endpoint}')`
+      try {
+        const nextJsData = await db.query(query);
+        console.log(nextJsData.rows);
+      } catch (error) {
+        console.log('opps error here', error);
+      }
+    }
 
     //SELECT for all web vitals associated with the passed in user_id
     query = `SELECT * FROM web_vitals WHERE user_id = ${id} AND endpoint = '${endpoint}' ORDER BY _id DESC LIMIT 6`
     try {
       const userData = await db.query(query);
-      console.log(userData.rows);
       finalData = [userData.rows, data.fullAuditReport];
     } catch(error) {
       console.log('Error here:', error);
     }
 
     //SELECT for all next.js vitals associated with the passed in user_id
-
+    if (data.nextJs) {
+    query = `SELECT * FROM nextjs_vitals WHERE user_id = ${id} AND endpoint = '${endpoint}' ORDER BY _id DESC LIMIT 6`
+    try {
+      const nextJsData = await db.query(query);
+      finalData.push(nextJsData.rows);
+    } catch(error) {
+      console.log('Error here:', error);
+    }
+    console.log(finalData);
     return handler(req, res, finalData);
   }
 }
+
+}
+
 
 
 module.exports = getDBData;

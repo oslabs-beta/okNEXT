@@ -62,7 +62,8 @@ const getLHData = (handler) => {
         // },
       }
 
-      if (runnerResult.lhr.audits['user-timings'].details.items[0]['duration']) {
+      //left off here 
+      if (runnerResult.lhr.audits['user-timings'].details.items.length !== 0) {
         vitalReport['nextJs'] =  {
             beforeHydrationDuration: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[0]['duration']),
             hydrationDuration: Math.floor(runnerResult.lhr.audits['user-timings'].details.items[1]['duration']),
