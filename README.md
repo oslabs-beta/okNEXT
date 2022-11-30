@@ -60,7 +60,7 @@ https://oknext-oslabs.vercel.app/
 - **Cumulative Layout Shift (CLS)** | The movement of visible elements within the viewport.
 
 ## Technology Stack
-- TypeScript, Next.js, React.js, SASS/CSS, Jest, PostgreSQL, OAuth (Next.js-Auth0), Recharts.js, Google Lighthouse API
+- TypeScript, Next.js, React.js, Node.js, SASS/CSS, Jest, PostgreSQL, OAuth (Next.js-Auth0), Recharts.js, Google Lighthouse API
 
 ## Contributors
 **Hua Liu** :star2: [Github](https://github.com/HuaJLiu17) | [LinkedIn](https://www.linkedin.com/in/huajliu17/)
