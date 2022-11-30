@@ -1,5 +1,7 @@
 # okNEXT Documentation
 
+### Website/Dev-tool: [https://oknext-oslabs.vercel.app/](https://oknext-oslabs.vercel.app/)
+
 ## Overview
 
 Next.js Dev-tool to monitor, display, store, and optimize Next.js websites. Power your Next.js Application during development with the okNext developer tool. 
@@ -57,14 +59,17 @@ https://oknext-oslabs.vercel.app/
 
 - **Cumulative Layout Shift (CLS)** | The movement of visible elements within the viewport.
 
+## Technology Stack
+- TypeScript, Next.js, React.js, SASS/CSS, Jest, PostgreSQL, OAuth (Next.js-Auth0), Recharts.js, Google Lighthouse API
+
 ## Contributors
-**Hua Liu** [Github](https://github.com/HuaJLiu17) | [LinkedIn](https://www.linkedin.com/in/huajliu17/)
+**Hua Liu** :star2: [Github](https://github.com/HuaJLiu17) | [LinkedIn](https://www.linkedin.com/in/huajliu17/)
 
-**Lara Beesley** [Github](https://github.com/labeesley) | [LinkedIn](https://www.linkedin.com/in/beesleylara/)
+**Lara Beesley** :star2: [Github](https://github.com/labeesley) | [LinkedIn](https://www.linkedin.com/in/beesleylara/)
 
-**Vivian Odekhiran** [Github](https://github.com/vodekhir) | [LinkedIn](https://www.linkedin.com/in/vivian-odekhiran/)
+**Vivian Odekhiran** :star2: [Github](https://github.com/vodekhir) | [LinkedIn](https://www.linkedin.com/in/vivian-odekhiran/)
 
-**Phoebe Ermert** [Github](https://github.com/ermertP) | [LinkedIn](https://www.linkedin.com/in/phoebe-ermert/)
+**Phoebe Ermert** :star2: [Github](https://github.com/ermertP) | [LinkedIn](https://www.linkedin.com/in/phoebe-ermert/)
 
 ## How to Contribute
 1. Clone the repo and make a new branch
