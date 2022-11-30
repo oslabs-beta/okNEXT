@@ -19,11 +19,14 @@ export default function Monitor() {
   const [date, setDate] = useState(undefined);
   const [toggle, setToggle] = useState(false);
   const [vitals, setVitals] = useState(false);
-  const [performance, setPerformance] = useState(false);
   //for nextjs comp
   const [chart, setChart] = useState(false);
   //for monitor chart comp
   const [webChart, setWebChart] = useState(false);
+  //performance chart
+  const [performance, setPerformance] = useState(false);
+  const [pChart, setPChart] = useState(false);
+
   const [AuditReport, setAuditReport] = useState(undefined);
   const [categorySuggestionsState, setCategorySuggestionsState] = useState('');
   const [performanceSuggestionsState, setPerformanceSuggestionsState] =
@@ -323,6 +326,7 @@ export default function Monitor() {
   //   return <div key={metric.id}>{metric.description}</div>;
   // });
   // }
+  console.log('I am performance state', performance)
 
   return (
     <>
@@ -355,28 +359,28 @@ export default function Monitor() {
           <div className={styles.webVitalBtns}>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} style={{ color: blue === color ? color : "#000" }} onClick={() => {setType('Performance'), setColor(blue), setWebChart(false), setPerformance(true), setVitals(false)}}>{data[0][0].performance}</button>
+              <button className={styles.button} style={{ color: blue === color ? color : "#000" }} onClick={() => {setType('Performance'), setColor(blue), setWebChart(false), setPerformance(true) , setVitals(false), setPChart(false)}}>{data[0][0].performance}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Performance</label>
             </section>
             <section className={styles.vitals}>
             {data ? 
-              <button className={styles.button} style={{ color: red === color ? color : "#000" }} onClick={() => {setType('SEO'), setColor(red), setWebChart(false), setVitals(false)}}>{data[0][0].SEO}</button>
+              <button className={styles.button} style={{ color: red === color ? color : "#000" }} onClick={() => {setType('SEO'), setColor(red), setWebChart(false), setVitals(false), setPerformance(false), setPChart(false)}}>{data[0][0].SEO}</button>
               : <button className={styles.button}>-</button>
               }
               <label>SEO</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} style={{ color: purple === color ? color : "#000" }} onClick={() => {setType('BestPractices'), setColor(purple), setWebChart(false), setVitals(false)}}>{data[0][0]['best_practices']}</button>
+              <button className={styles.button} style={{ color: purple === color ? color : "#000" }} onClick={() => {setType('BestPractices'), setColor(purple), setWebChart(false), setVitals(false), setPerformance(false), setPChart(false)}}>{data[0][0]['best_practices']}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Best Practices</label>
             </section>
             <section className={styles.vitals}>
               {data ? 
-              <button className={styles.button} style={{ color: yellow === color ? color : "#000" }} onClick={() => {setType('Accessibility'), setColor(yellow), setWebChart(false), setVitals(false)}}>{data[0][0].accessibility}</button>
+              <button className={styles.button} style={{ color: yellow === color ? color : "#000" }} onClick={() => {setType('Accessibility'), setColor(yellow), setWebChart(false), setVitals(false), setPerformance(false), setPChart(false)}}>{data[0][0].accessibility}</button>
               : <button className={styles.button}>-</button>
               }
               <label>Accessibility</label>
@@ -402,14 +406,20 @@ export default function Monitor() {
             </form>
           </div>
           <div className={styles.vitalsButtons}>
-            <button className={styles.button84} onClick={()=> {setVitals(false), setWebChart(true)}}>Web Core Vitals</button>
-            <button className={styles.button84} onClick={()=> {setVitals(true), setChart(true)}}>Next.js Vitals</button>
+            <button className={styles.button84} onClick={()=> {setVitals(false), setWebChart(true), setPerformance(false), setPChart(false)}}>Web Core Vitals</button>
+            <button className={styles.button84} onClick={()=> {setVitals(true), setChart(true), setPerformance(false), setPChart(false)}}>Next.js Vitals</button>
           </div>
         </div>
         <div className={styles.chartContainer}>
+        { performance ? (
+            <div>
+              <button onClick={()=> setPChart(true) }>Performance Metrics</button>
+            </div>  
+          ):('')}
+          <div>
             {vitals && rendChart ? (
               <NextJSVitals data={data} chart={chart} setChart={setChart}/>
-            ): rendChart && vitals === false ? ( 
+            ): rendChart && vitals === false && pChart === false ? ( 
               //need to probably propdrill rendChart to Monitor chart
               //and the button state
               <MonitorChart
@@ -422,10 +432,17 @@ export default function Monitor() {
               />
             ): !data ? (
               <EmptyChart isLoading={isLoading}/>
-            ): (
-              ''
-            )}
-
+            ): rendChart && pChart ? (
+              <PerformanceChart
+                data={data}
+                date={date}
+                setIsLoading={setIsLoading}
+                pChart={pChart}
+                setPChart={setPChart}
+              />
+            ): ('')}
+          </div>
+          
             {/* {type === 'Performance' ? (
               <button>Click ME</button>
             ) : 
