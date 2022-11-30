@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import { use, useState } from 'react';
+import { UserContext, useUser } from '@auth0/nextjs-auth0';
 import MonitorChart from '../../components/monitor/MonitorChart';
 import EmptyChart from '../../components/monitor/charts/EmptyChart';
 import styles from '../../styles/Monitor.module.scss';
@@ -19,11 +20,14 @@ export default function Monitor() {
   const [date, setDate] = useState(undefined);
   const [toggle, setToggle] = useState(false);
   const [vitals, setVitals] = useState(false);
-  const [performance, setPerformance] = useState(false);
   //for nextjs comp
   const [chart, setChart] = useState(false);
   //for monitor chart comp
   const [webChart, setWebChart] = useState(false);
+  //performance chart
+  const [performance, setPerformance] = useState(false);
+  const [pChart, setPChart] = useState(false);
+
   const [AuditReport, setAuditReport] = useState(undefined);
   const [categorySuggestionsState, setCategorySuggestionsState] = useState('');
   const [performanceSuggestionsState, setPerformanceSuggestionsState] =
@@ -33,11 +37,14 @@ export default function Monitor() {
   const [seoSuggestionsState, setSeoSuggestionsState] = useState<any[]>([]);
   const [bestpracticesSuggestionsState, setBestPracticesSuggestionsState] =
     useState<any[]>([]);
+  const [loginFirst, setLoginFirst] = useState('');
 
   let performanceSuggestions = [];
   let seoSuggestions = [];
   let accessibilitySuggestions = [];
   let bestpracticesSuggestions = [];
+
+  const { user } = useUser();
 
   const performanceMetrics = [
     'first-contentful-paint',
@@ -205,15 +212,35 @@ export default function Monitor() {
   // const [activeIndex, setActive] = useState(0);
   const [type, setType] = useState('Performance');
 
+  console.log(user);
   //fetch data from Lighthouse
   const fetchVitals = async (e: any) => {
-    e.preventDefault();
+    //checking if user is signed in before fetching vitals
+    if (user === undefined) {
+      // setLoginFirst('Please login before making a report!')
+      alert('Please login before making a report!');
+      e.preventDefault();
+      return;
+    }
 
+    if (url.length === 0) {
+      alert('Please type in a valid URL');
+      e.preventDefault();
+      return;
+    }
+
+    e.preventDefault();
+    const timestamp = Date.now();
+    const humanReadableDateTime = new Date(timestamp).toLocaleString();
     setIsLoading(true);
     console.log('hello from the frontend');
-    const response = await fetch('/api/lighthouseData', {
+    const response = await fetch('/api/fetchData', {
       method: 'POST',
-      body: JSON.stringify({ url }),
+      body: JSON.stringify({
+        email: user.email,
+        date: humanReadableDateTime,
+        url,
+      }),
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -221,12 +248,10 @@ export default function Monitor() {
     });
     // console.log('after fetch request finishes');
     const vitalData = await response.json();
+    console.log('Response from fetch request', vitalData);
     // console.log('this is vitalData', vitalData);
     setData(vitalData);
-
     console.log('response jsonified', vitalData);
-    const timestamp = Date.now();
-    const humanReadableDateTime = new Date(timestamp).toLocaleString();
     setDate(humanReadableDateTime);
     //reset input box to empty
     setUrl('');
@@ -238,7 +263,7 @@ export default function Monitor() {
 
     // <-------------------------------Suggestions Section-------------------------------->
 
-    let fullAuditReport = vitalData.fullAuditReport;
+    let fullAuditReport = vitalData[1];
     console.log('fullAuditReport:', fullAuditReport);
 
     setAuditReport(fullAuditReport);
@@ -288,6 +313,7 @@ export default function Monitor() {
       bestpracticesMetrics
     );
   };
+
   console.log('performance state', performanceSuggestionsState);
   console.log('accessibility state', accessibilitySuggestionsState);
   console.log('seo state', seoSuggestionsState);
@@ -301,6 +327,7 @@ export default function Monitor() {
   //   return <div key={metric.id}>{metric.description}</div>;
   // });
   // }
+  console.log('I am performance state', performance);
 
   return (
     <>
@@ -324,6 +351,7 @@ export default function Monitor() {
               <button className={styles.button84} onClick={fetchVitals}>
                 Get Report
               </button>
+              <p>{loginFirst}</p>
             </form>
           </div>
 
@@ -462,8 +490,42 @@ export default function Monitor() {
               </section>
             </div>
           </div>
-
-          <div className={styles.chartContainer}>
+          <div className={styles.vitalsButtons}>
+            <button
+              className={styles.button84}
+              onClick={() => {
+                setVitals(false),
+                  setWebChart(true),
+                  setPerformance(false),
+                  setPChart(false);
+              }}
+            >
+              Web Core Vitals
+            </button>
+            <button
+              className={styles.button84}
+              onClick={() => {
+                setVitals(true),
+                  setChart(true),
+                  setPerformance(false),
+                  setPChart(false);
+              }}
+            >
+              Next.js Vitals
+            </button>
+          </div>
+        </div>
+        <div className={styles.chartContainer}>
+          {performance ? (
+            <div>
+              <button onClick={() => setPChart(true)}>
+                Performance Metrics
+              </button>
+            </div>
+          ) : (
+            ''
+          )}
+          <div>
             {vitals && rendChart ? (
               <NextJSVitals data={data} chart={chart} setChart={setChart} />
             ) : rendChart && vitals === false ? (
@@ -479,11 +541,20 @@ export default function Monitor() {
               />
             ) : !data ? (
               <EmptyChart isLoading={isLoading} />
+            ) : rendChart && pChart ? (
+              <PerformanceChart
+                data={data}
+                date={date}
+                setIsLoading={setIsLoading}
+                pChart={pChart}
+                setPChart={setPChart}
+              />
             ) : (
               ''
             )}
+          </div>
 
-            {/* {type === 'Performance' ? (
+          {/* {type === 'Performance' ? (
               <button>Click ME</button>
             ) : 
             <PerformanceChart
@@ -492,18 +563,17 @@ export default function Monitor() {
             setIsLoading={setIsLoading}
             />
             } */}
-          </div>
-          <div className={suggestionStyles.container}>
-            {performanceSuggestionsState ? (
-              performanceSuggestionsState.map((metricObj, index) => (
-                <div className={suggestionStyles.description} key={index}>
-                  {metricObj.description}
-                </div>
-              ))
-            ) : (
-              <div>None</div>
-            )}
-          </div>
+        </div>
+        <div className={suggestionStyles.container}>
+          {performanceSuggestionsState ? (
+            performanceSuggestionsState.map((metricObj, index) => (
+              <div className={suggestionStyles.description} key={index}>
+                {metricObj.description}
+              </div>
+            ))
+          ) : (
+            <div>None</div>
+          )}
         </div>
       </div>
     </>
