@@ -247,10 +247,12 @@ export default function Monitor() {
     });
     // console.log('after fetch request finishes');
     const vitalData = await response.json();
+    if(vitalData.code === 'INVALID_URL') {
+      alert(`${vitalData['friendlyMessage']}`)
+      return;
+    }
     console.log('Response from fetch request', vitalData);
-    // console.log('this is vitalData', vitalData);
     setData(vitalData);
-    console.log('response jsonified', vitalData);
     setDate(humanReadableDateTime);
     //reset input box to empty
     setUrl('');
@@ -346,7 +348,7 @@ export default function Monitor() {
                   className={styles.urlInputBox}
                   value={url}
                   type="url"
-                  placeholder="/"
+                  placeholder="http://..."
                   onChange={(e) => setUrl(e.target.value)}
                 />
               </label>
@@ -429,7 +431,8 @@ export default function Monitor() {
                         setType('SEO'),
                         setColor(red),
                         setWebChart(false),
-                        setVitals(false);
+                        setVitals(false),
+                        setPerformance(false);
                       }}
                     >
                       {data[0][5]['SEO']}
@@ -450,7 +453,8 @@ export default function Monitor() {
                         setType('BestPractices'),
                         setColor(purple),
                         setWebChart(false),
-                        setVitals(false);
+                        setVitals(false),
+                        setPerformance(false);
                       }}
                     >
                       {data[0][5]['best_practices']}
@@ -471,7 +475,8 @@ export default function Monitor() {
                         setType('Accessibility'),
                         setColor(yellow),
                         setWebChart(false),
-                        setVitals(false);
+                        setVitals(false),
+                        setPerformance(false);
                       }}
                     >
                       {data[0][5]['accessibility']}

@@ -9,7 +9,7 @@ const getLHData = (handler) => {
     // think about adding logic that only allows this to run if the username is defined, meaning the user is logged in
 
     const { url } = req.body;
-    console.log('this is request body', req.body);
+    let runnerResult;
 
     // **UNCOMMENT FOR IOS**
     const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
@@ -37,7 +37,11 @@ const getLHData = (handler) => {
     };
 
     //runs lighthouse report stores in runnerResult variable
-    const runnerResult = await lighthouse(url, options, configObj);
+    try {
+      runnerResult = await lighthouse(url, options, configObj);
+    } catch(error) {
+      return res.json(error);
+    }
 
     // storing JSON report on file system
     const reportJson = runnerResult.report;
