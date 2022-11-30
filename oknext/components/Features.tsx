@@ -17,8 +17,8 @@ export default function Features() {
             width={60}
             height={60}
           />
-          <div>Core Web-Vitals</div>
-          <div>Description</div>
+          <div className={styles.featureTitle}>Core Web-Vitals</div>
+          <div className={styles.featureDescription}>Google Lighthouse audits performance, accessibility and search engine optimization of web pages. okNEXT handles your Next.js optimization.</div>
         </div>
         <div className={styles.feature}>
           <Image
@@ -28,8 +28,8 @@ export default function Features() {
             width={60}
             height={60}
           />
-          <div>Save your reports</div>
-          <div>Description</div>
+          <div className={styles.featureTitle}>Save your reports</div>
+          <div className={styles.featureDescription}>Safely store the entire history of your website's analytics in a SQL database, and review them on your own time.</div>
         </div>
         <div className={styles.feature}>
           <Image
@@ -39,8 +39,8 @@ export default function Features() {
             width={60}
             height={60}
           />
-          <div>Next.js Recommendations</div>
-          <div>Description</div>
+          <div className={styles.featureTitle}>Next.js Recommendations</div>
+          <div className={styles.featureDescription}>Get curated recommendations on how to optimize your Next.js website.</div>
         </div>
       </div>
     </>
