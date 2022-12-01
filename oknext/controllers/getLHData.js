@@ -10,15 +10,20 @@ const getLHData = (handler) => {
 
     const { url } = req.body;
     let runnerResult;
+    let chrome;
 
     // **UNCOMMENT FOR IOS**
     // const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
 
     // **UNCOMMENT FOR UBUNTU/WSL**
-    const chrome = await chromeLauncher.launch({
-      chromePath: process.env.CHROME_PATH,
-      chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu']
-    });
+    try {
+      chrome = await chromeLauncher.launch({
+        chromePath: process.env.NEXT_PUBLIC_CHROME_PATH,
+        chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu']
+      });
+    } catch (error) {
+      return res.json('error here in chrome launcher', error);
+    }
 
     //options: choosing what categories needed for application
     const options = {
