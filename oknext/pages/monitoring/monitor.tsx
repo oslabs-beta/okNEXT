@@ -211,7 +211,7 @@ export default function Monitor() {
   const [color, setColor] = useState(blue);
   const [type, setType] = useState('Performance');
 
-  // console.log(user);
+  console.log('hello from okNext team :)');
   //fetch data from Lighthouse
   const fetchVitals = async (e: any) => {
     //checking if user is signed in before fetching vitals
@@ -315,6 +315,7 @@ export default function Monitor() {
       bestpracticesMetrics
     );
   };
+
   // console.log('pChart', pChart);
   // console.log('rendChart', rendChart);
 
