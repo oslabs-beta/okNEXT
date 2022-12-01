@@ -11,6 +11,7 @@ const getLHData = (handler) => {
     const { url } = req.body;
     let runnerResult;
     let chrome;
+    console.log('hello from LHData function');
 
     // **UNCOMMENT FOR IOS**
     // const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
@@ -22,6 +23,7 @@ const getLHData = (handler) => {
         chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu']
       });
     } catch (error) {
+      console.log('error in chromeLauncher', error);
       return res.json('error here in chrome launcher', error);
     }
 
@@ -45,6 +47,7 @@ const getLHData = (handler) => {
     try {
       runnerResult = await lighthouse(url, options, configObj);
     } catch(error) {
+      console.log('error in lighthouse', error);
       return res.json('error from lighthouse', error);
     }
 
