@@ -45,7 +45,7 @@ const getLHData = (handler) => {
 
     // storing JSON report on file system
     const reportJson = runnerResult.report;
-    fs.writeFileSync('lhreport.json', reportJson);
+    // fs.writeFileSync('lhreport.json', reportJson);
 
     console.log('hello from the void');
 

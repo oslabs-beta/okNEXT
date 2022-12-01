@@ -51,14 +51,12 @@ export default function NextJSVitals (props:any) {
 
   return (
     <div className={styles.nextContainer}>
-    
-      {/* <h3 className={styles.header}>I am Next.js</h3> */}
       <div className={styles.buttonContainer}>
           {buttons.map((item, index) => 
-            <div className={styles.buttons} key={index} >
-             <button style={{ color: item.color === color ? color : "#000" }} onClick={() => {setType(item.name), setActive(index),
+            <div key={index} >
+             <button className={styles.button} style={{ color: item.color === color ? '#FFFFFF' : '#000' }} onClick={() => {setType(item.name), setActive(index),
              setColor(item.color), setChart(false)}}>
-              {item.value}
+              {item.value} ms
              </button>
              <label>{item.name}</label>
             </div>
