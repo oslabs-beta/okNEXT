@@ -54,11 +54,11 @@ export default function DemoChart() {
       'Best Practices': 75,
     },
     {
-      name: '2022',
-      Performance: 95,
-      SEO: 44,
-      Accessibility: 49,
-      'Best Practices': 31,
+      name: '11/29',
+      Performance: 73,
+      SEO: 94,
+      Accessibility: 87,
+      'Best Practices': 67,
     },
   ];
 
@@ -183,28 +183,3 @@ export default function DemoChart() {
   );
 }
 
-{
-  /* <div className={styles.webVitalBtns}>
-    <label>Performance</label>
-    <button className={styles.button}>74</button>
-    <label>SEO</label>
-    <button className={styles.button}>92</button>
-    <label>Best Practices</label>
-    <button className={styles.button}>75</button>
-    <label>Accessibility</label>
-    <button className={styles.button}>83</button>
-  </div> */
-}
-{
-  /* Next.js vital measurements */
-}
-{
-  /* maybe make a separate component? *stretch */
-}
-{
-  /* <div>
-    <button>hydration</button>
-    <button>route-change-to-render</button>
-    <button>render</button>
-  </div> */
-}

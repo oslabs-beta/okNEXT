@@ -15,18 +15,19 @@ import { arrayBuffer } from 'stream/consumers';
 export default function Monitor() {
   const [url, setUrl] = useState('');
   const [data, setData] = useState(undefined);
-  const [rendChart, setRendChart] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [date, setDate] = useState(undefined);
   const [toggle, setToggle] = useState(false);
-  const [vitals, setVitals] = useState(false);
-  //for nextjs comp
-  const [chart, setChart] = useState(false);
   //for monitor chart comp
+  const [rendChart, setRendChart] = useState(false);
   const [webChart, setWebChart] = useState(false);
+  //for nextjs comp
+  const [vitals, setVitals] = useState(false);
+  const [chart, setChart] = useState(false);
   //performance chart
   const [performance, setPerformance] = useState(false);
   const [pChart, setPChart] = useState(false);
+  const [pMetrics, setPMetrics] = useState(false);
 
   const [AuditReport, setAuditReport] = useState(undefined);
   const [categorySuggestionsState, setCategorySuggestionsState] = useState('');
@@ -211,7 +212,7 @@ export default function Monitor() {
   const [color, setColor] = useState(blue);
   const [type, setType] = useState('Performance');
 
-  console.log(user);
+  // console.log(user);
   //fetch data from Lighthouse
   const fetchVitals = async (e: any) => {
     //checking if user is signed in before fetching vitals
@@ -247,10 +248,12 @@ export default function Monitor() {
     });
     // console.log('after fetch request finishes');
     const vitalData = await response.json();
+    if(vitalData.code === 'INVALID_URL') {
+      alert(`${vitalData['friendlyMessage']}`)
+      return;
+    }
     console.log('Response from fetch request', vitalData);
-    // console.log('this is vitalData', vitalData);
     setData(vitalData);
-    console.log('response jsonified', vitalData);
     setDate(humanReadableDateTime);
     //reset input box to empty
     setUrl('');
@@ -313,8 +316,10 @@ export default function Monitor() {
       bestpracticesMetrics
     );
   };
+  console.log('pChart', pChart);
+  console.log('rendChart', rendChart);
 
-  // console.log('from monitoring component', data);
+  console.log('from monitoring component', data);
 
   // console.log('performance state', performanceSuggestionsState);
   // console.log('accessibility state', accessibilitySuggestionsState);
@@ -346,7 +351,7 @@ export default function Monitor() {
                   className={styles.urlInputBox}
                   value={url}
                   type="url"
-                  placeholder="/"
+                  placeholder="http://..."
                   onChange={(e) => setUrl(e.target.value)}
                 />
               </label>
@@ -408,10 +413,11 @@ export default function Monitor() {
                         setColor(blue),
                         setWebChart(false),
                         setPerformance(true),
-                        setVitals(false);
+                        setVitals(false),
+                        setPChart(false);
                       }}
                     >
-                      {data[0][5]['performance']}
+                      {data[0][0]['performance']}
                     </button>
                     <label>Performance</label>
                   </>
@@ -429,10 +435,12 @@ export default function Monitor() {
                         setType('SEO'),
                         setColor(red),
                         setWebChart(false),
-                        setVitals(false);
+                        setVitals(false),
+                        setPerformance(false),
+                        setPChart(false);
                       }}
                     >
-                      {data[0][5]['SEO']}
+                      {data[0][0]['SEO']}
                     </button>
                     <label>SEO</label>
                   </>
@@ -450,10 +458,12 @@ export default function Monitor() {
                         setType('BestPractices'),
                         setColor(purple),
                         setWebChart(false),
-                        setVitals(false);
+                        setVitals(false),
+                        setPerformance(false),
+                        setPChart(false);
                       }}
                     >
-                      {data[0][5]['best_practices']}
+                      {data[0][0]['best_practices']}
                     </button>
                     <label>Best Practices</label>
                   </>
@@ -471,10 +481,12 @@ export default function Monitor() {
                         setType('Accessibility'),
                         setColor(yellow),
                         setWebChart(false),
-                        setVitals(false);
+                        setVitals(false),
+                        setPerformance(false),
+                        setPChart(false);
                       }}
                     >
-                      {data[0][5]['accessibility']}
+                      {data[0][0]['accessibility']}
                     </button>
                     <label>Accessibility</label>
                   </>
@@ -487,7 +499,7 @@ export default function Monitor() {
           <div className={styles.chartContainer}>
             {performance ? (
               <div>
-                <button onClick={() => setPChart(true)}>
+                <button className={styles.pMetrics} onClick={() => {setPChart(true), setPMetrics(true)}}>
                   Performance Metrics
                 </button>
               </div>
@@ -497,7 +509,7 @@ export default function Monitor() {
             <div>
               {vitals && rendChart ? (
                 <NextJSVitals data={data} chart={chart} setChart={setChart} />
-              ) : rendChart && vitals === false ? (
+              ) : rendChart && vitals === false && pChart === false ? (
                 //need to probably propdrill rendChart to Monitor chart
                 //and the button state
                 <MonitorChart
@@ -510,13 +522,13 @@ export default function Monitor() {
                 />
               ) : !data ? (
                 <EmptyChart isLoading={isLoading} />
-              ) : rendChart && pChart ? (
+              ) : pChart ? (
                 <PerformanceChart
                   data={data}
                   date={date}
                   setIsLoading={setIsLoading}
-                  pChart={pChart}
-                  setPChart={setPChart}
+                  pMetrics={pMetrics}
+                  setPMetrics={setPMetrics}
                 />
               ) : (
                 ''

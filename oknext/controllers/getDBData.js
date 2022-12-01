@@ -56,9 +56,9 @@ const getDBData = (handler) => {
     } catch(error) {
       console.log('Error here:', error);
     }
-    console.log(finalData);
-    return handler(req, res, finalData);
+    console.log('Data being sent to frontEnd', finalData);
   }
+  return handler(req, res, finalData);
 }
 
 }

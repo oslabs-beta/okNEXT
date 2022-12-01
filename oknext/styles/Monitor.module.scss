@@ -100,6 +100,22 @@
   font-size: 18px;
   font-weight: bold;
 }
+.pMetrics {
+  background-color: #48C9E4;
+  color: black;
+  border-radius: 10%;
+  border: transparent;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  height: 50px;
+  width: 130px;
+  margin: 10px;
+  font-size: 13px;
+
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+}
 
 .buttonPerformance {
   background-color: #2096F3;
