@@ -10,22 +10,22 @@ const getLHData = (handler) => {
 
     const { url } = req.body;
     let runnerResult;
-    let chrome;
+    // let chrome;
     console.log('hello from LHData function');
 
     // **UNCOMMENT FOR IOS**
-    // const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
+    const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
 
     // **UNCOMMENT FOR UBUNTU/WSL**
-    try {
-      chrome = await chromeLauncher.launch({
-        chromePath: process.env.NEXT_PUBLIC_CHROME_PATH,
-        chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu']
-      });
-    } catch (error) {
-      console.log('error in chromeLauncher', error);
-      return res.json('error here in chrome launcher', error);
-    }
+    // try {
+    //   chrome = await chromeLauncher.launch({
+    //     chromePath: process.env.NEXT_PUBLIC_CHROME_PATH,
+    //     chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu'],
+    //   });
+    // } catch (error) {
+    //   console.log('error in chromeLauncher', error);
+    //   return res.json('error here in chrome launcher', error);
+    // }
 
     //options: choosing what categories needed for application
     const options = {
@@ -46,7 +46,7 @@ const getLHData = (handler) => {
     //runs lighthouse report stores in runnerResult variable
     try {
       runnerResult = await lighthouse(url, options, configObj);
-    } catch(error) {
+    } catch (error) {
       console.log('error in lighthouse', error);
       return res.json('error from lighthouse', error);
     }
