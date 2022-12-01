@@ -8,15 +8,15 @@ try {
     const query = `SELECT email FROM users WHERE email = '${email}'`
     const existingUser = await db.query(query);
 
-    if (existingUser.rows.length === 0){
-      const query = `INSERT INTO users (email) VALUES ('${email}') RETURNING email`
-      const newUser = await db.query(query);
-      output =  newUser.rows[0];
-    } else {
-      output = 'User already exists';
-    }
+    // if (existingUser.rows.length === 0){
+    //   const query = `INSERT INTO users (email) VALUES ('${email}') RETURNING email`
+    //   const newUser = await db.query(query);
+    //   output =  newUser.rows[0];
+    // } else {
+    //   output = 'User already exists';
+    // }
 } catch (error){
-   return res.json('this is an error from user database thank you:', error);
+   return res.json('error', error);
 }
 return res.status(200).json(output);
 }
