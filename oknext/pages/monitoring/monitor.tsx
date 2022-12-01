@@ -232,7 +232,7 @@ export default function Monitor() {
     const timestamp = Date.now();
     const humanReadableDateTime = new Date(timestamp).toLocaleString();
     setIsLoading(true);
-    console.log('hello from the frontend');
+    // console.log('hello from the frontend');
     const response = await fetch('/api/fetchData', {
       method: 'POST',
       body: JSON.stringify({
@@ -251,7 +251,7 @@ export default function Monitor() {
       alert(`${vitalData['friendlyMessage']}`)
       return;
     }
-    console.log('Response from fetch request', vitalData);
+    // console.log('Response from fetch request', vitalData);
     setData(vitalData);
     setDate(humanReadableDateTime);
     //reset input box to empty
@@ -265,8 +265,8 @@ export default function Monitor() {
     // <-------------------------------Suggestions Section-------------------------------->
 
     let fullAuditReport = vitalData[1];
-    console.log('this is vitalData', vitalData);
-    console.log('fullAuditReport:', fullAuditReport);
+    // console.log('this is vitalData', vitalData);
+    // console.log('fullAuditReport:', fullAuditReport);
 
     setAuditReport(fullAuditReport);
 
@@ -315,10 +315,10 @@ export default function Monitor() {
       bestpracticesMetrics
     );
   };
-  console.log('pChart', pChart);
-  console.log('rendChart', rendChart);
+  // console.log('pChart', pChart);
+  // console.log('rendChart', rendChart);
 
-  console.log('from monitoring component', data);
+  // console.log('from monitoring component', data);
 
   // console.log('performance state', performanceSuggestionsState);
   // console.log('accessibility state', accessibilitySuggestionsState);
