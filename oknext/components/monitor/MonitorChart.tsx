@@ -8,9 +8,6 @@ export default function MonitorChart(props: any) {
   const { performance, accessibility, seo, bestpractices, performanceScores } = props.data;
   const { webChart, setWebChart, color, type } = props;
 
-  const date = props.date ? props.date : null;
-  console.log('From MonitorChart!', props.data[0])
-
   // const data = props.data[0];
   const data = [];
 
@@ -23,10 +20,7 @@ export default function MonitorChart(props: any) {
       BestPractices : props.data[0][i]['best_practices'],
     })
   }
-  
   data.reverse();
-
-  console.log(data);
 
   return (
     <div className={styles.monitorContainer}>

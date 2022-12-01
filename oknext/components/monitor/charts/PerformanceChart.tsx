@@ -1,35 +1,10 @@
 import { useState } from "react";
-import { Label, Line, LineChart, XAxis, YAxis, Tooltip } from 'recharts';
-import styles from '../../../styles/MonitorChart.module.scss';
+import { Label, Line, LineChart, XAxis, YAxis, Tooltip, CartesianGrid, Legend, } from 'recharts';
+import styles from '../../../styles/PerformanceChart.module.scss';
 
 export default function PerformanceChart (props: any) {
-  // const { fcp, lcp, speed, cls, tti, tbt } = props.data[0];
-  const { pChart } = props;
+  const { pMetrics, setPMetrics } = props;
 
-  // console.log('i am performanceScores', props.data.performanceScores);
-
-  const data = [
-    // {
-    //   name: date,
-    //   FCP: `${fcp.numericValue}`, //ms change it to s
-    //   SI: `${speed.numericValue}`, //ms change it to s
-    //   LCP: `${lcp.numericValue}`, //ms change it to s
-    //   TTI: `${tti.numericValue}`, //ms (can change to s i think)
-    //   TBT: `${tbt.numericValue}`, //ms change it to s
-    //   CLS: `${cls.numericValue}` //no units
-    // },
-  ];
-  for (let i = 0; i < props.data[0].length; i++) {
-    data.push({
-      name : props.data[0][i]['date'],
-      FCP : props.data[0][i]['FCP'],
-      SI : props.data[0][i]['speed_index'],
-      LCP : props.data[0][i]['LCP'],
-      TTI : props.data[0][i]['time_to_interactivity'],
-      TBT : props.data[0][i]['TBT'],
-      CLS : props.data[0][i]['CLS']
-    })
-  };
   const blue = '#2196F3';
   const red = '#F44236';
   const yellow = '#FFCA29';
@@ -41,41 +16,62 @@ export default function PerformanceChart (props: any) {
   const [color, setColor] = useState(blue);
   const [type, setType] = useState('FCP');
 
+  const data = [];
+
+  for (let i = 0; i < props.data[0].length; i++) {
+    data.push({
+      name : props.data[0][i]['date'],
+      FCP : (props.data[0][i]['FCP']/1000).toFixed(2), //(s)
+      SI : (props.data[0][i]['speed_index']/1000).toFixed(2), //(s)
+      LCP : (props.data[0][i]['LCP']/1000).toFixed(2), //(s)
+      TTI : (props.data[0][i]['time_to_interactivity']/1000).toFixed(2), //(s)
+      TBT : (props.data[0][i]['TBT']/1000).toFixed(2), //(ms)
+      CLS : props.data[0][i]['CLS'] //no units
+    })
+  };
+  data.reverse();
+
   console.log('from performance char component', props.data);
   return (
-    <div className={styles.monitorContainer}>
-      <h2>I am performance chart</h2>
+    <div className={styles.nextContainer}>
+      {/* <h2>I am performance chart</h2> */}
       <div className={styles.buttonContainer}>
-        <section className={styles.vitals}>
-          <button className={styles.button} style={{ color: blue === color ? color : "#000" }} onClick={() => {setType('FCP'), setColor(blue)}}>{data[0][0]['FCP']}</button>
-          <label>FCP</label>
-        </section>
-        <section className={styles.vitals}>
-          <button className={styles.button} style={{ color: red === color ? color : "#000" }} onClick={() => {setType('SI'), setColor(red)}}>{data[0][0]['speed_index']}</button>
-          <label>SI</label>
-        </section>
-        <section className={styles.vitals}>
-          <button className={styles.button} style={{ color: yellow === color ? color : "#000" }} onClick={() => {setType('LCP'), setColor(yellow)}}>{data[0][0]['LCP']}</button>
-          <label>LCP</label>
-        </section>
-        <section className={styles.vitals}>
-          <button className={styles.button} style={{ color: purple === color ? color : "#000" }} onClick={() => {setType('TTI'), setColor(purple)}}>{data[0][0]['time_to_interactivity']}</button>
-          <label>TTI</label>
-        </section>
-        <section className={styles.vitals}>
-          <button className={styles.button} style={{ color: green === color ? color : "#000" }} onClick={() => {setType('TBT'), setColor(green)}}>{data[0][0]['TBT']}</button>
-          <label>TBT</label>
-        </section>
-        <section className={styles.vitals}>
-          <button className={styles.button} style={{ color: orange === color ? color : "#000" }} onClick={() => {setType('CLS'), setColor(orange)}}>{data[0][0]['CLS']}</button>
-          <label>CLS</label>
-        </section>
+        <div>
+          <section className={styles.vitals}>
+            <button className={styles.button} style={{ color: blue === color ? '#FFFFFF' : "#000" }} onClick={() => {setType('FCP'), setColor(blue), setPMetrics(false)}}>{parseFloat(`${props.data[0][0]['FCP']/1000}`).toFixed(2)} s</button>
+            <label>FCP</label>
+          </section>
+          <section className={styles.vitals}>
+            <button className={styles.button} style={{ color: red === color ? '#FFFFFF' : "#000" }} onClick={() => {setType('SI'), setColor(red), setPMetrics(false)}}>{(props.data[0][0]['speed_index']/1000).toFixed(2)} s</button>
+            <label> SI</label>
+          </section>
+          <section className={styles.vitals}>
+            <button className={styles.button} style={{ color: yellow === color ? '#FFFFFF' : "#000" }} onClick={() => {setType('LCP'), setColor(yellow), setPMetrics(false)}}>{(props.data[0][0]['LCP']/1000).toFixed(2)} s</button>
+            <label>LCP</label>
+          </section>
+        </div>
+        <div>
+          <section className={styles.vitals}>
+            <button className={styles.button} style={{ color: purple === color ? '#FFFFFF' : "#000" }} onClick={() => {setType('TTI'), setColor(purple), setPMetrics(false)}}>{(props.data[0][0]['time_to_interactivity']/1000).toFixed(2)} s</button>
+            <label>TTI</label>
+          </section>
+          <section className={styles.vitals}>
+            <button className={styles.button} style={{ color: green === color ? '#FFFFFF' : "#000" }} onClick={() => {setType('TBT'), setColor(green), setPMetrics(false)}}>{(props.data[0][0]['TBT']/1000).toFixed(2)} s</button>
+            <label>TBT</label>
+          </section>
+          <section className={styles.vitals}>
+            <button className={styles.button} style={{ color: orange === color ? '#FFFFFF' : "#000" }} onClick={() => {setType('CLS'), setColor(orange), setPMetrics(false)}}>{props.data[0][0]['CLS']}</button>
+            <label>CLS</label>
+          </section>
+        </div>
       </div>
       <div className={styles.lineGraph}>
-        <LineChart width={600} height={300} data={data}>
-          <XAxis dataKey="name" />
-          <YAxis type="number" domain={[0, 1000]} />
-          { pChart ? (
+        <LineChart width={600} height={300} data={data} margin={{ top: 25, right: 35, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray={'3'} horizontal={true} vertical={false}/>
+          <XAxis dataKey={'name'}/>
+          <YAxis type="number" domain={[0, 20]} />
+          <Legend align='center' verticalAlign="bottom" height={30}/>
+          { pMetrics ? (
             <>
               <Line
                 type="monotone"

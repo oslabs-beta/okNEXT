@@ -1,17 +1,12 @@
 .monitorContainer {
   // display: grid;
+  margin : 5vh auto;
   text-align: center;
 }
 
-.chartContainer {
-  margin : 0 auto;
-}
-
-.button {
-  border-radius: 50%;
-  max-height: 25px;
-}
-
+// .chartContainer {
+//   margin : 5vh auto;
+// }
 
 //use grid to overlay spinner on top of graph figured out with foreign object
 .lineGraph {
