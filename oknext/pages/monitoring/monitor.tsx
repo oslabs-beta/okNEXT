@@ -8,7 +8,6 @@ import styles from '../../styles/Monitor.module.scss';
 import suggestionStyles from '../../styles/Suggestions.module.scss';
 import PerformanceChart from '../../components/monitor/charts/PerformanceChart';
 import NextJSVitals from '../../components/monitor/NextJSVitals';
-import MonitorButtons from '../../components/monitor/MonitorButtons';
 import { arrayBuffer } from 'stream/consumers';
 
 //NEED TO FIGURE OUT HOW TO ATTACH THE BUTTONS TO THE LINES
