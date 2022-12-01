@@ -40,7 +40,7 @@ const getLHData = (handler) => {
     try {
       runnerResult = await lighthouse(url, options, configObj);
     } catch(error) {
-      return res.json(error);
+      return res.json('error from lighthouse', error);
     }
 
     // storing JSON report on file system
