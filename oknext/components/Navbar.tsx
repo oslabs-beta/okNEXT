@@ -5,7 +5,8 @@ import { UserContext, useUser } from '@auth0/nextjs-auth0';
 
 export default function Navbar() {
   const { user, error, isLoading } = useUser(); //user is the logged in user
-  // console.log(user.picture);
+  
+  console.log(user);
 
   function checkUser() {
     if (user === undefined) {
