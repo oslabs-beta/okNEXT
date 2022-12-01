@@ -15,8 +15,8 @@ try {
     } else {
       output = 'User already exists';
     }
-} catch {
-   console.log('this is an error from user database thank you')
+} catch (error){
+   return res.json('this is an error from user database thank you:', error);
 }
 return res.status(200).json(output);
 }
