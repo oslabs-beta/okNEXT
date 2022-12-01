@@ -10,3 +10,35 @@
     
   }
   
+.docContainer {
+  display: flex;
+}
+
+.overview {
+  margin: 5vh 10vh 5vh 10vh;
+  max-width: 850px; 
+
+  // h3 {
+  //   text-align: center;
+  // }
+
+  ol {
+    line-height: 2em;
+  }
+}
+
+.metrics {
+  margin: 5vh 10vh;
+
+  ul {
+    line-height: 2em;
+  }
+}
+
+.GettingStarted {
+  margin: 5vh 10vh;
+
+  ul {
+    line-height: 1.25em;
+  }
+}
