@@ -2,10 +2,11 @@ import Link from 'next/link';
 import styles from '../styles/Navbar.module.scss';
 import Image from 'next/image';
 import { UserContext, useUser } from '@auth0/nextjs-auth0';
+// import { useState } from 'react';
 
 export default function Navbar() {
   const { user, error, isLoading } = useUser(); //user is the logged in user
-  
+  // const [name, setName]= useState('')
   console.log(user);
 
   function checkUser() {
@@ -31,12 +32,13 @@ export default function Navbar() {
 
   return (
     <div className={styles.navFlex}>
+      
       <Link href="/">
         <div className={styles.leftNav}>
           <Image src="/okNext.jpg" alt="logo" width="228" height="99" />
         </div>
       </Link>
-
+      {/* {user ? (<p>Welcome {user.given_name}</p>): ('')} */}
       <div className={styles.rightNav}>
         <Link
           onClick={checkUser}
@@ -45,10 +47,13 @@ export default function Navbar() {
         >
           Monitoring
         </Link>
-        <Link href="/docs/gettingstarted" className={styles.algoliaButton}>
+        <Link href="/docs/Overview" className={styles.algoliaButton}>
           Docs
         </Link>
-        <Link href="/" className={styles.algoliaButton}>
+        <Link
+          href="https://medium.com/@phoebeermert/oknext-your-next-solution-for-web-app-performance-monitoring-d83d2c79a665"
+          className={styles.algoliaButton}
+        >
           Blog
         </Link>
         <Link

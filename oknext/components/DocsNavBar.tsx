@@ -5,12 +5,12 @@ export default function DocsNavBar() {
   return (
     <div className={styles.sidenav}>
       <h2>Documentation</h2>
-      <Link href="/docs/getting-started">Getting Started</Link>
-      <Link href="/docs/overview">Overview</Link>
-      <Link href="/docs/understanding-the-metrics">
+      <Link href="/docs/Overview">Overview</Link>
+      <Link href="/docs/GettingStarted">Getting Started</Link>
+      <Link href="/docs/UnderstandingMetrics">
         Understanding the Metrics
       </Link>
-      <Link href="/docs/contribute">How to Contribute</Link>
+      <Link href="https://github.com/oslabs-beta/okNEXT">How to Contribute</Link>
       <Link href="https://nextjs.org/learn/seo/improve/lighthouse">
         Next.js Documentation
       </Link>
