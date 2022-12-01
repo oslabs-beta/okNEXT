@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 
-const PG_URI = process.env.NEXT_PUBLIC_DB_URI;
+const PG_URI = process.env.NEXT_PUBLIC_DB_URI
 
 // create a new pool here using the connection string above
 const pool = new Pool({
