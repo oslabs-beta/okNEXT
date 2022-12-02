@@ -1,0 +1,38 @@
+
+
+
+.testimonials {
+    display: flex;
+    gap: 25px;
+    margin: 35px 100px 35px 100px;
+    background-color: rgb(51,56,62);
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    border-radius: 10px;
+    
+    .testimonial {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        margin: 30px;
+        text-align: center;
+        border-bottom: 1px solid white;
+        
+    }
+
+    .testimonial:hover {
+        transform: scale(1.1);
+    }
+
+    .quote {
+        color: whitesmoke;
+        font-size: 18px;
+    }
+
+    .name {
+        color: skyblue;
+        font-size: 12px;
+    }
+
+
+}

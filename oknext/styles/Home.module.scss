@@ -1,0 +1,126 @@
+
+
+.header {
+  text-align: center;
+  font-size: 56px;
+  padding: 80px 80px 30px 80px;
+  // width: 500px;
+  // height: 400px;
+  margin-bottom: 0;
+}
+
+.companyName {
+  color: #48cae4;
+}
+
+.body {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 15vh 0 10vh;
+}
+
+.meetTeam {
+  text-align: center;
+  font-size: 36px;
+  margin: 30px 0 30px 0;
+}
+
+.team {
+  display: flex;
+  justify-content: space-evenly;
+  
+  .teamNames {
+    overflow: hidden; 
+
+  }
+  .teamImages {
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  }
+
+  .teamImages:hover {
+    transform: scale(1.05);
+  }
+
+  .memberName {
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .profile {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .github {
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid whitesmoke;
+  }
+
+  .github:hover {
+    transform: scale(1.15);
+  }
+
+  .linkedin:hover {
+    transform: scale(1.15);
+  }
+}
+
+.getStartedBtn {
+  text-align: center;
+}
+
+.button84 {
+  align-items: center;
+  background-color: initial;
+  background-image: linear-gradient(#464d55, #25292e);
+  border-radius: 8px;
+  border-width: 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  font-family: expo-brand-demi,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 18px;
+  height: 52px;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 32px;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all 150ms;
+  vertical-align: baseline;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+
+  &:hover {
+    box-shadow: rgba(0, 1, 0, .2) 0 2px 8px;
+    opacity: .85;
+  }
+  
+  &:active {
+    outline: 0;
+  }
+  
+  &:focus {
+    box-shadow: rgba(0, 0, 0, .5) 0 0 0 3px;
+  }
+  
+  @media (max-width: 420px) {
+    .button-84 {
+      height: 48px;
+    }
+  }
+}
+
