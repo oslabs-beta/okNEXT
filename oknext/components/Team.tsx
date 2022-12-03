@@ -39,7 +39,7 @@ export default function Team() {
         <div className={styles.memberName}>Hua Liu</div>
         <Image
           className={styles.teamImages}
-          src="/hua.png"
+          src="/lario.png"
           alt="hua"
           width={180}
           height={180}
