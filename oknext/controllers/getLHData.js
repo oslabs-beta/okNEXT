@@ -2,6 +2,8 @@
 const fs = require('fs');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
+const chromium = require('chromium');
+const puppeteer = require('puppeteer');
 
 //this function utilizes closure to give the inner function access to the req and res objects from the handler function
 const getLHData = (handler) => {
@@ -10,17 +12,17 @@ const getLHData = (handler) => {
 
     const { url } = req.body;
     let runnerResult;
-    let chrome;
+    let browser;
     console.log('hello from LHData function');
 
     // **UNCOMMENT FOR IOS**
     try {
-      chrome = await chromeLauncher.launch({
-        chromeFlags: ['--headless'],
+      browser = await puppeteer.launch({
+        
       });
     } catch (error) {
-      console.log('error in chromeLauncher', error);
-      return res.json('error from chromeLauncher', error);
+      console.log('error in puppeteer', error);
+      return res.json('error from puppeteer', error);
     }
 
     // **UNCOMMENT FOR UBUNTU/WSL**
@@ -39,7 +41,7 @@ const getLHData = (handler) => {
       logLevel: 'info',
       output: 'json',
       onlyCategories: ['performance', 'accessibility', 'seo', 'best-practices'],
-      port: chrome.port,
+      port: new URL(browser.wsEndpoint()).port,
     };
     //additional config options object
     const configObj = {
@@ -108,7 +110,7 @@ const getLHData = (handler) => {
     }
 
     //closes chrome instance that was started by chromeLauncher
-    await chrome.kill();
+    await browser.close();
 
     //storing data in a variable to be passed to the next function
     const data = vitalReport;
