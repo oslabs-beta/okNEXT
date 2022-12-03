@@ -2,6 +2,9 @@
 const fs = require('fs');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
+const puppeteer = require('puppeteer');
+const puppeteer_core = require('puppeteer-core')
+const chromium = require('chrome-aws-lambda');
 
 //this function utilizes closure to give the inner function access to the req and res objects from the handler function
 const getLHData = (handler) => {
@@ -10,11 +13,22 @@ const getLHData = (handler) => {
 
     const { url } = req.body;
     let runnerResult;
-    // let chrome;
+    let browser;
     console.log('hello from LHData function');
 
     // **UNCOMMENT FOR IOS**
-    const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
+    try {
+      browser = await chromium.puppeteer.launch({
+        args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath,
+        headless: true,
+        ignoreHTTPSErrors: true,
+      });
+    } catch (error) {
+      console.log('error in puppeteer', error);
+      return res.json('error from puppeteer', error);
+    }
 
     // **UNCOMMENT FOR UBUNTU/WSL**
     // try {
@@ -25,18 +39,18 @@ const getLHData = (handler) => {
     // } catch (error) {
     //   console.log('error in chromeLauncher', error);
     //   return res.json('error here in chrome launcher', error);
-    // }
+// }PP
 
     //options: choosing what categories needed for application
     const options = {
       logLevel: 'info',
       output: 'json',
       onlyCategories: ['performance', 'accessibility', 'seo', 'best-practices'],
-      port: chrome.port,
+      port: new URL(browser.wsEndpoint()).port,
     };
     //additional config options object
     const configObj = {
-      extends: 'lighthouse:default',
+    extends: 'lighthouse:default',
       settings: {
         screenEmulation: { mobile: false, disabled: false },
         formFactor: 'desktop',
@@ -101,7 +115,7 @@ const getLHData = (handler) => {
     }
 
     //closes chrome instance that was started by chromeLauncher
-    await chrome.kill();
+    await browser.close();
 
     //storing data in a variable to be passed to the next function
     const data = vitalReport;

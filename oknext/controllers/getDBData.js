@@ -5,7 +5,7 @@ const getDBData = (handler) => {
   return async (req, res, data) => {
     //expect frontend to send date, url, and username when making a request
     const { email, date, url } = req.body;
-    const endpoint = url.replace('http://localhost:3000/', '');
+    const endpoint = url
     let finalData;
 
     //**STORING INFO IN DATABASE**/
