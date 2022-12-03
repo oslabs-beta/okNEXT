@@ -2,7 +2,6 @@
 const fs = require('fs');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
-const chromium = require('chromium');
 const puppeteer = require('puppeteer');
 
 //this function utilizes closure to give the inner function access to the req and res objects from the handler function
