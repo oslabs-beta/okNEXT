@@ -39,7 +39,7 @@ const getLHData = (handler) => {
     // } catch (error) {
     //   console.log('error in chromeLauncher', error);
     //   return res.json('error here in chrome launcher', error);
-    // }
+// }PP
 
     //options: choosing what categories needed for application
     const options = {
@@ -50,7 +50,7 @@ const getLHData = (handler) => {
     };
     //additional config options object
     const configObj = {
-      extends: 'lighthouse:default',
+    extends: 'lighthouse:default',
       settings: {
         screenEmulation: { mobile: false, disabled: false },
         formFactor: 'desktop',
