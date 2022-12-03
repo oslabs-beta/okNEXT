@@ -10,11 +10,18 @@ const getLHData = (handler) => {
 
     const { url } = req.body;
     let runnerResult;
-    // let chrome;
+    let chrome;
     console.log('hello from LHData function');
 
     // **UNCOMMENT FOR IOS**
-    const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
+    try {
+      chrome = await chromeLauncher.launch({
+        chromeFlags: ['--headless'],
+      });
+    } catch (error) {
+      console.log('error in chromeLauncher', error);
+      return res.json('error from chromeLauncher', error);
+    }
 
     // **UNCOMMENT FOR UBUNTU/WSL**
     // try {
